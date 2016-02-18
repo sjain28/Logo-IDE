@@ -54,3 +54,7 @@ Collaborators: Receives input from Parser, sends can be called by Grid to return
 * List<Point2D[]> Turtle.getNewPoints() //Returns Turtle’s upcoming points
 * void Turtle.addCommands(List<Command>...) //Adds a list of commands to Turtle
 
+####Internal Backend
+* ? Command.evaluate() // return result of executing command (ex. an instruction for turtle)
+* Command CommandFactory.getCommand(?) //Returns a command based on input from Parser
+
