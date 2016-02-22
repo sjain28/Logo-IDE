@@ -3,7 +3,7 @@ The basic problem of this project is to develop a limited version of the Logo pr
 
 
 ##Design Overview
-![Design Overview](Design_Overview.png "our design")
+![Design Overview](Design_Overview.jpg "our design")
 
 The frontend of this project consists of a Display class displaying the turtle, a TextField class for the user to enter commands, an ErrorHandler class to display messages to the user, and a ControlPanel class containing buttons and menus. 
 
