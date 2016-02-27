@@ -2,10 +2,12 @@ package parser;
 
 import java.util.List;
 
-public abstract class ExpressionNode {
+public abstract class ExpressionNode { 
+	
 	private String name;
 	private List<ExpressionNode> children;
 	private ExpressionNode parent;
+	
 	
 	public ExpressionNode(String val) {
 		name = val;

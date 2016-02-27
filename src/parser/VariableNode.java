@@ -1,13 +1,18 @@
 package parser;
 
-public class VariableNode extends ExpressionNode {
+public class VariableNode extends ExpressionNode{
 	
-	public VariableNode(String name, int value) {
+	private DoubleProperty myValue; //In implementation, this doubleproperty will be a value in a Map
+	
+	
+	public VariableNode(String name, DoubleProperty val) {
 		super(name);
-	}
-	
-	public String getValue(){
-		return super.getName(); //This is ugly. 
+		myValue = val;
 	}
 
+
+	@Override
+	public DoubleProperty getValue() {
+		return myValue;
+	}
 }

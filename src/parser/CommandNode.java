@@ -8,6 +8,7 @@ public class CommandNode extends ExpressionNode {
 
 	private List<Command> myChildren;
 	private Command myCommand;
+	private DoubleProperty myValue;
 	
 	public CommandNode(String name) {
 		super(name);
@@ -22,8 +23,12 @@ public class CommandNode extends ExpressionNode {
 		myChildren = children;
 	}
 	
-	public Command getValue(){
+	public Command getCommand(){
 		return myCommand;
 	}
-
+	
+	public DoubleProperty getValue(){
+		return myValue;
+	}
+	
 }
