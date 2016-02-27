@@ -3,7 +3,7 @@ package turtle;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Paint;
 
-public interface Agent {
+public interface Agent extends State{
 	/** Turn can take negative values of degrees, which would specify counterclockwise rotation. */
 	public void turn(double degrees);
 	/** Move can take negative distance values, which would specify backwards movement. */

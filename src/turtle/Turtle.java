@@ -3,12 +3,16 @@ package turtle;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Paint;
 
-public class Turtle implements State, Agent{
+public class Turtle implements Agent{
 
-	public Turtle() {
+	public Turtle(int curTime) {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Turtle copy() {
+		return null;
+	}
+	
 	@Override
 	public void turn(double degrees) {
 		// TODO Auto-generated method stub
@@ -95,6 +99,12 @@ public class Turtle implements State, Agent{
 
 	@Override
 	public double getLineWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getTime() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
