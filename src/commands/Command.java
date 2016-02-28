@@ -1,7 +1,5 @@
 package commands;
 
-import javafx.geometry.Point2D;
-
 public abstract class Command {
 	private String commandName;
 	
@@ -15,4 +13,7 @@ public abstract class Command {
 		return commandName;
 	}
 
+	public abstract void addParams();
+
+	public abstract int getNumParams();
 }

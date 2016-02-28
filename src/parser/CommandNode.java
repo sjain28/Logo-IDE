@@ -8,15 +8,12 @@ public class CommandNode extends ExpressionNode {
 
 	private List<Command> myChildren;
 	private Command myCommand;
-	private DoubleProperty myValue;
+	private DoubleOptional myValue;
 	
-	public CommandNode(String name) {
+	public CommandNode(String name, Command c) {
 		super(name);
-		myChildren = new ArrayList<Command>();
-	}
-	
-	protected void setCommand(Command c){
 		myCommand = c;
+		myChildren = new ArrayList<Command>();
 	}
 	
 	protected void addChildren(List<Command> children){
@@ -27,7 +24,7 @@ public class CommandNode extends ExpressionNode {
 		return myCommand;
 	}
 	
-	public DoubleProperty getValue(){
+	public DoubleOptional getValue(){
 		return myValue;
 	}
 	
