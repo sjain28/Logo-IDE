@@ -12,6 +12,7 @@ public class Parser {
 	private List<ExpressionNode> myTrees;
 	public static final ResourceBundle REGEX = ResourceBundle.getBundle("resources/syntax");
 	public static final ResourceBundle ENGLISH = ResourceBundle.getBundle("resources/English");
+	
 	private Map<String, DoubleProperty> variables; 
 	
 	CommandFactory comFac = new CommandFactory(ENGLISH);
@@ -31,6 +32,7 @@ public class Parser {
 		
 		while(children < numParams){
 			String next = myInputs.remove(0);
+			
 			if(next.matches(REGEX.getString("Constant"))){
 				head.add(new ValueNode(next));
 				children ++;
@@ -43,7 +45,7 @@ public class Parser {
 				BracketNode temp = new BracketNode(next);
 				next = myInputs.remove(0);
 				while(!next.equals("]")){
-					
+					-
 				}
 			}
 			else{
