@@ -7,7 +7,7 @@ import javafx.scene.paint.Paint;
  *	Immutable object to represent Turtle data at some point in time.
  */
 public interface State {
-	public int getOrientation();
+	public double getOrientation();
 	public Point2D getLocation();
 	public boolean isDown();
 	public boolean isVisible();

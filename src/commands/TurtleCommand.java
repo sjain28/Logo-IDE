@@ -2,6 +2,7 @@ package commands;
 
 import turtle.Agent;
 import turtle.Turtle;
+import parser.DoubleOptional;;
 
 public abstract class TurtleCommand extends Command{
 	

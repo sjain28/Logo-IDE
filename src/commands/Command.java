@@ -3,6 +3,7 @@ package commands;
 import java.util.List;
 
 import parser.DoubleOptional;
+import parser.DoubleOptional;
 
 public abstract class Command {
 	private int numParams = -1;	

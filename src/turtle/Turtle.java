@@ -1,5 +1,8 @@
 package turtle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Paint;
 
@@ -7,114 +10,130 @@ public class Turtle implements Agent{
 
 	private double myOrientation;
 	private Point2D myLocation;
-	private boolean isDown;
+	private boolean penIsDown;
 	private boolean isVisible;
 	private Paint myPenColor;
 	private double myLineWidth;
 	private int myTime;
 	
-	public Turtle(int curTime) {
-		// TODO Auto-generated constructor stub
+	private List<Turtle> myStates;
+	
+	public Turtle(double orient, Point2D loc, boolean down, boolean visible, Paint pen, double line, int curTime) {
+		myOrientation = orient;
+		myLocation = loc;
+		penIsDown = down;
+		isVisible = visible;
+		myPenColor = pen;
+		myLineWidth = line;
+		myTime = curTime;
+		myStates = new ArrayList<Turtle>();
+		myStates.add(copy());
 	}
 
 	public Turtle copy() {
-		return null;
+		return new Turtle(myOrientation, myLocation, penIsDown, isVisible, myPenColor, myLineWidth, myTime);
 	}
 	
 	@Override
 	public void turn(double degrees) {
-		// TODO Auto-generated method stub
-		
+		myOrientation += degrees;
+		addState();
 	}
 
 	@Override
-	public void move(double distance) {
-		// TODO Auto-generated method stub
-		
+	public void move(double distance) { //Orientation of 0 is NORTH
+		double newX = myLocation.getX() + Math.sin(90-myOrientation); //Test to make sure this returns correct coordinates
+		double newY = myLocation.getY() + Math.cos(90-myOrientation);
+		myLocation = new Point2D(newX, newY);
+		addState();
 	}
 
 	@Override
 	public void setOrientation(double newOrientation) {
-		// TODO Auto-generated method stub
-		
+		myOrientation = newOrientation;
+		addState();
 	}
 
 	@Override
 	public void setTowards(Point2D position) {
-		// TODO Auto-generated method stub
+		// tangent = dy/dx
+		double dy = position.getY() - myLocation.getY();
+		double dx = position.getX() - myLocation.getX();
+		double newOrient =90- Math.atan(dy/dx); //arctan won't work...it's in radians and only between += pi/2. Find a better way. 
+		this.setOrientation(newOrient);
 		
 	}
 
 	@Override
 	public void setLocation(Point2D newLocation) {
-		// TODO Auto-generated method stub
-		
+		myLocation = newLocation;
+		addState();
 	}
 
 	@Override
-	public void changeVisibility(boolean isVisible) {
-		// TODO Auto-generated method stub
-		
+	public void changeVisibility(boolean visible) {
+		isVisible = visible;
+		addState();
 	}
 
 	@Override
 	public void changePenVisibility(boolean isDown) {
-		// TODO Auto-generated method stub
-		
+		penIsDown = isDown;
+		addState();
+	}
+
+	private void addState() {
+		myTime++;
+		myStates.add(copy());
 	}
 
 	@Override
 	public void setPenColor(Paint p) {
-		// TODO Auto-generated method stub
+		this.myPenColor = p;
+		addState();
 		
 	}
 
 	@Override
 	public void setLineWidth(double width) {
-		// TODO Auto-generated method stub
+		myLineWidth = width;
+		addState();
 		
 	}
 
 	@Override
-	public int getOrientation() {
-		// TODO Auto-generated method stub
-		return 0;
+	public double getOrientation() {
+		return myOrientation;
 	}
 
 	@Override
 	public Point2D getLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return myLocation;
 	}
 
 	@Override
 	public boolean isDown() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.penIsDown;
 	}
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
-		return false;
+		return isVisible;
 	}
 
 	@Override
 	public Paint getPenColor() {
-		// TODO Auto-generated method stub
-		return null;
+		return myPenColor;
 	}
 
 	@Override
 	public double getLineWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return myLineWidth;
 	}
 
 	@Override
 	public int getTime() {
-		// TODO Auto-generated method stub
-		return 0;
+		return myTime;
 	}
 
 
