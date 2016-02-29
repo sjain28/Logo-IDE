@@ -10,9 +10,10 @@ public class CommandFactory {
 		this.myResourceBundle = myResourceBundle;
 	}
 
-	public Command makeCommand(String _commandName, List<String> argsList) throws Exception {
+	public Command makeCommand(String _commandName) throws Exception {
 		String commandName = _commandName;
 		if (commandName.equals(myResourceBundle.getString("Forward"))) {
+			System.out.println("Forward recognized");
 			return null;
 		}
 		else if (false) {

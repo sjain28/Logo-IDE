@@ -1,21 +1,22 @@
 package commands;
 
+import turtle.Agent;
 import turtle.Turtle;
 
 public abstract class TurtleCommand extends Command{
 	
-	private Turtle myTurtle;
+	private Agent myTurtle;
 	
-	protected Turtle getTurtle(){
+	protected Agent getTurtle(){
 		return myTurtle;
 	}
 	
-	protected void setTurtle(Turtle t) throws Exception{
+	protected void setTurtle(Agent t) throws Exception{
 		if(myTurtle == null){
 			myTurtle = t;
 		}
 		else{
-			throw new Exception();
+			throw new Exception(); 
 		}
 	}
 }

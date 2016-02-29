@@ -2,18 +2,20 @@ package commands;
 
 import java.util.List;
 
+import parser.DoubleOptional;
+
 public class Forward extends TurtleCommand{
 	
-	private Double distance;
+	private DoubleOptional distance;
 	
-	public Forward(){
-		super.setNumParams(1);
+	public int getNumParams(){
+		return 1;
 	}
 	
 	@Override
-	public void setParams(List<Object> params) throws Exception{
+	public void initParams(List<Object> params) throws Exception{
 		try{
-			distance =  (Double) params.get(0);
+			distance =  (DoubleOptional) params.get(0);
 		}
 		catch(Exception e){
 			throw new Exception();
@@ -22,7 +24,11 @@ public class Forward extends TurtleCommand{
 	
 	@Override
 	public double evaluate() {
-		super.getTurtle().move(distance);
+		super.getTurtle().move(distance.getValue());
+		return distance.getValue();
+	}
+	
+	protected DoubleOptional getValue(){
 		return distance;
 	}
 

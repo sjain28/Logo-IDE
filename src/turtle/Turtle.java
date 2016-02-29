@@ -5,6 +5,14 @@ import javafx.scene.paint.Paint;
 
 public class Turtle implements Agent{
 
+	private double myOrientation;
+	private Point2D myLocation;
+	private boolean isDown;
+	private boolean isVisible;
+	private Paint myPenColor;
+	private double myLineWidth;
+	private int myTime;
+	
 	public Turtle(int curTime) {
 		// TODO Auto-generated constructor stub
 	}

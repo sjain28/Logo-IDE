@@ -22,10 +22,6 @@ public class Controller {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-
-	
 	public void setActiveTurtle(Agent turtle) {
 		myActiveTurtle = turtle;
 	}

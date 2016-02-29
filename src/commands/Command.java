@@ -2,24 +2,23 @@ package commands;
 
 import java.util.List;
 
-import javafx.geometry.Point2D;
+import parser.DoubleOptional;
 
 public abstract class Command {
-	private int numParams;
-
-	public abstract double evaluate();
-	
-	public int getNumParams(){
-		return numParams;
-	}
+	private int numParams = -1;	
 	
 	public void setParams(List<Object> params) throws Exception{
 		if(params.size() != numParams){
-			throw new Exception();
+			throw new Exception(); //Incorrect Number of Parameters Exception
 		}
+		initParams(params);
 	}
 	
-	protected void setNumParams(int num){
-		numParams = num;
-	}
-}	
+	public abstract int getNumParams();
+	protected abstract void initParams(List<Object> params) throws Exception; //mandatory error checking for initialization
+	public abstract double evaluate();
+
+}
+
+
+

@@ -2,18 +2,18 @@ package parser;
 
 public class ValueNode extends ExpressionNode{
 
-	private double myValue;
+	private DoubleOptional myValue;
 	
-	/*
+	/**
 	 * Precondition: Input name must be a number
 	 */
 	public ValueNode(String name) {
 		super(name);
-		myValue = Double.parseDouble(name);
+		myValue = new DoubleOptional(Double.parseDouble(name));
 	}
 
 	@Override
-	public Object getValue() {
+	public DoubleOptional getValue() {
 		return myValue;
 	}
 

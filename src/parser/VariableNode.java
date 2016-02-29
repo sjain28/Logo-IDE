@@ -2,17 +2,17 @@ package parser;
 
 public class VariableNode extends ExpressionNode{
 	
-	private DoubleProperty myValue; //In implementation, this doubleproperty will be a value in a Map
+	private DoubleOptional myValue; //In implementation, this DoubleOptional will be a value in a Map
 	
 	
-	public VariableNode(String name, DoubleProperty val) {
+	public VariableNode(String name, DoubleOptional val) {
 		super(name);
 		myValue = val;
 	}
 
 
 	@Override
-	public DoubleProperty getValue() {
+	public DoubleOptional getValue() {
 		return myValue;
 	}
 }

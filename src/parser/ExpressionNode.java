@@ -1,5 +1,6 @@
 package parser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ExpressionNode { 
@@ -10,6 +11,7 @@ public abstract class ExpressionNode {
 	
 	
 	public ExpressionNode(String val) {
+		children = new ArrayList<ExpressionNode>();
 		name = val;
 	}
 	
