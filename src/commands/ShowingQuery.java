@@ -17,8 +17,10 @@ public class ShowingQuery extends TurtleCommand{
 	@Override
 	public double evaluate() {
 		if(getTurtle().isVisible()){
+			super.setValue(1);
 			return 1;
 		}
+		super.setValue(0);
 		return 0;
 	}
 

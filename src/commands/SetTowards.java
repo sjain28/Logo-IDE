@@ -32,7 +32,7 @@ public class SetTowards extends TurtleCommand{
 		Point2D toward = new Point2D(x.getValue(), y.getValue());
 		getTurtle().setTowards(toward);
 		double second = getTurtle().getOrientation();
-		
+		super.setValue(second-first);
 		return second - first;
 	}
 

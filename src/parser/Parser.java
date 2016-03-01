@@ -12,9 +12,10 @@ import java.util.ResourceBundle;
 
 public class Parser {
 	private List<String> myInputs;
-	private List<ExpressionNode> myTrees;
-	public static final ResourceBundle REGEX = ResourceBundle.getBundle("resources/syntax");
-	public static final ResourceBundle ENGLISH = ResourceBundle.getBundle("resources/English");
+	public List<ExpressionNode> myTrees;
+	public List<Command> myCommands;
+	public static final ResourceBundle REGEX = ResourceBundle.getBundle("resources.languages/Syntax");
+	public static final ResourceBundle ENGLISH = ResourceBundle.getBundle("resources.languages/English");
 	private Map<String, DoubleOptional> variables; 
 	
 	CommandFactory commandFactory = new CommandFactory(ENGLISH);
@@ -22,6 +23,7 @@ public class Parser {
 	public Parser(List<String> userInput) {
 		myInputs = new ArrayList<String>(userInput);
 		variables = new HashMap<String, DoubleOptional>();
+		myCommands = new ArrayList<Command>();
 	}
 	
 	public Parser(String userInput) {
@@ -29,7 +31,7 @@ public class Parser {
 		variables = new HashMap<String, DoubleOptional>();
 	}
 	
-	public List<Command> parse() throws Exception{
+	public List<ExpressionNode> parse() throws Exception{ 			//Creates expression trees
 		List<String> myList = new ArrayList<String>(myInputs);
 		List<ExpressionNode> expressionTrees = new ArrayList<ExpressionNode>();
 		while (!myList.isEmpty()) {	
@@ -37,13 +39,17 @@ public class Parser {
 			CommandNode head = new CommandNode(name, commandFactory.makeCommand(name));
 			expressionTrees.add(assembleTree(head, myList));
 		}
+		myTrees = expressionTrees;
+		
+		for(ExpressionNode tree: myTrees){
+			parseTree((CommandNode) tree);
+		}
 		return null;
-
 	}
 	
 	private ExpressionNode assembleTree(ExpressionNode head, List<String> myList) throws Exception{		
 		ExpressionNode nextNode;
-		if (head instanceof CommandNode) {		
+		if (head instanceof CommandNode) {	
 			int children = ((CommandNode)head).getCommand().getNumParams();
 			while(children > 0){
 				nextNode = stringToNode(myList);
@@ -66,7 +72,19 @@ public class Parser {
 		ExpressionNode nextNode = getNode(next);
 		return nextNode;
 	}
-
+	
+	public void parseTree(CommandNode head) throws Exception{
+		ArrayList<Object> params = new ArrayList<Object>();
+		for(ExpressionNode child: head.getChildren()){
+			params.add(child.getValue());
+			Object temp = child.getValue();
+			if(child instanceof CommandNode){
+				parseTree((CommandNode) child);
+			}
+		}
+		head.getCommand().setParams(params);
+		myCommands.add(head.getCommand());
+	}
 	
 	private ExpressionNode getNode(String name) throws Exception {
 		if(name.matches(REGEX.getString("Constant"))){
@@ -86,13 +104,15 @@ public class Parser {
 			throw new Exception();
 			//throw new InvalidInputException(name);
 		}
-		
 	}
 	
-//	public static void main (String[] args) throws Exception {
-//		String[] input = {"fd", "[", "rt", "90", "]", "MAKE", ":x"};
-//		Parser p = new Parser(Arrays.asList(input));
-//		p.parse();
-//	}
-
+	public static void main (String[] args) throws Exception {
+		String[] input = {"fd", "fdd", "50", "rt", "90", "MAKE", ":x"};
+		Parser p = new Parser(Arrays.asList(input));
+		p.parse();
+		for(Command c: p.myCommands){
+			System.out.println(c.getClass());
+		}
+	}
+	
 }

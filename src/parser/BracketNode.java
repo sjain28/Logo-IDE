@@ -5,16 +5,19 @@ import java.util.List;
 
 public class BracketNode extends ExpressionNode{
 
-	private List<ExpressionNode> myChildren;
+	private List<Object> bracketContents;
 	
 	public BracketNode(String val) {
 		super(val);
-		myChildren = new ArrayList<ExpressionNode>();
+		bracketContents = new ArrayList<Object>();
 	}
 
 	@Override
 	public Object getValue() {
-		return myChildren;
+		return (Iterable<Object>) bracketContents;
 	}
-
+	
+	protected void addElement(Object element){
+		bracketContents.add(element);
+	}
 }

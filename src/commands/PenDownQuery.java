@@ -16,8 +16,11 @@ public class PenDownQuery extends TurtleCommand{
 
 	@Override
 	public double evaluate() {
-		if(getTurtle().isDown())
+		if(getTurtle().isDown()){
+			super.setValue(1);
 			return 1;
+		}	
+		super.setValue(0);
 		return 0;
 	}	
 }
