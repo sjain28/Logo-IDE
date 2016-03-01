@@ -27,7 +27,9 @@ public class SetHeading extends TurtleCommand{
 	public double evaluate() {
 		double firstHeading = getTurtle().getOrientation();
 		super.getTurtle().setOrientation(newHeading.getValue());
-		return firstHeading - getTurtle().getOrientation();
+		double result = firstHeading - getTurtle().getOrientation();
+		super.setValue(result);
+		return result;
 	}
 
 }

@@ -21,7 +21,9 @@ public class Home extends TurtleCommand{
 	public double evaluate() {
 		Point2D first = getTurtle().getLocation();
 		getTurtle().setLocation(new Point2D(0,0));
-		return first.getX()*first.getX() + first.getY()*first.getY();
+		double result= first.getX()*first.getX() + first.getY()*first.getY();
+		super.setValue(result);
+		return result;
 	}
 
 }

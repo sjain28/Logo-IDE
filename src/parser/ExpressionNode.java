@@ -9,7 +9,6 @@ public abstract class ExpressionNode {
 	private List<ExpressionNode> children;
 	private ExpressionNode parent;
 	
-	
 	public ExpressionNode(String val) {
 		children = new ArrayList<ExpressionNode>();
 		name = val;

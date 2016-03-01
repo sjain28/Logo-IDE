@@ -16,6 +16,7 @@ public class XCor extends TurtleCommand{
 
 	@Override
 	public double evaluate() {
+		super.setValue(getTurtle().getLocation().getX());
 		return getTurtle().getLocation().getX();
 	}
 

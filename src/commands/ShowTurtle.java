@@ -17,6 +17,7 @@ public class ShowTurtle extends TurtleCommand{
 	@Override
 	public double evaluate() {
 		getTurtle().changeVisibility(true);
+		super.setValue(1);
 		return 1;
 	}
 

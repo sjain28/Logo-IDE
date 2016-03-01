@@ -16,6 +16,7 @@ public class Heading extends TurtleCommand{
 
 	@Override
 	public double evaluate() {
+		super.setValue(getTurtle().getOrientation());
 		return getTurtle().getOrientation();
 	}
 

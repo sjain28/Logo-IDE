@@ -12,7 +12,7 @@ public class CommandFactory {
 
 	public Command makeCommand(String _commandName) throws Exception {
 		String commandName = _commandName;
-		if (commandName.equals(myResourceBundle.getString("Forward"))) {
+		/*if (commandName.equals("fd")) {
 			System.out.println("Forward recognized");
 			return null;
 		}
@@ -22,6 +22,7 @@ public class CommandFactory {
 		else {
 			throw new Exception(commandName);
 			//throw new InvalidCommandException(commandName);
-		}
+		}*/
+		return new Forward();
 	}
 }

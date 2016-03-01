@@ -34,8 +34,10 @@ public class SetXY extends TurtleCommand{
 		
 		double dx = nextLoc.getX()-curLoc.getX();
 		double dy = nextLoc.getY()-curLoc.getY();
+		double result = Math.pow(dx, 2) + Math.pow(dy, 2);
 		
-		return Math.pow(dx, 2) + Math.pow(dy, 2);
+		super.setValue(result);
+		return result;
 	}
 
 }

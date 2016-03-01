@@ -17,6 +17,7 @@ public class PenUp extends TurtleCommand{
 	@Override
 	public double evaluate() {
 		getTurtle().changePenVisibility(false);
+		super.setValue(0);
 		return 0;
 	}
 

@@ -17,6 +17,7 @@ public class HideTurtle extends TurtleCommand{
 	@Override
 	public double evaluate() {
 		getTurtle().changeVisibility(false);
+		super.setValue(0);
 		return 0;
 	}
 
