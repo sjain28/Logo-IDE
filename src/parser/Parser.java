@@ -124,7 +124,7 @@ public class Parser {
 	}
 	
 	public static void main (String[] args) throws Exception {
-		String[] input = {"fd", "fdd", "50", "rt", "90"};
+		String[] input = {"rt", "90", "fd", "fd", "fd", "fd", "bk", "50"};
 		Parser p = new Parser(Arrays.asList(input));
 		p.parse();
 		Turtle temp = new Turtle(0, new Point2D(0,0),true, true, null, 1, 0);
@@ -133,7 +133,7 @@ public class Parser {
 			TurtleCommand d = (TurtleCommand) c;
 			d.setTurtle(temp);
 			d.evaluate();
+			System.out.println(temp.getLocation());
 		}
-		System.out.println(temp.getLocation());
 	}
 }

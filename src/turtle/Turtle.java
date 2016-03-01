@@ -37,13 +37,14 @@ public class Turtle implements Agent{
 	@Override
 	public void turn(double degrees) {
 		myOrientation += degrees;
+		System.out.println("TURNING");
 		addState();
 	}
 
 	@Override
 	public void move(double distance) { //Orientation of 0 is NORTH
-		double newX = myLocation.getX() + Math.sin(90-myOrientation); //Test to make sure this returns correct coordinates
-		double newY = myLocation.getY() + Math.cos(90-myOrientation);
+		double newX = myLocation.getX() + Math.sin((myOrientation)*Math.PI/180)*distance; //Tested and working...orientation of 0 moves straight up
+		double newY = myLocation.getY() + Math.cos((myOrientation)*Math.PI/180)*distance;
 		myLocation = new Point2D(newX, newY);
 		addState();
 	}

@@ -12,7 +12,7 @@ public class CommandNode extends ExpressionNode {
 	public CommandNode(String name, Command c) {
 		super(name);
 		myCommand = c;
-		myValue = myCommand.getValue();
+		myValue = myCommand.myValue;
 	}
 
 	public Command getCommand(){

@@ -2,10 +2,11 @@ package commands;
 
 import java.util.List;
 
+import parser.CommandNode;
 import parser.DoubleOptional;
 
 public abstract class Command {
-	private DoubleOptional myValue = new DoubleOptional();
+	public DoubleOptional myValue = new DoubleOptional(); //CHANGE THIS
 	
 	public void setParams(List<Object> params) throws Exception{
 		if(params.size() != getNumParams()){
@@ -25,7 +26,7 @@ public abstract class Command {
 	}
 	
 	public DoubleOptional getValue(){
-		return myValue;
+		return myValue; //CHANGE THIS
 	}
 
 }
