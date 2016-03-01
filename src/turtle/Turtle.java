@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.geometry.Point2D;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
 
-public class Turtle implements Agent{
+public class Turtle extends ImageView implements Agent{
 
 	private double myOrientation;
 	private Point2D myLocation;
@@ -115,11 +116,12 @@ public class Turtle implements Agent{
 	public boolean isDown() {
 		return this.penIsDown;
 	}
-
+	/*
 	@Override
 	public boolean isVisible() {
 		return isVisible;
 	}
+	*/
 
 	@Override
 	public Paint getPenColor() {
