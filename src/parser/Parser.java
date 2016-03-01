@@ -125,7 +125,7 @@ public class Parser {
 	}
 	
 	public static void main (String[] args) throws Exception {
-		String[] input = {"fD", "fd", "fd", "fd","Pow", "2", "*", "5", "Sin","/","PI", "2"};
+		String[] input = {"rt", "45","fD", "fd", "fd", "fd","+", "*", "2","3", "*", "5", "Sin","/","PI", "2"};
 		Parser p = new Parser(Arrays.asList(input));
 		p.parse();
 		Turtle temp = new Turtle(0, new Point2D(0,0),true, true, null, 1, 0);
@@ -135,16 +135,13 @@ public class Parser {
 				TurtleCommand d = (TurtleCommand) c;
 				d.setTurtle(temp);
 				d.evaluate();
-			}
-
-			else{
+			}else{
 				c.evaluate();
 			}
 		}
 		
 		for(State s: temp.getStates()){
 			System.out.println(s.getLocation() + "  " + s.getOrientation());
-		}
-				
+		}			
 	}
 }
