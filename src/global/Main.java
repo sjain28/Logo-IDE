@@ -4,7 +4,9 @@ import frontend.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -21,19 +23,41 @@ public class Main extends Application
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
     private static Window display;
+    
+    private static Stage help;
+    
 
     @Override
     public void start (Stage s) 
     {
     	//make sure to initialise backend too
-        display = new TextBox(500, 500);
-        s.setTitle(display.getTitle());
-        Scene mainScene = display.init();
-        s.setScene(mainScene);
+    	
+        BorderPane bp = new BorderPane();
+        
+        
+        TextBox myTB = new TextBox(500,500);
+        
+        myTB.init();
+        
+        bp.setBottom(myTB.getRoot());
+        
+        PastCommands myTB2 = new PastCommands(200,200);
+        
+        myTB2.init();
+        bp.setRight(myTB2.getRoot());
+        
+        myTB.setPastCommandBox(myTB2);
+
+        Scene scene = new Scene(bp, 700, 700);
+        s.setScene(scene);
         s.show();
         
+        
+        //technically this works
+        //getHostServices().showDocument("http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/commands.php");
+        
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-		                e -> display.step(SECOND_DELAY));
+		                e -> myTB.step(SECOND_DELAY));
 		                
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);

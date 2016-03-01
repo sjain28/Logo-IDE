@@ -12,9 +12,10 @@ public class Display  extends Window{
 
 	@Override
 	public Scene init() {
-		// TODO Auto-generated method stub
-		return new Scene(super.getRoot(), super.getWidth(), super.getHeight(), Color.BLACK);
+		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight(), Color.BLACK);
+		return myScene;
 	}
+	
 
 	@Override
 	public void step(double elapsedTime) {
