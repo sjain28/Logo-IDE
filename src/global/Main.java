@@ -55,8 +55,6 @@ public class Main extends Application
         variableStates.setController(myController);
         mainPane.setLeft(variableStates.getRoot());
         
-        
-        
         Scene scene = new Scene(mainPane, 1200, 700);
         Display display = new Display(400,400, 50);
         ControlPanel myControlPanel = new ControlPanel(scene, display);

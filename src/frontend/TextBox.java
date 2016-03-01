@@ -56,7 +56,17 @@ public class TextBox extends Window{
 		submit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			    public void handle(ActionEvent e) {
+				try {
 					pastCommands.getPreviousCommands().add(name.getText());
+					ErrorHandler eh = new ErrorHandler(50, 50);
+					eh.init();
+					eh.openError("W");
+				} catch (Exception exc) {
+					ErrorHandler eh = new ErrorHandler(50, 50);
+					eh.init();
+					eh.openError(exc.toString());
+				}
+					
 			        //System.out.println(name.getText());
 			 }
 		});
