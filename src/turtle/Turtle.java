@@ -2,7 +2,6 @@ package turtle;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Paint;
 
@@ -57,12 +56,24 @@ public class Turtle implements Agent{
 
 	@Override
 	public void setTowards(Point2D position) {
-		// tangent = dy/dx
+
+		double newOrient;
 		double dy = position.getY() - myLocation.getY();
 		double dx = position.getX() - myLocation.getX();
-		double newOrient =90- Math.atan(dy/dx); //arctan won't work...it's in radians and only between += pi/2. Find a better way. 
-		this.setOrientation(newOrient);
 		
+		if(dx == 0 && dy == 0){
+			newOrient = 0;
+		}
+		else if(dx == 0){
+			newOrient = 90-90*Math.signum(dy);
+		}
+		else if(dy == 0){
+			newOrient = 180 -90*Math.signum(dx);
+		}
+		else{
+			newOrient = Math.atan(dy/dx)*180/Math.PI; //arctan won't work...it's in radians and only between += pi/2. Find a better way. 
+		}
+		this.setOrientation(newOrient);		
 	}
 
 	@Override
@@ -136,7 +147,10 @@ public class Turtle implements Agent{
 	public int getTime() {
 		return myTime;
 	}
-
+	
+	public Iterable<State> getStates(){
+		return (Iterable) myStates;
+	}
 
 
 }
