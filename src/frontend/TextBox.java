@@ -40,12 +40,11 @@ public class TextBox extends Window{
 		grid.setPadding(new Insets(10));
 		grid.setVgap(5);
 		grid.setHgap(5);
-		
 		//Defining the Name text field
 		final TextArea name = new TextArea();
 		name.setPromptText("Enter Your Command:");
 		name.setPrefColumnCount(20);
-		name.setPrefRowCount(10);
+		name.setPrefRowCount(5);
 		name.getText();
 		GridPane.setConstraints(name, 0, 0);
 		grid.getChildren().add(name);
@@ -58,7 +57,7 @@ public class TextBox extends Window{
 			@Override
 			    public void handle(ActionEvent e) {
 					pastCommands.getPreviousCommands().add(name.getText());
-			        System.out.println(name.getText());
+			        //System.out.println(name.getText());
 			 }
 		});
 		

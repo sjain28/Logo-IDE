@@ -98,7 +98,7 @@ public class ControlPanel {
 	}
 
 	void changeBackgroundColor(){
-		myDisplay.getRectangle().setFill(backgroundColorPicker.getValue());
+		myDisplay.setBackgroundColor(backgroundColorPicker.getValue());
 		return;
 	}
 	
@@ -119,7 +119,7 @@ public class ControlPanel {
             try {
             	openFile(file);
             } catch(Exception e){
-            	System.out.println(e);
+            	e.printStackTrace();
             }
         }
 	}

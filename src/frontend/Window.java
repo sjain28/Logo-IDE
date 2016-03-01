@@ -82,7 +82,6 @@ public abstract class Window {
 	public Properties openPropertiesFile (String fileName) throws Exception {
 		Properties newProperties = new Properties();
 		InputStream inputStream = null;
-		
 		try {
 			inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
 			newProperties.load(inputStream);

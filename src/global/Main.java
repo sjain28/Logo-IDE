@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -40,6 +41,7 @@ public class Main extends Application
         myTB.init();
         
         bp.setBottom(myTB.getRoot());
+        BorderPane.setAlignment(myTB.getRoot(), Pos.CENTER);
         
         PastCommands myTB2 = new PastCommands(200,200);
         
@@ -48,15 +50,13 @@ public class Main extends Application
         
         myTB.setPastCommandBox(myTB2);
 
+        Scene scene = new Scene(bp, 1200, 700);
         
-        
-        Scene scene = new Scene(bp, 700, 700);
-        
-        Display display = new Display(400,400);
+        Display display = new Display(400,400, 50);
         ControlPanel myControlPanel = new ControlPanel(scene, display);
         bp.setTop(myControlPanel.getControlPanel());
         
-        bp.setCenter(display.getRectangle());
+        bp.setCenter(display.getCanvas());
         
         s.setScene(scene);
         s.show();
@@ -72,7 +72,6 @@ public class Main extends Application
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
-        
     }
     
     public static void main (String[] args) {
