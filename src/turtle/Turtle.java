@@ -27,7 +27,7 @@ public class Turtle implements Agent{
 		myLineWidth = line;
 		myTime = curTime;
 		myStates = new ArrayList<Turtle>();
-		myStates.add(copy());
+		//myStates.add(copy());
 	}
 
 	public Turtle copy() {

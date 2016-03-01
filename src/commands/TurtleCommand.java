@@ -12,7 +12,7 @@ public abstract class TurtleCommand extends Command{
 		return myTurtle;
 	}
 	
-	protected void setTurtle(Agent t) throws Exception{
+	public void setTurtle(Agent t) throws Exception{
 		if(myTurtle == null){
 			myTurtle = t;
 		}
