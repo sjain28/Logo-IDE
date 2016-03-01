@@ -2,7 +2,7 @@ package commands;
 
 import java.util.List;
 
-public class YCor extends TurtleCommand{
+public class YCoordinate extends TurtleCommand{
 
 	@Override
 	public int getNumParams() {

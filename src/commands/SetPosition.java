@@ -5,7 +5,7 @@ import java.util.List;
 import javafx.geometry.Point2D;
 import parser.DoubleOptional;
 
-public class SetXY extends TurtleCommand{
+public class SetPosition extends TurtleCommand{
 
 	private DoubleOptional x;
 	private DoubleOptional y;

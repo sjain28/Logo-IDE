@@ -6,7 +6,7 @@ import parser.DoubleOptional;
 
 public class Forward extends TurtleCommand{
 	
-	private DoubleOptional distance;
+	private DoubleOptional distance = new DoubleOptional();
 	
 	public int getNumParams(){
 		return 1;
@@ -16,6 +16,7 @@ public class Forward extends TurtleCommand{
 	public void initParams(List<Object> params) throws Exception{
 		try{
 			distance =  (DoubleOptional) params.get(0);
+
 		}
 		catch(Exception e){
 			throw new Exception();
@@ -24,6 +25,8 @@ public class Forward extends TurtleCommand{
 	
 	@Override
 	public double evaluate() {
+		
+		double temp = distance.getValue();
 		super.getTurtle().move(distance.getValue());
 		super.setValue(distance.getValue());
 		return distance.getValue();
