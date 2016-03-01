@@ -25,10 +25,11 @@ public class Back extends TurtleCommand{
 	@Override
 	public double evaluate() {
 		super.getTurtle().move(-distance.getValue());
+		super.setValue(-distance.getValue());
 		return -distance.getValue();
 	}
 	
-	protected DoubleOptional getValue(){
+	public DoubleOptional getValue(){
 		return distance;
 	}
 }

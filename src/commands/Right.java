@@ -15,6 +15,7 @@ private DoubleOptional rotation;
 	@Override
 	public double evaluate() {
 		super.getTurtle().turn(rotation.getValue()); //default is clockwise
+		super.setValue(rotation.getValue());
 		return rotation.getValue();
 	}
 

@@ -28,7 +28,9 @@ public class Difference extends Command{
 
 	@Override
 	public double evaluate() {
-		return term1.getValue()-term2.getValue();
+		double result = term1.getValue()-term2.getValue();
+		super.setValue(result);
+		return result;
 
 	}
 

@@ -16,6 +16,7 @@ public class YCor extends TurtleCommand{
 
 	@Override
 	public double evaluate() {
+		super.setValue(getTurtle().getLocation().getY());
 		return getTurtle().getLocation().getY();
 	}
 
