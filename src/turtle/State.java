@@ -14,4 +14,5 @@ public interface State {
 	public Paint getPenColor();
 	public double getLineWidth();
 	public int getTime(); // time starts at 0 and increments with each Turtle Action
+
 }
