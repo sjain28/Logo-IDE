@@ -48,7 +48,16 @@ public class Main extends Application
         
         myTB.setPastCommandBox(myTB2);
 
+        
+        
         Scene scene = new Scene(bp, 700, 700);
+        
+        Display display = new Display(400,400);
+        ControlPanel myControlPanel = new ControlPanel(scene, display);
+        bp.setTop(myControlPanel.getControlPanel());
+        
+        bp.setCenter(display.getRectangle());
+        
         s.setScene(scene);
         s.show();
         

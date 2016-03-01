@@ -1,7 +1,5 @@
 package frontend;
 
-import com.apple.eawt.Application;
-
 import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
