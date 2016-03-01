@@ -21,6 +21,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -127,7 +128,8 @@ public class ControlPanel {
 	void openFile(File file) throws IOException{
 	 try {
          BufferedImage bufferedImage = ImageIO.read(file);
-         Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+         WritableImage wi = new WritableImage(bufferedImage.getWidth(), bufferedImage.getHeight());
+         Image image = SwingFXUtils.toFXImage(bufferedImage, wi);
          myImageView.setImage(image);
      } catch (IOException ex) {
          throw(ex);
