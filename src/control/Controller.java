@@ -23,9 +23,12 @@ public class Controller {
 	
 	public Controller() {
 		
-		//Test code
 		variableStates = new HashMap<String, String>();
 		myTurtles = new ArrayList<Agent>();
+		
+
+		//Test code
+		variableStates.put("Hello", "500");
 		
 		
 		// TODO Auto-generated constructor stub
