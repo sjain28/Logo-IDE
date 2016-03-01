@@ -16,11 +16,16 @@ import javafx.scene.text.Text;
 public abstract class Window {
 	
 	private static String TITLE = null;
-	private Group root = new Group();
+	private Group root;
+	
+	private static double WINDOW_WIDTH;
+	private static double WINDOW_HEIGHT;
+	
+	
 	private static double SLIDER_WIDTH;
 	private static double SLIDER_HEIGHT;
-	private static double BUTTON_WIDTH = 120;
-	private static double BUTTON_HEIGHT = 30;
+	private static double BUTTON_WIDTH;
+	private static double BUTTON_HEIGHT;
 	private static double BORDER_SIZE;
 	private static double FONT_SIZE;
 	
@@ -29,7 +34,9 @@ public abstract class Window {
 	private ArrayList<Slider> sliders;
 	
 	public Window(double width, double height) {
-		
+		root = new Group();
+		WINDOW_WIDTH = width;
+		WINDOW_HEIGHT = height;
 	}
 	
 	
@@ -44,6 +51,17 @@ public abstract class Window {
 	public Group getRoot() {
 		return root;
 	}
+	
+	public double getWidth() {
+		return WINDOW_WIDTH;
+	}
+	
+	
+	public double getHeight() {
+		return WINDOW_HEIGHT;
+	}
+	
+	
 	
 	
 	public abstract Scene init();

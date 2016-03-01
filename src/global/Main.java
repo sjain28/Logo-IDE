@@ -20,15 +20,14 @@ public class Main extends Application
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
-    private static Display display;
+    private static Window display;
 
     @Override
     public void start (Stage s) 
     {
     	//make sure to initialise backend too
-        display = new Display(50, 50);
+        display = new TextBox(500, 500);
         s.setTitle(display.getTitle());
-
         Scene mainScene = display.init();
         s.setScene(mainScene);
         s.show();

@@ -1,6 +1,7 @@
 package frontend;
 
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 
 public class Display  extends Window{
 
@@ -12,7 +13,7 @@ public class Display  extends Window{
 	@Override
 	public Scene init() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Scene(super.getRoot(), super.getWidth(), super.getHeight(), Color.BLACK);
 	}
 
 	@Override
