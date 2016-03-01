@@ -2,11 +2,15 @@ package frontend;
 
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class Display  extends Window{
 
+	Rectangle myRect;
+	
 	public Display(double width, double height) {
 		super(width, height);
+		myRect = new Rectangle(width, height);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -22,4 +26,7 @@ public class Display  extends Window{
 		// TODO Auto-generated method stub
 	}
 	
+	public Rectangle getRectangle(){
+		return myRect;
+	}
 }
