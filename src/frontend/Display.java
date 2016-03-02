@@ -28,7 +28,8 @@ public class Display extends Window {
 	private double height;
 	private int lineSpacing;
 
-	private ImageView myImageView = new ImageView();
+	Image defaultImage = new Image("resources/images/Spiny.png");
+	private ImageView myImageView = new ImageView(defaultImage);
 	private Collection<Turtle> myTurtles;
 	private Point2D ORIGIN = new Point2D(0,0);
 	final private Paint INITCOLOR = Color.BLACK;
@@ -84,7 +85,7 @@ public class Display extends Window {
 	}
 
 	public void drawGrid(int lineSpacing) {
-		gc.setStroke(Color.BLACK);
+		gc.setStroke(Color.GREY);
 		// draw vertical lines
 		for (int i = 0; i < width; i += lineSpacing) {
 			gc.strokeLine(i, 0, i, height);
@@ -100,7 +101,7 @@ public class Display extends Window {
 		// super.getRoot().getChildren().add(myImageView);
 
 	}
-
+	
 	private void drawTurtle() {
 		State prevT = null;
 		double x1 = 0;
