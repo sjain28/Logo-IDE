@@ -1,6 +1,11 @@
 InvalidInputException(String inputName) 				//When you get a command that doesn't exist. In CommandFactory.
 ValueNotInitializedException() 							//When you reference a variable that hasn't been initialized
-IncorrectParameterException(Command cmd, Object input) 	//When you give incorrect inputs to a command (In each Command subclass)
+IncorrectParameterTypeException(Command cmd, Object input) 	//When you give incorrect inputs to a command (In each Command subclass)
 IncorrectNumberOfParametersException(Command cmd) 		//When a command receives too many or too few commands (in Command superclass) 
 SyntaxException(String input)							//When you get something that doesn't match regex for any input type
+<<<<<<< HEAD
 EndOfFileException										//When you start a command but reach end of file. Ex. last statement in command is "fd" with no parameter
+ArithmeticException 									//This will get thrown by Java by default when user tries to divide by zero. Should probably catch it in frontend.  
+=======
+EndOfFileException										//When you start a command but reach end of file. Ex. last statement in command is "fd" with no parameter
+>>>>>>> master

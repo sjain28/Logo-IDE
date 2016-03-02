@@ -30,7 +30,7 @@ public class Display extends Window {
 
 	private ImageView myImageView = new ImageView();
 	private Collection<Turtle> myTurtles;
-	final private Point2D ORIGIN = new Point2D(0, 0);
+	private Point2D ORIGIN = new Point2D(0,0);
 	final private Paint INITCOLOR = Color.BLACK;
 	final private double DEFAULT_LINE_WIDTH = 2;
 	private Turtle mainTurtle;
@@ -50,6 +50,7 @@ public class Display extends Window {
 
 		drawGrid(lineSpacing);
 		
+		ORIGIN = new Point2D(width/2 -myImageView.getFitWidth()/2, height/2-myImageView.getFitHeight()/2);
 		mainTurtle = new Turtle(0, new Point2D(0,0),true, true, INITCOLOR, DEFAULT_LINE_WIDTH, 0);
 		
 	}
@@ -57,6 +58,8 @@ public class Display extends Window {
 	@Override
 	public Scene init() {
 		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight());
+		super.getRoot().getChildren().add(myCanvas);
+		super.getRoot().getChildren().add(myImageView);
 		return myScene;
 	}
 
@@ -107,12 +110,14 @@ public class Display extends Window {
 
 			for (State t : mainTurtle.getStates()) {
 
+				
 				if (prevT != null) {
 					if (prevT.isDown() && t.isDown()) {
-						x1 = prevT.getLocation().getX();
-						y1 = prevT.getLocation().getY();
-						double x2 = t.getLocation().getX();
-						double y2 = t.getLocation().getY();
+						
+						x1 = drawOffsetX(prevT.getLocation().getX());
+						y1 = drawOffsetY(prevT.getLocation().getY());
+						double x2 = drawOffsetX(t.getLocation().getX());
+						double y2 = drawOffsetY(t.getLocation().getY());
 						gc.setStroke(t.getPenColor());
 						gc.strokeLine(x1, y1, x2, y2);
 					}
@@ -123,11 +128,9 @@ public class Display extends Window {
 		
 		if (mainTurtle != null) {
 			myImageView.setRotate(mainTurtle.getOrientation());
-			if (mainTurtle.isVisible()) {
-				// adjust for centering turtles
-				gc.drawImage(myImageView.getImage(), mainTurtle.getLocation().getX(), 
-						mainTurtle.getLocation().getY(), TURTLE_WIDTH, TURTLE_HEIGHT);
-			}
+			myImageView.setVisible(mainTurtle.isVisible());
+			myImageView.setX(offsetX(mainTurtle.getLocation().getX()));
+			myImageView.setY(offsetY(mainTurtle.getLocation().getY()));
 		}
 
 	}
@@ -137,5 +140,20 @@ public class Display extends Window {
 		return mainTurtle;
 	}
 	
+	double offsetX(double inVal){
+		return inVal + ORIGIN.getX();
+	}
+	
+	double drawOffsetX(double inVal){
+		return inVal + ORIGIN.getX() + myImageView.getFitWidth()/2;
+	}
+	
+	double offsetY(double inVal){
+		return -1*inVal + ORIGIN.getY();
+	}
+	
+	double drawOffsetY(double inVal){
+		return -1*inVal + ORIGIN.getY() + myImageView.getFitHeight()/2;
+	}
 
 }

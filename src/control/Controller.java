@@ -23,8 +23,8 @@ public class Controller {
 	
 	private Agent myActiveTurtle;
 	private Collection<Agent> myTurtles;
+	private Map<String, Double> myVariables;
 	private Map<String, String> variableStates;
-	
 	private Parser parser;
 	
 	public Controller() {
@@ -32,14 +32,20 @@ public class Controller {
 		variableStates = new HashMap<String, String>();
 		myTurtles = new ArrayList<Agent>();
 		
-
 		//Test code
 		variableStates.put("Hello", "500");
 		
-		
 		// TODO Auto-generated constructor stub
+		myVariables = new HashMap<String, Double>();
 	}
 
+	public void setVariable(String varName, Double value) {
+		myVariables.put(varName, value);
+	}
+	public Double getVariable(String varName) {
+		return myVariables.get(varName);
+	}
+	
 	public void setActiveTurtle(Agent turtle) {
 		myActiveTurtle = turtle;
 	}
@@ -58,17 +64,13 @@ public class Controller {
 	
 	public void makeParser(String commandString) {
 		parser = new Parser(commandString, myResources);
+		parser.setAgent(myActiveTurtle);
+		
 		try {
-			parser.parse();
-			for (Command c : parser.myCommands) {
-				if(c instanceof TurtleCommand){
-					TurtleCommand d = (TurtleCommand) c;
-					d.setTurtle(myActiveTurtle);
-					d.evaluate();
-				}else{
+			for (Command c : parser.parse()) {
 					c.evaluate();
-				}
 			}
+			
 			for(State s: ((Turtle) myActiveTurtle).getStates()){
 				System.out.println(s.getLocation() + "  " + s.getOrientation());
 			}	
