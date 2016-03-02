@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import commands.TurtleCommand;
+import frontend.ErrorHandler;
 public class Parser {
 	
 	private List<String> myInputs;
@@ -79,9 +80,17 @@ public class Parser {
 	}
 
 	private ExpressionNode stringToNode(List<String> myList) throws Exception {
-		String next = myList.remove(0);
-		ExpressionNode nextNode = getNode(next);
-		return nextNode;
+		try{
+			String next = myList.remove(0);
+			ExpressionNode nextNode = getNode(next);
+			return nextNode;
+		}
+		catch(Exception e){
+			ErrorHandler eh = new ErrorHandler(50, 50);
+			eh.init();
+			eh.openError("NumParamsException");	
+			throw new Exception();
+		}
 	}
 	
 	private void parseTree(CommandNode head) throws Exception{ //we assume head is a command node

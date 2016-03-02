@@ -6,7 +6,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
 
-public class Turtle extends ImageView implements Agent{
+public class Turtle implements Agent{
 
 	private double myOrientation;
 	private Point2D myLocation;
@@ -15,6 +15,7 @@ public class Turtle extends ImageView implements Agent{
 	private Paint myPenColor;
 	private double myLineWidth;
 	private int myTime;
+	private Turtle startingState;
 	
 	private List<Turtle> myStates;
 	
@@ -30,7 +31,8 @@ public class Turtle extends ImageView implements Agent{
 	}
 	
 	public void init(){
-		myStates.add(copy());
+		startingState = copy();
+		myStates.add(startingState);
 	}
 
 	public Turtle copy() {
@@ -130,12 +132,13 @@ public class Turtle extends ImageView implements Agent{
 	public boolean isDown() {
 		return this.penIsDown;
 	}
-	/*
+	
+	
 	@Override
 	public boolean isVisible() {
 		return isVisible;
 	}
-	*/
+
 
 	@Override
 	public Paint getPenColor() {
@@ -156,9 +159,19 @@ public class Turtle extends ImageView implements Agent{
 		return (Iterable) myStates;
 	}
 	
+	public void reset(){
+		myOrientation = startingState.getOrientation();
+		myLocation = startingState.getLocation();
+		myTime = startingState.getTime();
+		myLineWidth = startingState.getLineWidth();
+		myPenColor = startingState.getPenColor();
+		this.penIsDown = startingState.isDown();
+		this.isVisible = startingState.isVisible();	
+	}
+	
 	public void clear(){
-		Turtle temp = myStates.get(0);
-		myStates.clear();
-		myStates.add(0, temp);
+		this.setLocation(new Point2D(0,0));
+		myStates = new ArrayList<>();
+		this.setOrientation(0);
 	}
 }

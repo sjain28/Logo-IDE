@@ -2,6 +2,7 @@ package commands;
 
 import java.util.List;
 
+import frontend.ErrorHandler;
 import parser.CommandNode;
 import parser.DoubleOptional;
 
@@ -10,13 +11,17 @@ public abstract class Command {
 	
 	public void setParams(List<Object> params) throws Exception{
 		if(params.size() != getNumParams()){
-			throw new Exception(); //Incorrect Number of Parameters Exception
+			ErrorHandler eh = new ErrorHandler(50, 50);
+			eh.init();
+			eh.openError("NumParamsException");	
 		}
 		try{
 			initParams(params);
 		}
 		catch(Exception e){
-			
+			ErrorHandler eh = new ErrorHandler(50, 50);
+			eh.init();
+			eh.openError("InvalidInputException");
 		}
 	}
 	
