@@ -26,7 +26,6 @@ public class Turtle implements Agent{
 		myLineWidth = line;
 		myTime = curTime;
 		myStates = new ArrayList<Turtle>();
-		//myStates.add(copy());
 	}
 
 	public Turtle copy() {
@@ -36,7 +35,6 @@ public class Turtle implements Agent{
 	@Override
 	public void turn(double degrees) {
 		myOrientation += degrees;
-		System.out.println("TURNING");
 		addState();
 	}
 
@@ -71,7 +69,7 @@ public class Turtle implements Agent{
 			newOrient = 180 -90*Math.signum(dx);
 		}
 		else{
-			newOrient = Math.atan(dy/dx)*180/Math.PI; //arctan won't work...it's in radians and only between += pi/2. Find a better way. 
+			newOrient = Math.atan(dy/dx)*180/Math.PI; 
 		}
 		this.setOrientation(newOrient);		
 	}
@@ -151,6 +149,4 @@ public class Turtle implements Agent{
 	public Iterable<State> getStates(){
 		return (Iterable) myStates;
 	}
-
-
 }

@@ -6,7 +6,7 @@ import parser.CommandNode;
 import parser.DoubleOptional;
 
 public abstract class Command {
-	public DoubleOptional myValue = new DoubleOptional(); //CHANGE THIS
+	private DoubleOptional myValue = new DoubleOptional(); 
 	
 	public void setParams(List<Object> params) throws Exception{
 		if(params.size() != getNumParams()){
@@ -28,7 +28,6 @@ public abstract class Command {
 	public DoubleOptional getValue(){
 		return myValue; 
 	}
-
 }
 
 

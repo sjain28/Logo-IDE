@@ -35,7 +35,7 @@ public class Parser {
 		variables = new HashMap<String, DoubleOptional>();
 	}
 	
-	public List<ExpressionNode> parse() throws Exception{ 			//Creates expression trees
+	public List<Command> parse() throws Exception{ 			//Creates expression trees
 		List<String> myList = new ArrayList<String>(myInputs);
 		List<ExpressionNode> expressionTrees = new ArrayList<ExpressionNode>();
 		while (!myList.isEmpty()) {	
@@ -43,12 +43,13 @@ public class Parser {
 			CommandNode head = new CommandNode(name, commandFactory.makeCommand(name));
 			expressionTrees.add(assembleTree(head, myList));
 		}
+		
 		myTrees = expressionTrees;
 		
 		for(ExpressionNode tree: myTrees){
 			parseTree((CommandNode) tree);
 		}
-		return null;
+		return myCommands;
 	}
 	
 	private ExpressionNode assembleTree(ExpressionNode head, List<String> myList) throws Exception{		
@@ -94,12 +95,14 @@ public class Parser {
 	
 	public void parseBracket(BracketNode node) throws Exception{ //Can probably refactor this method and the one above
 		for(ExpressionNode child: node.getChildren()){
-			node.addElement(child.getValue());
 			if(child instanceof CommandNode){
+				node.addElement(((CommandNode) child).getCommand());
 				parseTree((CommandNode) child);
-			}
-			if(child instanceof BracketNode){
-				parseBracket((BracketNode)child);
+			}else{
+				node.addElement(child.getValue());
+				if(child instanceof BracketNode){
+					parseBracket((BracketNode)child);
+				}	
 			}
 		}
 	}
@@ -125,12 +128,12 @@ public class Parser {
 	}
 	
 	public static void main (String[] args) throws Exception {
-		String[] input = {"rt", "45","fD", "fd", "fd", "fd","+", "*", "2","3", "*", "5", "Sin","/","PI", "2"};
+		String[] input = {"[","rt", "45","]","fD", "fd", "fd", "fd","+", "*", "2","3", "*", "5", "Sin","/","PI", "2"};
 		Parser p = new Parser(Arrays.asList(input));
-		p.parse();
+		List<Command> coms = p.parse();
 		Turtle temp = new Turtle(0, new Point2D(0,0),true, true, null, 1, 0);
 		
-		for(Command c: p.myCommands){
+		for(Command c: coms){
 			if(c instanceof TurtleCommand){
 				TurtleCommand d = (TurtleCommand) c;
 				d.setTurtle(temp);

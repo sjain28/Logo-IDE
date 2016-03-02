@@ -17,7 +17,6 @@ public class Controller {
 	private Agent myActiveTurtle;
 	private Collection<Agent> myTurtles;
 	
-	
 	public Controller() {
 		// TODO Auto-generated constructor stub
 	}
