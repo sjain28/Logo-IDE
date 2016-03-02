@@ -141,19 +141,19 @@ public class Display extends Window {
 		return mainTurtle;
 	}
 	
-	double offsetX(double inVal){
+	private double offsetX(double inVal){
 		return inVal + ORIGIN.getX();
 	}
 	
-	double drawOffsetX(double inVal){
+	private double drawOffsetX(double inVal){
 		return inVal + ORIGIN.getX() + myImageView.getFitWidth()/2;
 	}
 	
-	double offsetY(double inVal){
+	private double offsetY(double inVal){
 		return -1*inVal + ORIGIN.getY();
 	}
 	
-	double drawOffsetY(double inVal){
+	private double drawOffsetY(double inVal){
 		return -1*inVal + ORIGIN.getY() + myImageView.getFitHeight()/2;
 	}
 
