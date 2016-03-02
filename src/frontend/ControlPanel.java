@@ -1,7 +1,10 @@
 package frontend;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ResourceBundle;
 
 
@@ -12,7 +15,6 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -35,7 +37,7 @@ public class ControlPanel extends Window {
 	private double COMBO_BOX_WIDTH = 80;
 
 	public ControlPanel(Scene inScene, Display inDisplay) {
-		super(600, 100);
+		super(600, 150);
 		myDisplay = inDisplay;
 		myScene = inScene;
 	}
@@ -67,35 +69,22 @@ public class ControlPanel extends Window {
 		grid.getChildren().add(lineColorPicker);
 		grid.getChildren().add(lineColorLabel);
 		
-		Label imageBackLabel = new Label("Select Background Image Color");
-		imageBackgroundPicker = initColorPicker(50, imageBackLabel);
-		imageBackgroundPicker.setValue(Color.WHITE);
-		imageBackgroundPicker.setOnAction(e -> changeImageBackgroundColor());
-		grid.getChildren().add(imageBackgroundPicker);
-		grid.getChildren().add(imageBackLabel);
-		
 		
 		final FileChooser fileChooser = new FileChooser();
 		final Button openButton = new Button("Open a Picture...");
 
-		GridPane.setConstraints(openButton,  65,  2);
+		GridPane.setConstraints(openButton,  60,  2);
 		openButton.setOnAction(e -> handleOpen(fileChooser));
 		grid.getChildren().add(openButton);
-		
-		final Button helpButton = new Button("Help!");
-		GridPane.setConstraints(openButton,  75,  2);
-		helpButton.setOnAction(e -> handleHelp());
-		grid.getChildren().add(helpButton);
-		
+				
 		myComboBox = initComboBox();
 		Label resourceLabel = new Label("Select Language");
-		GridPane.setConstraints(myComboBox,90, 2);
-		GridPane.setConstraints(resourceLabel, 90,  0);
+		GridPane.setConstraints(myComboBox,80, 2);
+		GridPane.setConstraints(resourceLabel, 80,  0);
 		grid.getChildren().add(myComboBox);
 		grid.getChildren().add(resourceLabel);
 		// Defining the Submit button
-		
-	
+
 
 		super.getRoot().getChildren().add(grid);
 		return myScene;
@@ -110,15 +99,16 @@ public class ControlPanel extends Window {
 	
 	private Object changeImageBackgroundColor() {
 		// TODO Auto-generated method stub
+		//myDisplay.
 		return null;
 	}
 
-	void changeBackgroundColor() {
+	private void changeBackgroundColor() {
 		myDisplay.setBackgroundColor(backgroundColorPicker.getValue());
 		return;
 	}
 
-	void changeLineColor() {
+	private void changeLineColor() {
 		getController().getActiveTurtle().setPenColor(lineColorPicker.getValue());
 		return;
 	}
@@ -127,12 +117,7 @@ public class ControlPanel extends Window {
 		return myBox;
 	}
 
-	void handleHelp(){
-		Stage stage = new Stage();
-		
-	}
-	
-	void handleOpen(FileChooser fileChooser) {
+	private void handleOpen(FileChooser fileChooser) {
 		// this.get
 		Stage stage = new Stage();
 		File file = fileChooser.showOpenDialog(stage);
