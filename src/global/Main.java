@@ -40,9 +40,11 @@ public class Main extends Application
     	
         BorderPane mainPane = new BorderPane();
         TextBox textBox = new TextBox(500,500);
+        textBox.setController(myController);
         textBox.init();
         mainPane.setBottom(textBox.getRoot());
         BorderPane.setAlignment(textBox.getRoot(), Pos.CENTER);
+        
         
         PastCommands pastCommands = new PastCommands(200,200);
         pastCommands.init();
@@ -55,10 +57,10 @@ public class Main extends Application
         variableStates.setController(myController);
         mainPane.setLeft(variableStates.getRoot());
         
-        
-        
         Scene scene = new Scene(mainPane, 1200, 700);
         Display display = new Display(400,400, 50);
+        display.setController(myController);
+        display.getController().setActiveTurtle(display.getTurtle());
         ControlPanel myControlPanel = new ControlPanel(scene, display);
         mainPane.setTop(myControlPanel.getControlPanel());
         mainPane.setCenter(display.getCanvas());
@@ -68,8 +70,8 @@ public class Main extends Application
         s.show();
         
         
-        //technically this works
-        getHostServices().showDocument("http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/commands.php");
+        //technically this works, but it's a messy thing
+        //getHostServices().showDocument("http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/commands.php");
         
 		//KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
 		  //              e -> display.step(SECOND_DELAY));
@@ -81,7 +83,8 @@ public class Main extends Application
 						variableStates.step(SECOND_DELAY);
 					}
 				});
-		                
+		
+		
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);

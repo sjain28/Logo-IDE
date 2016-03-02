@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import control.Controller;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,6 +33,7 @@ public abstract class Window {
 	private ArrayList<Text> texts;
 	Properties UILabels;
 	private ArrayList<Slider> sliders;
+	private Controller controller;
 	
 	public Window(double width, double height) {
 		root = new Group();
@@ -143,6 +145,13 @@ public abstract class Window {
     	text.setText(newValueString);
 	}
 	
+	public void setController(Controller controller) {
+		this.controller = controller;
+	}
+	
+	public Controller getController() {
+		return controller;
+	}
 	
 	
 	
