@@ -35,8 +35,8 @@ public class ControlPanel extends Window {
 	private ResourceBundle myResource;
 	private ColorPicker imageBackgroundPicker;
 	private Desktop desktop = Desktop.getDesktop();
-	private double COLOR_BOX_WIDTH = 40;
-	private double COLOR_BOX_HEIGHT = 20;
+	private double COLOR_BOX_WIDTH = 90;
+	private double COLOR_BOX_HEIGHT = 30;
 
 	public ControlPanel(Scene inScene, Display inDisplay) {
 		super(600, 100);
@@ -57,7 +57,7 @@ public class ControlPanel extends Window {
 		// Defining the Name text field
 		
 		backgroundColorPicker = new ColorPicker();
-		GridPane.setConstraints(backgroundColorPicker,  0,  0);
+		GridPane.setConstraints(backgroundColorPicker,  10,  0);
 		backgroundColorPicker.setPromptText("Select Language:");
 		backgroundColorPicker.setPrefWidth(COLOR_BOX_WIDTH);
 		backgroundColorPicker.setPrefHeight(COLOR_BOX_HEIGHT);
@@ -68,7 +68,7 @@ public class ControlPanel extends Window {
 
 		// backgroundColorPicker.setLayoutX(myScene.getWidth()*3/4);
 		lineColorPicker = new ColorPicker();
-		GridPane.setConstraints(lineColorPicker,  5,  0);
+		GridPane.setConstraints(lineColorPicker,  20,  0);
 		lineColorPicker.setPromptText("Select Line Color:");
 		lineColorPicker.setPrefWidth(COLOR_BOX_WIDTH);
 		lineColorPicker.setPrefHeight(COLOR_BOX_HEIGHT);
@@ -78,7 +78,7 @@ public class ControlPanel extends Window {
 		
 		imageBackgroundPicker = new ColorPicker();
 		imageBackgroundPicker.setOnAction(e -> changeImageBackgroundColor());
-		GridPane.setConstraints(lineColorPicker,  10,  0);
+		GridPane.setConstraints(lineColorPicker,  40,  0);
 		imageBackgroundPicker.setPromptText("Select Background Image Color");
 		imageBackgroundPicker.setPrefWidth(COLOR_BOX_WIDTH);
 		imageBackgroundPicker.setPrefHeight(COLOR_BOX_HEIGHT);
@@ -88,12 +88,12 @@ public class ControlPanel extends Window {
 		final FileChooser fileChooser = new FileChooser();
 		final Button openButton = new Button("Open a Picture...");
 
-		GridPane.setConstraints(openButton,  15,  0);
+		GridPane.setConstraints(openButton,  60,  0);
 		openButton.setOnAction(e -> handleOpen(fileChooser));
 		grid.getChildren().add(openButton);
 		
 		final ComboBox myComboBox = initComboBox();
-		GridPane.setConstraints(myComboBox, 20, 0);
+		GridPane.setConstraints(myComboBox,80, 0);
 		grid.getChildren().add(myComboBox);
 		// Defining the Submit button
 		

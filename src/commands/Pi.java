@@ -2,8 +2,10 @@ package commands;
 
 import java.util.List;
 
-public class ShowingQuery extends TurtleCommand{
+import parser.DoubleOptional;
 
+public class Pi extends Command{
+	
 	@Override
 	public int getNumParams() {
 		return 0;
@@ -12,16 +14,14 @@ public class ShowingQuery extends TurtleCommand{
 	@Override
 	protected void initParams(List<Object> params) throws Exception {
 		return;
+		
 	}
 
 	@Override
 	public double evaluate() {
-		if(getTurtle().isVisible()){
-			super.setValue(1);
-			return 1;
-		}
-		super.setValue(0);
-		return 0;
+		double result = Math.PI;
+		super.setValue(result);
+		return result;
 	}
 
 }

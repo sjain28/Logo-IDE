@@ -18,9 +18,6 @@ public class PastCommands extends Window {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
-
 	@Override
 	public Scene init() {
 		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight(), Color.RED);

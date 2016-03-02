@@ -2,7 +2,7 @@ package commands;
 
 import java.util.List;
 
-public class XCor extends TurtleCommand{
+public class IsShowing extends TurtleCommand{
 
 	@Override
 	public int getNumParams() {
@@ -16,8 +16,12 @@ public class XCor extends TurtleCommand{
 
 	@Override
 	public double evaluate() {
-		super.setValue(getTurtle().getLocation().getX());
-		return getTurtle().getLocation().getX();
+		if(getTurtle().isVisible()){
+			super.setValue(1);
+			return 1;
+		}
+		super.setValue(0);
+		return 0;
 	}
 
 }

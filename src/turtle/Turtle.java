@@ -2,7 +2,6 @@ package turtle;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
@@ -28,7 +27,7 @@ public class Turtle extends ImageView implements Agent{
 		myLineWidth = line;
 		myTime = curTime;
 		myStates = new ArrayList<Turtle>();
-		myStates.add(copy());
+		//myStates.add(copy());
 	}
 
 	public Turtle copy() {
@@ -38,13 +37,14 @@ public class Turtle extends ImageView implements Agent{
 	@Override
 	public void turn(double degrees) {
 		myOrientation += degrees;
+		System.out.println("TURNING");
 		addState();
 	}
 
 	@Override
 	public void move(double distance) { //Orientation of 0 is NORTH
-		double newX = myLocation.getX() + Math.sin(90-myOrientation); //Test to make sure this returns correct coordinates
-		double newY = myLocation.getY() + Math.cos(90-myOrientation);
+		double newX = myLocation.getX() + Math.sin((myOrientation)*Math.PI/180)*distance; //Tested and working...orientation of 0 moves straight up
+		double newY = myLocation.getY() + Math.cos((myOrientation)*Math.PI/180)*distance;
 		myLocation = new Point2D(newX, newY);
 		addState();
 	}
@@ -57,12 +57,24 @@ public class Turtle extends ImageView implements Agent{
 
 	@Override
 	public void setTowards(Point2D position) {
-		// tangent = dy/dx
+
+		double newOrient;
 		double dy = position.getY() - myLocation.getY();
 		double dx = position.getX() - myLocation.getX();
-		double newOrient =90- Math.atan(dy/dx); //arctan won't work...it's in radians and only between += pi/2. Find a better way. 
-		this.setOrientation(newOrient);
 		
+		if(dx == 0 && dy == 0){
+			newOrient = 0;
+		}
+		else if(dx == 0){
+			newOrient = 90-90*Math.signum(dy);
+		}
+		else if(dy == 0){
+			newOrient = 180 -90*Math.signum(dx);
+		}
+		else{
+			newOrient = Math.atan(dy/dx)*180/Math.PI; //arctan won't work...it's in radians and only between += pi/2. Find a better way. 
+		}
+		this.setOrientation(newOrient);		
 	}
 
 	@Override
@@ -137,7 +149,10 @@ public class Turtle extends ImageView implements Agent{
 	public int getTime() {
 		return myTime;
 	}
-
+	
+	public Iterable<State> getStates(){
+		return (Iterable) myStates;
+	}
 
 
 }

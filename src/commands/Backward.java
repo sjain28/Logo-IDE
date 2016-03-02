@@ -4,7 +4,7 @@ import java.util.List;
 
 import parser.DoubleOptional;
 
-public class Back extends TurtleCommand{
+public class Backward extends TurtleCommand{
 
 	private DoubleOptional distance;
 	
@@ -25,8 +25,8 @@ public class Back extends TurtleCommand{
 	@Override
 	public double evaluate() {
 		super.getTurtle().move(-distance.getValue());
-		super.setValue(-distance.getValue());
-		return -distance.getValue();
+		super.setValue(distance.getValue());
+		return distance.getValue();
 	}
 	
 	public DoubleOptional getValue(){

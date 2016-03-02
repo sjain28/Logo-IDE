@@ -17,7 +17,7 @@ public class BracketNode extends ExpressionNode{
 		return (Iterable<Object>) bracketContents;
 	}
 	
-	protected void addElement(Object element){
+	public void addElement(Object element){
 		bracketContents.add(element);
 	}
 }

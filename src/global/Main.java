@@ -1,5 +1,6 @@
 package global;
 
+import control.Controller;
 import frontend.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -10,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 /**
  * This is the main program, it is basically boilerplate to create
@@ -33,19 +36,31 @@ public class Main extends Application
     {
     	//make sure to initialise backend too
     	
+    	Controller myController = new Controller();
+    	
         BorderPane mainPane = new BorderPane();
         TextBox textBox = new TextBox(500,500);
+        textBox.setController(myController);
         textBox.init();
         mainPane.setBottom(textBox.getRoot());
         BorderPane.setAlignment(textBox.getRoot(), Pos.CENTER);
+        
         
         PastCommands pastCommands = new PastCommands(200,200);
         pastCommands.init();
         mainPane.setRight(pastCommands.getRoot());
         textBox.setPastCommandBox(pastCommands);
         
+        
+        VariableStates variableStates = new VariableStates(200,200);
+        variableStates.init();
+        variableStates.setController(myController);
+        mainPane.setLeft(variableStates.getRoot());
+        
         Scene scene = new Scene(mainPane, 1200, 700);
         Display display = new Display(400,400, 50);
+        display.setController(myController);
+        display.getController().setActiveTurtle(display.getTurtle());
         ControlPanel myControlPanel = new ControlPanel(scene, display);
         myControlPanel.init();
         mainPane.setTop(myControlPanel.getRoot());
@@ -56,12 +71,21 @@ public class Main extends Application
         s.show();
         
         
-        //technically this works
-        getHostServices().showDocument("http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/commands.php");
+        //technically this works, but it's a messy thing
+        //getHostServices().showDocument("http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/commands.php");
         
+		//KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
+		  //              e -> display.step(SECOND_DELAY));
+		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-		                e -> display.step(SECOND_DELAY));
-		                
+				new EventHandler<ActionEvent>() {
+					public void handle(ActionEvent e) {
+						display.step(SECOND_DELAY);
+						variableStates.step(SECOND_DELAY);
+					}
+				});
+		
+		
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);

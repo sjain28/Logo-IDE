@@ -1,6 +1,8 @@
 package frontend;
 
+
 import java.util.Collection;
+
 
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
@@ -11,11 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import turtle.Agent;
 import turtle.State;
 import turtle.Turtle;
 
 public class Display extends Window {
-
+	
 	private final static double TURTLE_WIDTH = 50;
 	private static final double TURTLE_HEIGHT = 50;
 
@@ -24,12 +27,13 @@ public class Display extends Window {
 	private double width;
 	private double height;
 	private int lineSpacing;
+
 	private ImageView myImageView = new ImageView();
 	private Collection<Turtle> myTurtles;
 	final private Point2D ORIGIN = new Point2D(0, 0);
 	final private Paint INITCOLOR = Color.BLACK;
 	final private double DEFAULT_LINE_WIDTH = 2;
-	private Turtle myActiveTurtle;
+	private Turtle mainTurtle;
 
 	public Display(double width, double height, int lineSpacing) {
 		super(width, height);
@@ -43,11 +47,11 @@ public class Display extends Window {
 		gc = myCanvas.getGraphicsContext2D();
 		gc.setFill(Color.WHITE);
 		gc.fillRect(0, 0, width, height);
-		myActiveTurtle = new Turtle(0, ORIGIN, true, true, INITCOLOR, DEFAULT_LINE_WIDTH, 0);
 
 		drawGrid(lineSpacing);
-
-		// TODO Auto-generated constructor stub
+		
+		mainTurtle = new Turtle(0, new Point2D(0,0),true, true, INITCOLOR, DEFAULT_LINE_WIDTH, 0);
+		
 	}
 
 	@Override
@@ -99,9 +103,9 @@ public class Display extends Window {
 		double x1 = 0;
 		double y1 = 0;
 		// can be done better
-		if (myActiveTurtle.getMyStates() != null) {
+		if (mainTurtle.getStates() != null) {
 
-			for (State t : myActiveTurtle.getMyStates()) {
+			for (State t : mainTurtle.getStates()) {
 
 				if (prevT != null) {
 					if (prevT.isDown() && t.isDown()) {
@@ -117,13 +121,21 @@ public class Display extends Window {
 			}
 		}
 		
-		if (myActiveTurtle != null) {
-			myImageView.setRotate(myActiveTurtle.getOrientation());
-			if (myActiveTurtle.isVisible()) {
+		if (mainTurtle != null) {
+			myImageView.setRotate(mainTurtle.getOrientation());
+			if (mainTurtle.isVisible()) {
 				// adjust for centering turtles
-				gc.drawImage(myImageView.getImage(), x1, y1, TURTLE_WIDTH, TURTLE_HEIGHT);
+				gc.drawImage(myImageView.getImage(), mainTurtle.getLocation().getX(), 
+						mainTurtle.getLocation().getY(), TURTLE_WIDTH, TURTLE_HEIGHT);
 			}
 		}
 
 	}
+
+	
+	public Agent getTurtle() {
+		return mainTurtle;
+	}
+	
+
 }
