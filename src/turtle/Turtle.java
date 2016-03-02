@@ -28,6 +28,10 @@ public class Turtle extends ImageView implements Agent{
 		myTime = curTime;
 		myStates = new ArrayList<Turtle>();
 	}
+	
+	public void init(){
+		myStates.add(copy());
+	}
 
 	public Turtle copy() {
 		return new Turtle(myOrientation, myLocation, penIsDown, isVisible, myPenColor, myLineWidth, myTime);
@@ -150,5 +154,11 @@ public class Turtle extends ImageView implements Agent{
 	
 	public Iterable<State> getStates(){
 		return (Iterable) myStates;
+	}
+	
+	public void clear(){
+		Turtle temp = myStates.get(0);
+		myStates.clear();
+		myStates.add(0, temp);
 	}
 }
