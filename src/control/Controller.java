@@ -30,7 +30,6 @@ public class Controller {
 		myTurtles = new ArrayList<Agent>();
 		
 		//Test code
-		variableStates.put("Hello", "500");
 		
 		// TODO Auto-generated constructor stub
 		myVariables = new HashMap<String, Double>();
