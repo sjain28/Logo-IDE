@@ -1,16 +1,11 @@
 package frontend;
 
 import java.awt.Desktop;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
-import javax.imageio.ImageIO;
-
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.Event;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -19,122 +14,160 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class ControlPanel {
+public class ControlPanel extends Window {
 
 	private Scene myScene;
 	private ColorPicker backgroundColorPicker;
 	private ColorPicker lineColorPicker;
 	private HBox myBox;
-	private ImageView myImageView;
 	private Display myDisplay;
-	private ComboBox myComboBox;
+	private ComboBox<String> myComboBox;
 	private final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private ResourceBundle myResource;
 	private ColorPicker imageBackgroundPicker;
-	
-	public ControlPanel(Scene inScene, Display inDisplay){
+	private Desktop desktop = Desktop.getDesktop();
+	private double COLOR_BOX_WIDTH = 90;
+	private double COLOR_BOX_HEIGHT = 30;
+
+	public ControlPanel(Scene inScene, Display inDisplay) {
+		super(600, 100);
 		myDisplay = inDisplay;
 		myScene = inScene;
-		myBox = new HBox();
-		myBox.setPadding(new Insets(15, 12, 15, 12));
-		myBox.setSpacing(10);
-
-		backgroundColorPicker = new ColorPicker();
-	    backgroundColorPicker.setValue(Color.WHITE);
-	    backgroundColorPicker.setOnAction( e-> changeBackgroundColor() ); 
-	    
-	    //backgroundColorPicker.setLayoutX(myScene.getWidth()*3/4);
-	    
-	    lineColorPicker = new ColorPicker();
-	    lineColorPicker.setOnAction(e -> changeLineColor() ); 
-	    
-	    imageBackgroundPicker = new ColorPicker();
-	    imageBackgroundPicker.setOnAction(e -> changeImageBackgroundColor() ); 
-	    
-	    
-	    final FileChooser fileChooser = new FileChooser();
-	    final Button openButton = new Button("Open a Picture...");
-	    
-	    openButton.setOnAction(
-	            e-> handleOpen(fileChooser ));
-	    
-	    
-	    myComboBox = new ComboBox();
-        myComboBox.getItems().addAll(
-        		"Chinese",
-        		"English",
-        		"French",
-        		"German",
-        		"Italian",
-        		"Portugese",
-        		"Russian",
-        		"Spanish",
-        		"Syntax"
-          
-        );
-	    
-        Label myLabel = new Label("Display Background");
-        Label myLabel2 = new Label ("Line Color");
-        Label myLabel3 = new Label ("Select Language");
-        Label myLabel4 = new Label ("Select Image Background Color");
-        
-        
-        myComboBox.setOnAction(e -> handleCombo());
-		myBox.getChildren().addAll(myLabel, backgroundColorPicker, myLabel2, lineColorPicker, 
-				openButton, myLabel3, myComboBox, myLabel4, imageBackgroundPicker);
 	}
 
+	@Override
+	public Scene init() {
+
+		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight(), Color.RED);
+
+		// Creating a GridPane container
+		GridPane grid = new GridPane();
+		grid.setPadding(new Insets(10));
+		grid.setVgap(5);
+		grid.setHgap(5);
+		// Defining the Name text field
+		
+		backgroundColorPicker = new ColorPicker();
+		GridPane.setConstraints(backgroundColorPicker,  10,  0);
+		backgroundColorPicker.setPromptText("Select Language:");
+		backgroundColorPicker.setPrefWidth(COLOR_BOX_WIDTH);
+		backgroundColorPicker.setPrefHeight(COLOR_BOX_HEIGHT);
+		backgroundColorPicker.setValue(Color.WHITE);
+		backgroundColorPicker.setOnAction(e -> changeBackgroundColor());
+		grid.getChildren().add(backgroundColorPicker);
+		
+
+		// backgroundColorPicker.setLayoutX(myScene.getWidth()*3/4);
+		lineColorPicker = new ColorPicker();
+		GridPane.setConstraints(lineColorPicker,  20,  0);
+		lineColorPicker.setPromptText("Select Line Color:");
+		lineColorPicker.setPrefWidth(COLOR_BOX_WIDTH);
+		lineColorPicker.setPrefHeight(COLOR_BOX_HEIGHT);
+		lineColorPicker.setOnAction(e -> changeLineColor());
+		grid.getChildren().add(lineColorPicker);
+		
+		
+		imageBackgroundPicker = new ColorPicker();
+		imageBackgroundPicker.setOnAction(e -> changeImageBackgroundColor());
+		GridPane.setConstraints(lineColorPicker,  40,  0);
+		imageBackgroundPicker.setPromptText("Select Background Image Color");
+		imageBackgroundPicker.setPrefWidth(COLOR_BOX_WIDTH);
+		imageBackgroundPicker.setPrefHeight(COLOR_BOX_HEIGHT);
+		grid.getChildren().add(imageBackgroundPicker);
+		
+		
+		final FileChooser fileChooser = new FileChooser();
+		final Button openButton = new Button("Open a Picture...");
+
+		GridPane.setConstraints(openButton,  60,  0);
+		openButton.setOnAction(e -> handleOpen(fileChooser));
+		grid.getChildren().add(openButton);
+		
+		myComboBox = initComboBox();
+		GridPane.setConstraints(myComboBox,80, 0);
+		grid.getChildren().add(myComboBox);
+		// Defining the Submit button
+		
+	
+
+		super.getRoot().getChildren().add(grid);
+		return myScene;
+	}
+
+
+	@Override
+	public void step(double elapsedTime) {
+		// TODO Auto-generated method stub
+
+	}
+	
 	private Object changeImageBackgroundColor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	void changeBackgroundColor(){
-		myDisplay.getRectangle().setFill(backgroundColorPicker.getValue());
+	void changeBackgroundColor() {
+		myDisplay.setBackgroundColor(backgroundColorPicker.getValue());
 		return;
 	}
-	
-	void changeLineColor(){
+
+	void changeLineColor() {
 		lineColorPicker.getValue();
 		return;
 	}
-	
-	public HBox getControlPanel(){
+
+	public HBox getControlPanel() {
 		return myBox;
 	}
-	
-	void handleOpen(FileChooser fileChooser){
-		//this.get
+
+	void handleOpen(FileChooser fileChooser) {
+		// this.get
 		Stage stage = new Stage();
 		File file = fileChooser.showOpenDialog(stage);
-        if (file != null) {
-            try {
-            	openFile(file);
-            } catch(Exception e){
-            	System.out.println(e);
-            }
-        }
+		if (file != null) {
+			try {
+				String fileLocation = file.toURI().toString();
+				Image myImage = new Image(fileLocation);
+				myDisplay.setImage(myImage);
+				// System.out.println(fileLocation);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
 	}
-	
-	void openFile(File file) throws IOException{
-	 try {
-         BufferedImage bufferedImage = ImageIO.read(file);
-         Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-         myImageView.setImage(image);
-     } catch (IOException ex) {
-         throw(ex);
-     }
+
+	private ComboBox<String> initComboBox() {
+		ComboBox<String> thisComboBox = new ComboBox<String>();
+
+		thisComboBox.getItems().addAll("Chinese", "English", "French", "German", "Italian", "Portugese", "Russian",
+				"Spanish", "Syntax");
+		thisComboBox.setValue("English");
+		thisComboBox.setOnAction(e -> handleCombo());
+
+		thisComboBox.setPromptText("Select Language:");
+		thisComboBox.setPrefWidth(40);
+		thisComboBox.setPrefHeight(20);
+		
+		return thisComboBox;
+
 	}
-	
-	void handleCombo(){
+
+	private void handleCombo() {
 		myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myComboBox.getValue());
+		getController().changeLanguage(myResource);
 	}
+
+	
+
 }

@@ -24,19 +24,21 @@ public class Parser {
 	public static final ResourceBundle ENGLISH = ResourceBundle.getBundle("resources.languages/English");
 	private Map<String, DoubleOptional> variables; 
 	private Agent myTurtle;
+
+	CommandFactory commandFactory;
 	
-	CommandFactory commandFactory = new CommandFactory(ENGLISH);
-	
-	public Parser(List<String> userInput) {
+	public Parser(List<String> userInput, ResourceBundle language) {
 		myInputs = new ArrayList<String>(userInput);
 		variables = new HashMap<String, DoubleOptional>();
 		myCommands = new ArrayList<Command>();
+		commandFactory = new CommandFactory(language);
 	}
 	
-	public Parser(String userInput) {
+	public Parser(String userInput, ResourceBundle language) {
 		myInputs = new ArrayList<String>(Arrays.asList(userInput.split("\\s+"))); // to be filled with parsed userInput
 		variables = new HashMap<String, DoubleOptional>();
 		myCommands = new ArrayList<Command>();
+		commandFactory = new CommandFactory(language);
 	}
 	
 	public List<Command> parse() throws Exception{ 		
@@ -151,7 +153,8 @@ public class Parser {
 	public Agent getAgent(){
 		return myTurtle;
 	}
-	
+
+	/*
 	public static void main (String[] args) throws Exception {
 		//String[] input = {"[","rt", "45","]","fD", "fd", "fd", "fd","+", "*", "2","3", "*", "5", "Sin","/","PI", "2"};
 		//String[] input = {"back", "repeat", "5", "[", "fd", "10", "]"};
@@ -172,4 +175,5 @@ public class Parser {
 			System.out.println(s.getLocation() + "  " + s.getOrientation());
 		}			
 	}
+	*/
 }

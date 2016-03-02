@@ -1,5 +1,7 @@
 package frontend;
 
+import control.Controller;
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -34,12 +36,11 @@ public class TextBox extends Window{
 		grid.setPadding(new Insets(10));
 		grid.setVgap(5);
 		grid.setHgap(5);
-		
 		//Defining the Name text field
 		final TextArea name = new TextArea();
 		name.setPromptText("Enter Your Command:");
 		name.setPrefColumnCount(20);
-		name.setPrefRowCount(10);
+		name.setPrefRowCount(5);
 		name.getText();
 		GridPane.setConstraints(name, 0, 0);
 		grid.getChildren().add(name);
@@ -51,8 +52,12 @@ public class TextBox extends Window{
 		submit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			    public void handle(ActionEvent e) {
+				try {
 					pastCommands.getPreviousCommands().add(name.getText());
-			        System.out.println(name.getText());
+					getController().makeParser(name.getText());
+				} catch (Exception exc) {
+					exc.printStackTrace();
+				}
 			 }
 		});
 		
