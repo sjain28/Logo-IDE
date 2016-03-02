@@ -64,6 +64,7 @@ public class Main extends Application
         display.init();
         
         ControlPanel myControlPanel = new ControlPanel(scene, display);
+        myControlPanel.setController(myController);
         myControlPanel.init();
         mainPane.setTop(myControlPanel.getRoot());
         

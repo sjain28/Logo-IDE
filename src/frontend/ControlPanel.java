@@ -92,7 +92,7 @@ public class ControlPanel extends Window {
 		openButton.setOnAction(e -> handleOpen(fileChooser));
 		grid.getChildren().add(openButton);
 		
-		final ComboBox myComboBox = initComboBox();
+		myComboBox = initComboBox();
 		GridPane.setConstraints(myComboBox,80, 0);
 		grid.getChildren().add(myComboBox);
 		// Defining the Submit button
@@ -147,8 +147,8 @@ public class ControlPanel extends Window {
 
 	}
 
-	private ComboBox initComboBox() {
-		ComboBox thisComboBox = new ComboBox<String>();
+	private ComboBox<String> initComboBox() {
+		ComboBox<String> thisComboBox = new ComboBox<String>();
 
 		thisComboBox.getItems().addAll("Chinese", "English", "French", "German", "Italian", "Portugese", "Russian",
 				"Spanish", "Syntax");
@@ -163,8 +163,9 @@ public class ControlPanel extends Window {
 
 	}
 
-	void handleCombo() {
+	private void handleCombo() {
 		myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + myComboBox.getValue());
+		getController().changeLanguage(myResource);
 	}
 
 	

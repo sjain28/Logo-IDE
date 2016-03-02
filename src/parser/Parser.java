@@ -22,18 +22,20 @@ public class Parser {
 	public static final ResourceBundle ENGLISH = ResourceBundle.getBundle("resources.languages/English");
 	private Map<String, DoubleOptional> variables;
 	
-	CommandFactory commandFactory = new CommandFactory(ENGLISH);
+	CommandFactory commandFactory;// = new CommandFactory(ENGLISH);
 	
-	public Parser(List<String> userInput) {
+	public Parser(List<String> userInput, ResourceBundle language) {
 		myInputs = new ArrayList<String>(userInput);
 		variables = new HashMap<String, DoubleOptional>();
 		myCommands = new ArrayList<Command>();
+		commandFactory = new CommandFactory(language);
 	}
 	
-	public Parser(String userInput) {
+	public Parser(String userInput, ResourceBundle language) {
 		myInputs = new ArrayList<String>(Arrays.asList(userInput.split("\\s+"))); // to be filled with parsed userInput
 		variables = new HashMap<String, DoubleOptional>();
 		myCommands = new ArrayList<Command>();
+		commandFactory = new CommandFactory(language);
 	}
 	
 	public List<ExpressionNode> parse() throws Exception{ 			//Creates expression trees
@@ -124,7 +126,7 @@ public class Parser {
 			//throw new InvalidInputException(name);
 		}
 	}
-	
+	/*
 	public static void main (String[] args) throws Exception {
 		String[] input = {"rt", "45","fD", "fd", "fd", "fd","+", "*", "2","3", "*", "5", "Sin","/","PI", "2"};
 		Parser p = new Parser(Arrays.asList(input));
@@ -145,4 +147,5 @@ public class Parser {
 			System.out.println(s.getLocation() + "  " + s.getOrientation());
 		}			
 	}
+	*/
 }
