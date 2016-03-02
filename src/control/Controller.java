@@ -35,7 +35,6 @@ public class Controller {
 		//Test code
 		variableStates.put("Hello", "500");
 		
-		
 		// TODO Auto-generated constructor stub
 		myVariables = new HashMap<String, Double>();
 	}
@@ -65,16 +64,13 @@ public class Controller {
 	
 	public void makeParser(String commandString) {
 		parser = new Parser(commandString, myResources);
+		parser.setAgent(myActiveTurtle);
+		
 		try {
 			for (Command c : parser.parse()) {
-				if(c instanceof TurtleCommand){
-					TurtleCommand d = (TurtleCommand) c;
-					d.setTurtle(myActiveTurtle);
-					d.evaluate();
-				}else{
 					c.evaluate();
-				}
 			}
+			
 			for(State s: ((Turtle) myActiveTurtle).getStates()){
 				System.out.println(s.getLocation() + "  " + s.getOrientation());
 			}	
