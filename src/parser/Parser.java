@@ -1,5 +1,6 @@
 package parser;
 
+import turtle.State;
 import turtle.Turtle;
 import commands.Command;
 import commands.CommandFactory;
@@ -125,16 +126,23 @@ public class Parser {
 	}
 	
 	public static void main (String[] args) throws Exception {
-		String[] input = {"rt", "90", "fd", "fd", "fd", "fd", "bk", "50"};
+		String[] input = {"rt", "45","fD", "fd", "fd", "fd","+", "*", "2","3", "*", "5", "Sin","/","PI", "2"};
 		Parser p = new Parser(Arrays.asList(input));
 		p.parse();
 		Turtle temp = new Turtle(0, new Point2D(0,0),true, true, null, 1, 0);
 		
 		for(Command c: p.myCommands){
-			TurtleCommand d = (TurtleCommand) c;
-			d.setTurtle(temp);
-			d.evaluate();
-			System.out.println(temp.getLocation());
+			if(c instanceof TurtleCommand){
+				TurtleCommand d = (TurtleCommand) c;
+				d.setTurtle(temp);
+				d.evaluate();
+			}else{
+				c.evaluate();
+			}
 		}
+		
+		for(State s: temp.getStates()){
+			System.out.println(s.getLocation() + "  " + s.getOrientation());
+		}			
 	}
 }

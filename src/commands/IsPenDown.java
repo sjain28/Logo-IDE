@@ -2,7 +2,7 @@ package commands;
 
 import java.util.List;
 
-public class PenDownQuery extends TurtleCommand{
+public class IsPenDown extends TurtleCommand{
 
 	@Override
 	public int getNumParams() {
