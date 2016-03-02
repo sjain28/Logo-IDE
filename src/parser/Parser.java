@@ -20,7 +20,7 @@ public class Parser {
 	public List<Command> myCommands;
 	public static final ResourceBundle REGEX = ResourceBundle.getBundle("resources.languages/Syntax");
 	public static final ResourceBundle ENGLISH = ResourceBundle.getBundle("resources.languages/English");
-	private Map<String, DoubleOptional> variables; 
+	private Map<String, DoubleOptional> variables;
 	
 	CommandFactory commandFactory = new CommandFactory(ENGLISH);
 	
@@ -33,6 +33,7 @@ public class Parser {
 	public Parser(String userInput) {
 		myInputs = new ArrayList<String>(Arrays.asList(userInput.split("\\s+"))); // to be filled with parsed userInput
 		variables = new HashMap<String, DoubleOptional>();
+		myCommands = new ArrayList<Command>();
 	}
 	
 	public List<ExpressionNode> parse() throws Exception{ 			//Creates expression trees

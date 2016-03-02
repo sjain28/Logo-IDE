@@ -2,6 +2,7 @@ package frontend;
 
 import com.apple.eawt.Application;
 
+import control.Controller;
 import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -58,16 +59,10 @@ public class TextBox extends Window{
 			    public void handle(ActionEvent e) {
 				try {
 					pastCommands.getPreviousCommands().add(name.getText());
-					ErrorHandler eh = new ErrorHandler(50, 50);
-					eh.init();
-					eh.openError("W");
+					getController().makeParser(name.getText());
 				} catch (Exception exc) {
-					ErrorHandler eh = new ErrorHandler(50, 50);
-					eh.init();
-					eh.openError(exc.toString());
+					exc.printStackTrace();
 				}
-					
-			        //System.out.println(name.getText());
 			 }
 		});
 		
