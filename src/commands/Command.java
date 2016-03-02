@@ -12,7 +12,12 @@ public abstract class Command {
 		if(params.size() != getNumParams()){
 			throw new Exception(); //Incorrect Number of Parameters Exception
 		}
-		initParams(params);
+		try{
+			initParams(params);
+		}
+		catch(Exception e){
+			
+		}
 	}
 	
 	public abstract int getNumParams();
