@@ -1,20 +1,16 @@
 package frontend;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -34,9 +30,9 @@ public class ControlPanel extends Window {
 	private final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private ResourceBundle myResource;
 	private ColorPicker imageBackgroundPicker;
-	private Desktop desktop = Desktop.getDesktop();
 	private double COLOR_BOX_WIDTH = 90;
 	private double COLOR_BOX_HEIGHT = 30;
+	private double COMBO_BOX_WIDTH = 80;
 
 	public ControlPanel(Scene inScene, Display inDisplay) {
 		super(600, 100);
@@ -56,45 +52,47 @@ public class ControlPanel extends Window {
 		grid.setHgap(5);
 		// Defining the Name text field
 		
-		backgroundColorPicker = new ColorPicker();
-		GridPane.setConstraints(backgroundColorPicker,  10,  0);
-		backgroundColorPicker.setPromptText("Select Language:");
-		backgroundColorPicker.setPrefWidth(COLOR_BOX_WIDTH);
-		backgroundColorPicker.setPrefHeight(COLOR_BOX_HEIGHT);
+		Label backgroundLabel = new Label("Select Background Color");
+		backgroundColorPicker = initColorPicker(10, backgroundLabel);
 		backgroundColorPicker.setValue(Color.WHITE);
 		backgroundColorPicker.setOnAction(e -> changeBackgroundColor());
 		grid.getChildren().add(backgroundColorPicker);
+		grid.getChildren().add(backgroundLabel);
 		
-
-		// backgroundColorPicker.setLayoutX(myScene.getWidth()*3/4);
-		lineColorPicker = new ColorPicker();
-		GridPane.setConstraints(lineColorPicker,  20,  0);
-		lineColorPicker.setPromptText("Select Line Color:");
-		lineColorPicker.setPrefWidth(COLOR_BOX_WIDTH);
-		lineColorPicker.setPrefHeight(COLOR_BOX_HEIGHT);
+		
+		Label lineColorLabel = new Label("Select Line Color");
+		lineColorPicker = initColorPicker(30, lineColorLabel);
 		lineColorPicker.setOnAction(e -> changeLineColor());
+		lineColorPicker.setValue(Color.BLACK);
 		grid.getChildren().add(lineColorPicker);
+		grid.getChildren().add(lineColorLabel);
 		
-		
-		imageBackgroundPicker = new ColorPicker();
+		Label imageBackLabel = new Label("Select Background Image Color");
+		imageBackgroundPicker = initColorPicker(50, imageBackLabel);
+		imageBackgroundPicker.setValue(Color.WHITE);
 		imageBackgroundPicker.setOnAction(e -> changeImageBackgroundColor());
-		GridPane.setConstraints(lineColorPicker,  40,  0);
-		imageBackgroundPicker.setPromptText("Select Background Image Color");
-		imageBackgroundPicker.setPrefWidth(COLOR_BOX_WIDTH);
-		imageBackgroundPicker.setPrefHeight(COLOR_BOX_HEIGHT);
 		grid.getChildren().add(imageBackgroundPicker);
+		grid.getChildren().add(imageBackLabel);
 		
 		
 		final FileChooser fileChooser = new FileChooser();
 		final Button openButton = new Button("Open a Picture...");
 
-		GridPane.setConstraints(openButton,  60,  0);
+		GridPane.setConstraints(openButton,  65,  2);
 		openButton.setOnAction(e -> handleOpen(fileChooser));
 		grid.getChildren().add(openButton);
 		
+		final Button helpButton = new Button("Help!");
+		GridPane.setConstraints(openButton,  75,  2);
+		helpButton.setOnAction(e -> handleHelp());
+		grid.getChildren().add(helpButton);
+		
 		myComboBox = initComboBox();
-		GridPane.setConstraints(myComboBox,80, 0);
+		Label resourceLabel = new Label("Select Language");
+		GridPane.setConstraints(myComboBox,90, 2);
+		GridPane.setConstraints(resourceLabel, 90,  0);
 		grid.getChildren().add(myComboBox);
+		grid.getChildren().add(resourceLabel);
 		// Defining the Submit button
 		
 	
@@ -121,7 +119,7 @@ public class ControlPanel extends Window {
 	}
 
 	void changeLineColor() {
-		lineColorPicker.getValue();
+		getController().getActiveTurtle().setPenColor(lineColorPicker.getValue());
 		return;
 	}
 
@@ -129,6 +127,11 @@ public class ControlPanel extends Window {
 		return myBox;
 	}
 
+	void handleHelp(){
+		Stage stage = new Stage();
+		
+	}
+	
 	void handleOpen(FileChooser fileChooser) {
 		// this.get
 		Stage stage = new Stage();
@@ -147,6 +150,15 @@ public class ControlPanel extends Window {
 
 	}
 
+	private ColorPicker initColorPicker(int row, Label inLabel){
+		ColorPicker myColorPicker = new ColorPicker();
+		GridPane.setConstraints(myColorPicker,  row,  2);
+		GridPane.setConstraints(inLabel, row, 0);
+		myColorPicker.setPrefWidth(COLOR_BOX_WIDTH);
+		myColorPicker.setPrefHeight(COLOR_BOX_HEIGHT);
+		return myColorPicker;
+	}
+	
 	private ComboBox<String> initComboBox() {
 		ComboBox<String> thisComboBox = new ComboBox<String>();
 
@@ -156,8 +168,8 @@ public class ControlPanel extends Window {
 		thisComboBox.setOnAction(e -> handleCombo());
 
 		thisComboBox.setPromptText("Select Language:");
-		thisComboBox.setPrefWidth(40);
-		thisComboBox.setPrefHeight(20);
+		thisComboBox.setPrefWidth(COMBO_BOX_WIDTH);
+		thisComboBox.setPrefHeight(COLOR_BOX_HEIGHT);
 		
 		return thisComboBox;
 
