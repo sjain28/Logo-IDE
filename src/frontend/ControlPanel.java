@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -16,12 +17,30 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
+import javafx.concurrent.Worker.State;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class ControlPanel extends Window {
 
-	private Scene myScene;
+	private Stage stage;
+	private Group root;
+	private Text errorPrompt;
+	private Button closeDialog;
+	private Scene scene;
+
+
 	private ColorPicker backgroundColorPicker;
 	private ColorPicker lineColorPicker;
 	private HBox myBox;
@@ -37,7 +56,7 @@ public class ControlPanel extends Window {
 	public ControlPanel(Scene inScene, Display inDisplay) {
 		super(600, 100);
 		myDisplay = inDisplay;
-		myScene = inScene;
+		scene = inScene;
 	}
 
 	@Override
@@ -51,42 +70,42 @@ public class ControlPanel extends Window {
 		grid.setVgap(5);
 		grid.setHgap(5);
 		// Defining the Name text field
-		
+
 		Label backgroundLabel = new Label("Select Background Color");
 		backgroundColorPicker = initColorPicker(10, backgroundLabel);
 		backgroundColorPicker.setValue(Color.WHITE);
 		backgroundColorPicker.setOnAction(e -> changeBackgroundColor());
 		grid.getChildren().add(backgroundColorPicker);
 		grid.getChildren().add(backgroundLabel);
-		
-		
+
+
 		Label lineColorLabel = new Label("Select Line Color");
 		lineColorPicker = initColorPicker(30, lineColorLabel);
 		lineColorPicker.setOnAction(e -> changeLineColor());
 		lineColorPicker.setValue(Color.BLACK);
 		grid.getChildren().add(lineColorPicker);
 		grid.getChildren().add(lineColorLabel);
-		
+
 		Label imageBackLabel = new Label("Select Background Image Color");
 		imageBackgroundPicker = initColorPicker(50, imageBackLabel);
 		imageBackgroundPicker.setValue(Color.WHITE);
 		imageBackgroundPicker.setOnAction(e -> changeImageBackgroundColor());
 		grid.getChildren().add(imageBackgroundPicker);
 		grid.getChildren().add(imageBackLabel);
-		
-		
+
+
 		final FileChooser fileChooser = new FileChooser();
 		final Button openButton = new Button("Open a Picture...");
 
 		GridPane.setConstraints(openButton,  65,  2);
 		openButton.setOnAction(e -> handleOpen(fileChooser));
 		grid.getChildren().add(openButton);
-		
+
 		final Button helpButton = new Button("Help!");
 		GridPane.setConstraints(openButton,  75,  2);
 		helpButton.setOnAction(e -> handleHelp());
 		grid.getChildren().add(helpButton);
-		
+
 		myComboBox = initComboBox();
 		Label resourceLabel = new Label("Select Language");
 		GridPane.setConstraints(myComboBox,90, 2);
@@ -94,8 +113,8 @@ public class ControlPanel extends Window {
 		grid.getChildren().add(myComboBox);
 		grid.getChildren().add(resourceLabel);
 		// Defining the Submit button
-		
-	
+
+
 
 		super.getRoot().getChildren().add(grid);
 		return myScene;
@@ -107,7 +126,7 @@ public class ControlPanel extends Window {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	private Object changeImageBackgroundColor() {
 		// TODO Auto-generated method stub
 		return null;
@@ -127,13 +146,37 @@ public class ControlPanel extends Window {
 		return myBox;
 	}
 
-	void handleHelp(){
-		Stage stage = new Stage();
-		
+	private void handleHelp(){
+		stage = new Stage();
+		Scene scene = new Scene(new Group());
+
+
+		final WebView browser = new WebView();
+		final WebEngine webEngine = browser.getEngine();
+
+		ScrollPane scrollPane = new ScrollPane();
+		scrollPane.setContent(browser);
+
+		webEngine.getLoadWorker().stateProperty()
+		.addListener(new ChangeListener<State>() {
+			@Override
+			public void changed(ObservableValue ov, State oldState, State newState) {
+
+				if (newState == Worker.State.SUCCEEDED) {
+					stage.setTitle(webEngine.getLocation());
+				}
+
+			}
+		});
+		webEngine.load("http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/commands.php");
+
+		scene.setRoot(scrollPane);
+
+		stage.setScene(scene);
+		stage.show();
 	}
-	
+
 	void handleOpen(FileChooser fileChooser) {
-		// this.get
 		Stage stage = new Stage();
 		File file = fileChooser.showOpenDialog(stage);
 		if (file != null) {
@@ -158,7 +201,7 @@ public class ControlPanel extends Window {
 		myColorPicker.setPrefHeight(COLOR_BOX_HEIGHT);
 		return myColorPicker;
 	}
-	
+
 	private ComboBox<String> initComboBox() {
 		ComboBox<String> thisComboBox = new ComboBox<String>();
 
@@ -170,7 +213,7 @@ public class ControlPanel extends Window {
 		thisComboBox.setPromptText("Select Language:");
 		thisComboBox.setPrefWidth(COMBO_BOX_WIDTH);
 		thisComboBox.setPrefHeight(COLOR_BOX_HEIGHT);
-		
+
 		return thisComboBox;
 
 	}
@@ -180,6 +223,6 @@ public class ControlPanel extends Window {
 		getController().changeLanguage(myResource);
 	}
 
-	
+
 
 }

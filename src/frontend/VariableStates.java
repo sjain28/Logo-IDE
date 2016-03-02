@@ -27,7 +27,8 @@ public class VariableStates extends Window {
 		 ListView<String> listView = new ListView<String>(variableStates);
 		
 		 super.getRoot().getChildren().add(listView);
-		
+		 
+		 
 		return myScene;
 	}
 	
