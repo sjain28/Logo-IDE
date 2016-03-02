@@ -57,7 +57,7 @@ public class Controller {
 	}
 	
 	public void makeParser(String commandString) {
-		parser = new Parser(commandString);
+		parser = new Parser(commandString, myResources);
 		try {
 			parser.parse();
 			for (Command c : parser.myCommands) {
@@ -79,6 +79,10 @@ public class Controller {
 			eh.init();
 			eh.openError("InvalidInputException");
 		}
+	}
+	
+	public void changeLanguage(ResourceBundle newLanguage) {
+		myResources = newLanguage;
 	}
 	
 }
