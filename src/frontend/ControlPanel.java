@@ -101,8 +101,8 @@ public class ControlPanel extends Window {
 		openButton.setOnAction(e -> handleOpen(fileChooser));
 		grid.getChildren().add(openButton);
 
-		final Button helpButton = new Button("Help!");
-		GridPane.setConstraints(openButton,  75,  2);
+		final Button helpButton = new Button("Documentation");
+		GridPane.setConstraints(helpButton,  75,  2);
 		helpButton.setOnAction(e -> handleHelp());
 		grid.getChildren().add(helpButton);
 
