@@ -28,8 +28,5 @@ public class Backward extends TurtleCommand{
 		super.setValue(distance.getValue());
 		return distance.getValue();
 	}
-	
-	public DoubleOptional getValue(){
-		return distance;
-	}
+
 }

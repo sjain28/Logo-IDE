@@ -16,7 +16,6 @@ public class Forward extends TurtleCommand{
 	public void initParams(List<Object> params) throws Exception{
 		try{
 			distance =  (DoubleOptional) params.get(0);
-
 		}
 		catch(Exception e){
 			throw new Exception();
@@ -31,9 +30,4 @@ public class Forward extends TurtleCommand{
 		super.setValue(distance.getValue());
 		return distance.getValue();
 	}
-	
-	public DoubleOptional getValue(){
-		return distance;
-	}
-
 }
