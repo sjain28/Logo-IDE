@@ -15,4 +15,6 @@ public interface Agent extends State{
 	public void changePenVisibility(boolean isDown);
 	public void setPenColor(Paint p);
 	public void setLineWidth(double width);
+	public void init();
+	public void clear();
 }
