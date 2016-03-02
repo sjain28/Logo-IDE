@@ -62,7 +62,8 @@ public class Main extends Application
         display.setController(myController);
         display.getController().setActiveTurtle(display.getTurtle());
         ControlPanel myControlPanel = new ControlPanel(scene, display);
-        mainPane.setTop(myControlPanel.getControlPanel());
+        myControlPanel.init();
+        mainPane.setTop(myControlPanel.getRoot());
         mainPane.setCenter(display.getCanvas());
         
         
