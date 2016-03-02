@@ -2,13 +2,20 @@ package commands;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class CommandFactory {
 	private ResourceBundle myResourceBundle;
+	private Map<String, UserDefinedFunction> UserDefinedFunctions;
 	
 	public CommandFactory(ResourceBundle myResourceBundle) {
 		this.myResourceBundle = myResourceBundle;
+	}
+	
+	public CommandFactory(ResourceBundle myResourceBundle, Map<String, UserDefinedFunction> UserDefinedFunctions) {
+		this.myResourceBundle = myResourceBundle;
+		this.UserDefinedFunctions = UserDefinedFunctions;
 	}
 		
 	public Command makeCommand(String name) throws Exception {
@@ -25,6 +32,14 @@ public class CommandFactory {
 				return result;
 			}
 		}
+		if (UserDefinedFunctions != null) {
+			for(String functionName : UserDefinedFunctions.keySet()) {
+				if (name.equals(functionName)) {
+					return UserDefinedFunctions.get(functionName);
+				}
+			}
+		}
+		
 		System.out.println(commandName);
 		throw new Exception();
 	}
