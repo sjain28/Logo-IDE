@@ -41,8 +41,8 @@ public class Display extends Window {
 		this.width = width;
 		this.height = height;
 		this.lineSpacing = lineSpacing;
-		myImageView.setFitHeight(50);
-		myImageView.setFitWidth(50);
+		myImageView.setFitHeight(TURTLE_WIDTH);
+		myImageView.setFitWidth(TURTLE_HEIGHT);
 		// myRect = new Rectangle(width, height, Color.WHITE);
 		myCanvas = new Canvas(width, height);
 		gc = myCanvas.getGraphicsContext2D();
