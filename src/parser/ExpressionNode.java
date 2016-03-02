@@ -24,5 +24,10 @@ public abstract class ExpressionNode {
 		child.setParent(this);
 	}
 	
+	public boolean hasParent(){
+		return parent != null;
+	}
+	
 	public abstract Object getValue();
+	
 }

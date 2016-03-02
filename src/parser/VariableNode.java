@@ -10,7 +10,6 @@ public class VariableNode extends ExpressionNode{
 		myValue = val;
 	}
 
-
 	@Override
 	public DoubleOptional getValue() {
 		return myValue;
