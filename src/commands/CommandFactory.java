@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import frontend.ErrorHandler;
+
 public class CommandFactory {
 	private ResourceBundle myResourceBundle;
 	
@@ -25,7 +27,9 @@ public class CommandFactory {
 				return result;
 			}
 		}
-		System.out.println(commandName);
+		ErrorHandler eh = new ErrorHandler(50, 50);
+		eh.init();
+		eh.openError("IncorrectCommandException");	
 		throw new Exception();
 	}
 }
