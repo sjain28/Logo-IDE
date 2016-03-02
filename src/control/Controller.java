@@ -5,14 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import commands.Command;
 import commands.TurtleCommand;
 import frontend.ErrorHandler;
 import parser.Parser;
-
 import java.util.ArrayList;
-
 import turtle.*;
 
 
@@ -26,7 +23,7 @@ public class Controller {
 	private Map<String, Double> myVariables;
 	private Map<String, String> variableStates;
 	private Parser parser;
-	
+
 	public Controller() {
 		
 		variableStates = new HashMap<String, String>();
@@ -64,6 +61,7 @@ public class Controller {
 	
 	public void makeParser(String commandString) {
 		parser = new Parser(commandString, myResources);
+		myActiveTurtle.init();
 		parser.setAgent(myActiveTurtle);
 		
 		try {

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import frontend.ErrorHandler;
+
 public class CommandFactory {
 	private ResourceBundle myResourceBundle;
 	private Map<String, UserDefinedFunction> UserDefinedFunctions;
@@ -41,6 +43,9 @@ public class CommandFactory {
 		}
 		
 		System.out.println(commandName);
+		ErrorHandler eh = new ErrorHandler(50, 50);
+		eh.init();
+		eh.openError("IncorrectCommandException");	
 		throw new Exception();
 	}
 }

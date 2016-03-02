@@ -28,11 +28,13 @@ public class Display extends Window {
 	private double height;
 	private int lineSpacing;
 
-	private ImageView myImageView = new ImageView();
+	Image defaultImage = new Image("resources/images/Spiny.png");
+	private ImageView myImageView = new ImageView(defaultImage);
 	private Collection<Turtle> myTurtles;
 	private Point2D ORIGIN = new Point2D(0,0);
 	final private Paint INITCOLOR = Color.BLACK;
 	final private double DEFAULT_LINE_WIDTH = 2;
+	private double multFactor = 1;
 	private Turtle mainTurtle;
 
 	public Display(double width, double height, int lineSpacing) {
@@ -40,8 +42,8 @@ public class Display extends Window {
 		this.width = width;
 		this.height = height;
 		this.lineSpacing = lineSpacing;
-		myImageView.setFitHeight(50);
-		myImageView.setFitWidth(50);
+		myImageView.setFitHeight(TURTLE_WIDTH);
+		myImageView.setFitWidth(TURTLE_HEIGHT);
 		// myRect = new Rectangle(width, height, Color.WHITE);
 		myCanvas = new Canvas(width, height);
 		gc = myCanvas.getGraphicsContext2D();
@@ -84,14 +86,17 @@ public class Display extends Window {
 	}
 
 	public void drawGrid(int lineSpacing) {
-		gc.setStroke(Color.BLACK);
+		gc.setStroke(Color.GREY);
 		// draw vertical lines
-		for (int i = 0; i < width; i += lineSpacing) {
-			gc.strokeLine(i, 0, i, height);
-		}
-		// draw horizontal lines
-		for (int i = 0; i < height; i += lineSpacing) {
-			gc.strokeLine(0, i, width, i);
+		if(lineSpacing/multFactor > 10){
+			
+			for (double i = 0; i < width; i += lineSpacing/multFactor) {
+				gc.strokeLine(i, 0, i, height);
+			}
+			// draw horizontal lines
+			for (double i = 0; i < height; i += lineSpacing/multFactor) {
+				gc.strokeLine(0, i, width, i);
+			}
 		}
 	}
 
@@ -100,7 +105,7 @@ public class Display extends Window {
 		// super.getRoot().getChildren().add(myImageView);
 
 	}
-
+	
 	private void drawTurtle() {
 		State prevT = null;
 		double x1 = 0;
@@ -126,13 +131,24 @@ public class Display extends Window {
 			}
 		}
 		
+		if( outOfBounds() ){
+			multFactor = multFactor*2;
+			System.out.println(multFactor);
+			if( !(myImageView.getFitWidth() < 4 || myImageView.getFitHeight() < 4) ){
+				myImageView.setFitWidth(myImageView.getFitWidth()/2);
+				myImageView.setFitHeight(myImageView.getFitHeight()/2);
+			}
+		}
+		
 		if (mainTurtle != null) {
 			myImageView.setRotate(mainTurtle.getOrientation());
 			myImageView.setVisible(mainTurtle.isVisible());
 			myImageView.setX(offsetX(mainTurtle.getLocation().getX()));
 			myImageView.setY(offsetY(mainTurtle.getLocation().getY()));
 		}
-
+		else{
+			myImageView.setX(offsetX(0));
+		}
 	}
 
 	
@@ -140,20 +156,24 @@ public class Display extends Window {
 		return mainTurtle;
 	}
 	
-	double offsetX(double inVal){
-		return inVal + ORIGIN.getX();
+	private double offsetX(double inVal){
+		return (inVal/multFactor + ORIGIN.getX());
 	}
 	
-	double drawOffsetX(double inVal){
-		return inVal + ORIGIN.getX() + myImageView.getFitWidth()/2;
+	private double drawOffsetX(double inVal){
+		return (inVal/multFactor + ORIGIN.getX() + myImageView.getFitWidth()/2);
 	}
 	
-	double offsetY(double inVal){
-		return -1*inVal + ORIGIN.getY();
+	private double offsetY(double inVal){
+		return (-1*inVal/multFactor + ORIGIN.getY());
 	}
 	
-	double drawOffsetY(double inVal){
-		return -1*inVal + ORIGIN.getY() + myImageView.getFitHeight()/2;
+	private double drawOffsetY(double inVal){
+		return (-1*inVal/multFactor + ORIGIN.getY() + myImageView.getFitHeight()/2);
 	}
 
+	private boolean outOfBounds(){
+		return myImageView.getX() < 0 || myImageView.getX() > width ||
+				myImageView.getY() < 0 || myImageView.getY() > height;
+	}
 }

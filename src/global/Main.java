@@ -34,6 +34,8 @@ public class Main extends Application
     @Override
     public void start (Stage s) 
     {
+    	System.setProperty("glass.accessible.force", "false");
+
     	//make sure to initialise backend too
     	
     	Controller myController = new Controller();
