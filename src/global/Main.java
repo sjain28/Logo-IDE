@@ -47,7 +47,8 @@ public class Main extends Application
         Scene scene = new Scene(mainPane, 1200, 700);
         Display display = new Display(400,400, 50);
         ControlPanel myControlPanel = new ControlPanel(scene, display);
-        mainPane.setTop(myControlPanel.getControlPanel());
+        myControlPanel.init();
+        mainPane.setTop(myControlPanel.getRoot());
         mainPane.setCenter(display.getCanvas());
         
         
