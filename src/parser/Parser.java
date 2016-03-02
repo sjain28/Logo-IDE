@@ -32,6 +32,7 @@ public class Parser {
 	public Parser(String userInput) {
 		myInputs = new ArrayList<String>(Arrays.asList(userInput.split("\\s+"))); // to be filled with parsed userInput
 		variables = new HashMap<String, DoubleOptional>();
+		myCommands = new ArrayList<Command>();
 	}
 	
 	public List<ExpressionNode> parse() throws Exception{ 			//Creates expression trees
@@ -76,7 +77,7 @@ public class Parser {
 		return nextNode;
 	}
 	
-	public void parseTree(CommandNode head) throws Exception{ //we assume head is a command node
+	private void parseTree(CommandNode head) throws Exception{ //we assume head is a command node
 		ArrayList<Object> params = new ArrayList<Object>();
 		for(ExpressionNode child: head.getChildren()){
 			params.add(child.getValue());
@@ -91,7 +92,7 @@ public class Parser {
 		myCommands.add(head.getCommand());
 	}
 	
-	public void parseBracket(BracketNode node) throws Exception{ //Can probably refactor this method and the one above
+	private void parseBracket(BracketNode node) throws Exception{ //Can probably refactor this method and the one above
 		for(ExpressionNode child: node.getChildren()){
 			node.addElement(child.getValue());
 			if(child instanceof CommandNode){

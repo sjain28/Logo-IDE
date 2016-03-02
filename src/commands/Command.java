@@ -28,7 +28,9 @@ public abstract class Command {
 	public DoubleOptional getValue(){
 		return myValue; //CHANGE THIS
 	}
-
+	
+	
+	
 }
 
 
