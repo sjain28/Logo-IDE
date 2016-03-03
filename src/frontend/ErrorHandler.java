@@ -46,7 +46,7 @@ public class ErrorHandler extends Window {
 
 	public void openError(String errorLabel)
 	{
-		String errorString = errorProperties.getProperty(errorLabel);
+		String errorString = errorProperties.getProperty(errorLabel);	
 		
 		// Only hardcoded String, in case properties fail
 		if ( errorString == null )
