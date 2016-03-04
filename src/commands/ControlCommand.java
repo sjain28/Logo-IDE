@@ -1,15 +1,17 @@
 package commands;
 
-import control.Controller;
+import parser.Parser;
 
 public abstract class ControlCommand extends Command {
+	private Parser myParser;
 	
-//	private Controller myController;
-//	
-//	
-//	public Controller getController() {
-//		return myController;
-//	}
+	public void setParser(Parser parser) {
+		myParser = parser;
+	}
+	protected Parser getParser() {
+		return myParser;
+	}
+	
 	
 	
 }

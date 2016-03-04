@@ -5,9 +5,8 @@ import turtle.State;
 import turtle.Turtle;
 import commands.Command;
 import commands.CommandFactory;
+import commands.ControlCommand;
 import javafx.geometry.Point2D;
-import javafx.scene.paint.Paint;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,7 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import commands.TurtleCommand;
+import commands.UserDefinedFunction;
 import frontend.ErrorHandler;
+
 public class Parser {
 	
 	private List<String> myInputs;
@@ -23,23 +24,24 @@ public class Parser {
 	public List<Command> myCommands;
 	public static final ResourceBundle REGEX = ResourceBundle.getBundle("resources.languages/Syntax");
 	public static final ResourceBundle ENGLISH = ResourceBundle.getBundle("resources.languages/English");
-	private Map<String, DoubleOptional> variables; 
 	private Agent myTurtle;
-
+	private Map<String, DoubleOptional> myVariables; 
+	private Map<String, UserDefinedFunction> myFunctions;
+	
 	CommandFactory commandFactory;
 	
 	public Parser(List<String> userInput, ResourceBundle language) {
 		myInputs = new ArrayList<String>(userInput);
-		variables = new HashMap<String, DoubleOptional>();
+		myVariables = new HashMap<String, DoubleOptional>();
 		myCommands = new ArrayList<Command>();
-		commandFactory = new CommandFactory(language);
+		commandFactory = new CommandFactory(language, myFunctions);
 	}
 	
 	public Parser(String userInput, ResourceBundle language) {
 		myInputs = new ArrayList<String>(Arrays.asList(userInput.split("\\s+"))); // to be filled with parsed userInput
-		variables = new HashMap<String, DoubleOptional>();
+		myVariables = new HashMap<String, DoubleOptional>();
 		myCommands = new ArrayList<Command>();
-		commandFactory = new CommandFactory(language);
+		commandFactory = new CommandFactory(language, myFunctions);
 	}
 	
 	public List<Command> parse() throws Exception{ 		
@@ -110,6 +112,9 @@ public class Parser {
 			TurtleCommand t = (TurtleCommand) head.getCommand();
 			t.setTurtle(getAgent());
 		}
+		else if(head.getCommand() instanceof ControlCommand){
+			((ControlCommand)head.getCommand()).setParser(this); // Get "environment" for the ControlCommand to affect
+		}
 		
 		if(head.hasParent() && head.getParent() instanceof BracketNode){
 			return;
@@ -137,11 +142,11 @@ public class Parser {
 			return new ValueNode(name);
 		}
 		else if(name.matches(REGEX.getString("Variable"))){
-			if(!variables.containsKey(name)){
-				variables.put(name, new DoubleOptional());
+			if(!myVariables.containsKey(name)){
+				myVariables.put(name, new DoubleOptional());
 
 			}	
-			return new VariableNode(name, variables.get(name));
+			return new VariableNode(name, myVariables.get(name));
 		}
 		else if(name.matches(REGEX.getString("ListStart")) || name.matches(REGEX.getString("ListEnd"))){
 			return new BracketNode(name);
@@ -155,13 +160,12 @@ public class Parser {
 		}
 	}
 	
-	public void setAgent(Agent turtle){
-		myTurtle = turtle;
-	}
+	public void setAgent(Agent turtle) { myTurtle = turtle; }
+	public Agent getAgent() { return myTurtle; }
 	
-	public Agent getAgent(){
-		return myTurtle;
-	}
+	public Map<String, DoubleOptional> getVariables() { return myVariables; }
+	public Map<String, UserDefinedFunction> getFunctions() { return myFunctions; }
+	public void addFunction(String functionName, UserDefinedFunction function) { myFunctions.put(functionName, function); }
 
 	/*
 	public static void main (String[] args) throws Exception {
