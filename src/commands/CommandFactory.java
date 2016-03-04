@@ -1,7 +1,6 @@
 package commands;
 
 import java.lang.reflect.Constructor;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import frontend.ErrorHandler;

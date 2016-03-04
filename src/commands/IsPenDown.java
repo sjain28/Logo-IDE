@@ -1,19 +1,11 @@
 package commands;
 
-import java.util.List;
-
 public class IsPenDown extends TurtleCommand{
 
-	@Override
-	public int getNumParams() {
-		return 0;
+	public IsPenDown(){
+		setNumParams(0);
 	}
-
-	@Override
-	protected void initParams(List<Object> params) throws Exception {
-		return;
-	}
-
+	
 	@Override
 	public double evaluate() {
 		if(getTurtle().isDown()){
