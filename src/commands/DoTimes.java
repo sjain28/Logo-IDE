@@ -10,25 +10,16 @@ public class DoTimes extends ControlCommand {
 	private List<Command> commands;
 		
 	public DoTimes() {
-	}
-
-	@Override
-	public int getNumParams() {
-		return 2;
+		setNumParams(2);
 	}
 
 	@Override
 	protected void initParams(List<Object> params) throws Exception {
-		try{
 			List<Object> arg1 = (List<Object>) params.get(0);
 			myVariable = (DoubleOptional) arg1.get(0);
 			myLimit = (DoubleOptional) arg1.get(1);
 			
 			commands = (List<Command>) params.get(1);
-		}
-		catch(Exception e){
-			throw new Exception();
-		}
 	}
 
 	@Override

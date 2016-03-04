@@ -1,34 +1,19 @@
 package commands;
 
-import java.util.List;
-
 import parser.DoubleOptional;
 
 public class Right extends TurtleCommand{
-
-private DoubleOptional rotation;
 	
-	public int getNumParams(){
-		return 1;
+	public Right(){
+		setNumParams(1);
 	}
-
+	
 	@Override
 	public double evaluate() {
+		DoubleOptional rotation = (DoubleOptional) getParams().get(0);
 		super.getTurtle().turn(rotation.getValue()); //default is clockwise
 		super.setValue(rotation.getValue());
 		return rotation.getValue();
 	}
-
-	@Override
-	protected void initParams(List<Object> params) throws Exception {
-		try{
-			rotation = (DoubleOptional) params.get(0);
-		}
-		catch(Exception e){
-			throw new Exception();
-		}
-		
-	}
-
 
 }

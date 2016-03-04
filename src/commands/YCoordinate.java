@@ -1,17 +1,9 @@
 package commands;
 
-import java.util.List;
-
 public class YCoordinate extends TurtleCommand{
 
-	@Override
-	public int getNumParams() {
-		return 0;
-	}
-
-	@Override
-	protected void initParams(List<Object> params) throws Exception {
-		return;
+	public YCoordinate(){
+		setNumParams(0);
 	}
 
 	@Override
