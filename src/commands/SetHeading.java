@@ -1,31 +1,17 @@
 package commands;
 
-import java.util.List;
-
 import parser.DoubleOptional;
 
 public class SetHeading extends TurtleCommand{
 	
-	private DoubleOptional newHeading;
+	public SetHeading(){
+		setNumParams(1);
+	}
 	
-	@Override
-	public int getNumParams() {
-		return 1;
-	}
-
-	@Override
-	protected void initParams(List<Object> params) throws Exception {
-		try{
-			newHeading = (DoubleOptional) params.get(0);
-		}
-		catch(Exception e){
-			throw new Exception();
-		}
-	}
-
 	@Override
 	public double evaluate() {
 		double firstHeading = getTurtle().getOrientation();
+		DoubleOptional newHeading = (DoubleOptional) getParams().get(0);
 		super.getTurtle().setOrientation(newHeading.getValue());
 		double result = firstHeading - getTurtle().getOrientation();
 		super.setValue(result);

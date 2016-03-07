@@ -1,31 +1,16 @@
 package commands;
 
-import java.util.List;
-
 import parser.DoubleOptional;
 
 public class Sine extends Command{
 	
-	private DoubleOptional term1;
-
-	@Override
-	public int getNumParams() {
-		return 1;
-	}
-
-	@Override
-	protected void initParams(List<Object> params) throws Exception {
-		try{
-			term1 = (DoubleOptional) params.get(0);
-		}
-		catch(Exception e){
-			throw new Exception();
-		}
-		
+	public Sine(){
+		setNumParams(1);
 	}
 
 	@Override
 	public double evaluate() {
+		DoubleOptional term1 = (DoubleOptional) getParams().get(0);
 		double result = Math.sin(term1.getValue());
 		super.setValue(result);
 		return result;
