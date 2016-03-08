@@ -54,10 +54,10 @@ public class Main extends Application
         textBox.setPastCommandBox(pastCommands);
         
         
-        VariableStates variableStates = new VariableStates(200,200);
-        variableStates.init();
-        variableStates.setController(myController);
-        mainPane.setLeft(variableStates.getRoot());
+//        VariableStates variableStates = new VariableStates(200,200);
+//        variableStates.init();
+//        variableStates.setController(myController);
+//        mainPane.setLeft(variableStates.getRoot());
         
         Scene scene = new Scene(mainPane, 1200, 700);
         Display display = new Display(400,400, 50);
@@ -88,7 +88,7 @@ public class Main extends Application
 				new EventHandler<ActionEvent>() {
 					public void handle(ActionEvent e) {
 						display.step(SECOND_DELAY);
-						variableStates.step(SECOND_DELAY);
+//						variableStates.step(SECOND_DELAY);
 					}
 				});
 		

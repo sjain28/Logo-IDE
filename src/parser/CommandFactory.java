@@ -1,17 +1,21 @@
-package commands;
+package parser;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import commands.Command;
+import commands.UserDefinedFunction;
 import frontend.ErrorHandler;
 
 public class CommandFactory {
 	private ResourceBundle myResourceBundle;
 	private Map<String, UserDefinedFunction> UserDefinedFunctions;
+	private Parser myParser;
 	
-	public CommandFactory(ResourceBundle myResourceBundle) {
+	public CommandFactory(ResourceBundle myResourceBundle, Parser parser) {
 		this.myResourceBundle = myResourceBundle;
+		myParser = parser;
 	}
 	
 	public CommandFactory(ResourceBundle myResourceBundle, Map<String, UserDefinedFunction> UserDefinedFunctions) {
@@ -20,6 +24,7 @@ public class CommandFactory {
 	}
 		
 	public Command makeCommand(String name) throws Exception {
+		updateUserDefinedFunctions();
 		String command = "commands.";
 		String commandName = name.toLowerCase();
 			
@@ -46,5 +51,9 @@ public class CommandFactory {
 		eh.init();
 		eh.openError("IncorrectCommandException");	
 		throw new Exception();
+	}
+	
+	private void updateUserDefinedFunctions() {
+		UserDefinedFunctions = myParser.getFunctions();
 	}
 }
