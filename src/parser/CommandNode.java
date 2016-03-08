@@ -38,8 +38,9 @@ public class CommandNode extends ExpressionNode {
 			((ControlCommand)getCommand()).setParser(p); // Get "environment" for the ControlCommand to affect
 		}
 		
-		if(!hasParent()){
-			p.addCommand(getCommand());
+		if(hasParent() && (getParent() instanceof BracketNode)){
+			return;
 		}
+		p.addCommand(getCommand());
 	}
 }

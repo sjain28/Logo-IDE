@@ -65,8 +65,11 @@ public class Controller {
 		parser.setAgent(myActiveTurtle);
 		
 		try {
-			for (Command c : parser.parse()) {
+			List<Command> cmd = parser.parse();
+			System.out.println(cmd.size());
+			for (Command c : cmd) {
 				if(c instanceof TurtleCommand){
+					System.out.println("TURTLE!");
 					((TurtleCommand) c).setTurtle(myActiveTurtle);
 				}
 				c.evaluate();
