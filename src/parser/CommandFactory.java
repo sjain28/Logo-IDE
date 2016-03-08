@@ -32,6 +32,7 @@ public class CommandFactory {
 			String value = myResourceBundle.getString(key);
 			if(value.equals(commandName) || value.contains(commandName + " ") || value.contains(" "+commandName) || value.contains("\\" + commandName)|| value.contains("|"+commandName) || value.contains(commandName+"|")){ //Do this with RegEx...This is messy
 				command += key;
+				System.out.println(command);
 				Class commandClass = Class.forName(command);
 				Constructor commandConstructor = commandClass.getConstructors()[0];
 				Command result = (Command) commandConstructor.newInstance();

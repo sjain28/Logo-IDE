@@ -14,4 +14,8 @@ public class VariableNode extends ExpressionNode{
 	public DoubleOptional getValue() {
 		return myValue;
 	}
+	
+	public void parse(Parser p){
+		return;
+	}
 }
