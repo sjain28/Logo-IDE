@@ -66,7 +66,10 @@ public class Controller {
 		
 		try {
 			for (Command c : parser.parse()) {
-					c.evaluate();
+				if(c instanceof TurtleCommand){
+					((TurtleCommand) c).setTurtle(myActiveTurtle);
+				}
+				c.evaluate();
 			}
 			
 			for(State s: ((Turtle) myActiveTurtle).getStates()){
