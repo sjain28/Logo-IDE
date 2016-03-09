@@ -4,7 +4,6 @@ import turtle.Agent;
 import turtle.State;
 import turtle.Turtle;
 import commands.Command;
-import commands.CommandFactory;
 import commands.ControlCommand;
 import javafx.geometry.Point2D;
 import java.util.ArrayList;
@@ -34,14 +33,15 @@ public class Parser {
 		myInputs = new ArrayList<String>(userInput);
 		myVariables = new HashMap<String, DoubleOptional>();
 		myCommands = new ArrayList<Command>();
-		commandFactory = new CommandFactory(language, myFunctions);
+		commandFactory = new CommandFactory(language, this);
 	}
 	
 	public Parser(String userInput, ResourceBundle language) {
-		myInputs = new ArrayList<String>(Arrays.asList(userInput.split("\\s+"))); // to be filled with parsed userInput
-		myVariables = new HashMap<String, DoubleOptional>();
-		myCommands = new ArrayList<Command>();
-		commandFactory = new CommandFactory(language, myFunctions);
+		this(Arrays.asList(userInput.split("\\s+")), language);
+//		myInputs = new ArrayList<String>(Arrays.asList(userInput.split("\\s+"))); // to be filled with parsed userInput
+//		myVariables = new HashMap<String, DoubleOptional>();
+//		myCommands = new ArrayList<Command>();
+//		commandFactory = new CommandFactory(language, myFunctions);
 	}
 	
 	public List<Command> parse() throws Exception{ 		
@@ -102,7 +102,6 @@ public class Parser {
 		else if(name.matches(REGEX.getString("Variable"))){
 			if(!myVariables.containsKey(name)){
 				myVariables.put(name, new DoubleOptional());
-
 			}	
 			return new VariableNode(name, myVariables.get(name));
 		}

@@ -3,11 +3,7 @@
 Making a final class called UserDefinedFunction to handle user created functions, 
 making it open to the package only because anyone outside the package doesn't need to access/know about it
 
-Using DoubleValues to send the value of a command to another command before it is known – design flaw: unable to do 
-recursion because this implementation passes in object references as parameters, but doesn't allow these object 
-references to be changed, only their values, so a method can't be called inside of the same method without 
-updating the parameters of the outside method as well.
-
+Using DoubleValues to send the value of a command to another command before it is known
 
 
 

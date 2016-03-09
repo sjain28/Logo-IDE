@@ -21,20 +21,16 @@ public class MakeUserInstruction extends ControlCommand {
 	}
 
 	@Override
-	protected void initParams(List<Object> params) throws Exception {
-		try {
-			DoubleOptional commandVariable = (DoubleOptional) params.get(0);
-			Map<String, DoubleOptional> variablesMap = getParser().getVariables();
-			functionName = variablesMap.keySet().stream().filter(key -> variablesMap.get(key) == commandVariable).collect(Collectors.toList()).get(0);
-			variablesMap.remove(functionName);
-			getParser().addFunction(functionName, null);
-			
-			myVariables = (List<DoubleOptional>) params.get(1);
-			myCommands = (List<Command>) params.get(2);
-		}
-		catch (Exception e) {
-			throw new Exception();
-		}
+	protected void initParams(List<Object> params){
+		System.out.println("initParams of to");
+		DoubleOptional commandVariable = (DoubleOptional) params.get(0);
+		Map<String, DoubleOptional> variablesMap = getParser().getVariables();
+		functionName = variablesMap.keySet().stream().filter(key -> variablesMap.get(key) == commandVariable).collect(Collectors.toList()).get(0);
+		variablesMap.remove(functionName);
+		getParser().addFunction(functionName, null);
+
+		myVariables = (List<DoubleOptional>) params.get(1);
+		myCommands = (List<Command>) params.get(2);
 	}
 
 	@Override
