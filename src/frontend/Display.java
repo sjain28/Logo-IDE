@@ -142,6 +142,9 @@ public class Display extends Window {
 			myImageView.setX(offsetX(mainTurtle.getLocation().getX()));
 			myImageView.setY(offsetY(mainTurtle.getLocation().getY()));
 		}
+		else{
+			myImageView.setX(offsetX(0));
+		}
 	}
 
 	

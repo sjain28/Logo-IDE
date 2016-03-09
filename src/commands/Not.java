@@ -2,16 +2,22 @@ package commands;
 
 import parser.DoubleOptional;
 
-public class Tangent extends Command{
+public class Not extends Command{
 	
-	public Tangent(){
+	public Not(){
 		setNumParams(1);
 	}
 	
 	@Override
 	public double evaluate() {
+		int result;
 		DoubleOptional term1 = (DoubleOptional) getParams().get(0);
-		double result = Math.tan(term1.getValue());
+
+		if(term1.getValue().equals(0))
+			result = 1;
+		else
+			result = 0;
+		
 		super.setValue(result);
 		return result;
 	}

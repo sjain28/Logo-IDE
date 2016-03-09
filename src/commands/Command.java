@@ -1,28 +1,57 @@
 package commands;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import parser.CommandNode;
+import frontend.ErrorHandler;
 import parser.DoubleOptional;
 
 public abstract class Command {
 	private DoubleOptional myValue = new DoubleOptional(); 
+	private int numParams;
+	private List<Object> myParams = new ArrayList<>();
+	
 	
 	public void setParams(List<Object> params) throws Exception{
 		if(params.size() != getNumParams()){
-			throw new Exception(); //Incorrect Number of Parameters Exception
+			ErrorHandler eh = new ErrorHandler(50, 50);
+			eh.init();
+			eh.openError("NumParamsException");	
 		}
-		initParams(params);
+		try{
+			initParams(params);
+		}
+		catch(Exception e){
+			ErrorHandler eh = new ErrorHandler(50, 50);
+			eh.init();
+			eh.openError("InvalidInputException");
+		}
 	}
 	
-	public abstract int getNumParams();
-	protected abstract void initParams(List<Object> params) throws Exception; //mandatory error checking for initialization
+	
+	protected void initParams(List<Object> params) throws Exception{	
+		for(int i = 0; i < numParams; i++){
+			myParams.add((DoubleOptional) params.get(i));
+		}
+	}
+	
+	protected List<Object> getParams(){
+		return myParams;
+	}
+	
 	public abstract double evaluate();
 	
+	public int getNumParams(){
+		return numParams;
+	}
+
 	protected void setValue(double value){
 		if(myValue.getValue() == null){
 			myValue.setValue(value);
 		}
+	}
+	
+	protected void setNumParams(int params){
+		numParams = params;
 	}
 	
 	public DoubleOptional getValue(){

@@ -44,7 +44,7 @@ public class VariableStates extends Window {
 	public void step(double elapsedTime) {
 		variableStates.clear();
 		for (String key : controller.getVariables().keySet()) {
-			variableStates.add(key + " : "controller.getVariables().get(key));
+			variableStates.add(key + " : " + controller.getVariables().get(key));
 		}
 	}
 

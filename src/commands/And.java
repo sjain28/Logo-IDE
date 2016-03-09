@@ -2,17 +2,24 @@ package commands;
 
 import parser.DoubleOptional;
 
-public class Power extends Command{
-	
-	public Power(){
-		setNumParams(2);
-	}
+public class And extends Command{
 
+	public And(){
+		super.setNumParams(2);
+	}
+	
 	@Override
 	public double evaluate() {
+		int result;
+		
 		DoubleOptional term1 = (DoubleOptional) getParams().get(0);
 		DoubleOptional term2 = (DoubleOptional) getParams().get(1);
-		double result = Math.pow(term1.getValue(), term2.getValue());
+		
+		if(term1.getValue().equals(0.0) || term2.getValue().equals(0.0))
+			result = 0;
+		else
+			result = 1;
+		
 		super.setValue(result);
 		return result;
 	}
