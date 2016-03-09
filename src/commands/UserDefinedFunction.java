@@ -31,18 +31,10 @@ public final class UserDefinedFunction extends ControlCommand {
 	}
 
 	@Override
-	protected void initParams(List<Object> params) throws Exception {
-		try {
-			myParamValues = (List<DoubleOptional>) params.get(0);
-			if (myParamValues.size() != numParams) {
-				throw new Exception("Invalid Parameters");
-			}
-		}
-		catch (Exception e) {
-			throw new Exception();
-		}
+	protected void initParams(List<Object> params){
+		myParamValues = (List<DoubleOptional>) params.get(0);
 	}
-
+	
 	@Override
 	public double evaluate() {
 		try {

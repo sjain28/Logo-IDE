@@ -26,6 +26,8 @@ public class CommandNode extends ExpressionNode {
 	}
 	
 	public void parse(Parser p) throws Exception{
+		getCommand().setParser(p); // Get "environment" for the ControlCommand to affect
+
 		ArrayList<Object> params = new ArrayList<Object>();
 		for(ExpressionNode child: getChildren()){
 			params.add(child.getValue());
@@ -34,9 +36,7 @@ public class CommandNode extends ExpressionNode {
 		
 		getCommand().setParams(params);
 		
-		if(getCommand() instanceof ControlCommand){
-			((ControlCommand)getCommand()).setParser(p); // Get "environment" for the ControlCommand to affect
-		}
+
 		
 		if(hasParent() && (getParent() instanceof BracketNode)){
 			return;

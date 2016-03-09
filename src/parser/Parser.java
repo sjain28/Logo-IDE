@@ -102,7 +102,6 @@ public class Parser {
 		else if(name.matches(REGEX.getString("Variable"))){
 			if(!myVariables.containsKey(name)){
 				myVariables.put(name, new DoubleOptional());
-
 			}	
 			return new VariableNode(name, myVariables.get(name));
 		}

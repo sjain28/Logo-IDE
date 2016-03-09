@@ -18,10 +18,10 @@ public class CommandFactory {
 		myParser = parser;
 	}
 	
-	public CommandFactory(ResourceBundle myResourceBundle, Map<String, UserDefinedFunction> UserDefinedFunctions) {
-		this.myResourceBundle = myResourceBundle;
-		this.UserDefinedFunctions = UserDefinedFunctions;
-	}
+//	public CommandFactory(ResourceBundle myResourceBundle, Map<String, UserDefinedFunction> UserDefinedFunctions) {
+//		this.myResourceBundle = myResourceBundle;
+//		this.UserDefinedFunctions = UserDefinedFunctions;
+//	}
 		
 	public Command makeCommand(String name) throws Exception {
 		updateUserDefinedFunctions();
@@ -32,10 +32,10 @@ public class CommandFactory {
 			String value = myResourceBundle.getString(key);
 			if(value.equals(commandName) || value.contains(commandName + " ") || value.contains(" "+commandName) || value.contains("\\" + commandName)|| value.contains("|"+commandName) || value.contains(commandName+"|")){ //Do this with RegEx...This is messy
 				command += key;
-				System.out.println(command);
 				Class commandClass = Class.forName(command);
 				Constructor commandConstructor = commandClass.getConstructors()[0];
 				Command result = (Command) commandConstructor.newInstance();
+				System.out.println(command);
 				return result;
 			}
 		}
@@ -47,7 +47,7 @@ public class CommandFactory {
 			}
 		}
 		
-		System.out.println(commandName);
+//		System.out.println(commandName);
 		ErrorHandler eh = new ErrorHandler(50, 50);
 		eh.init();
 		eh.openError("IncorrectCommandException");	
