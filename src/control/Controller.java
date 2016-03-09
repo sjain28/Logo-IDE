@@ -1,6 +1,6 @@
 package control;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +9,9 @@ import commands.Command;
 import commands.TurtleCommand;
 import frontend.ErrorHandler;
 import parser.Parser;
-import java.util.ArrayList;
-import turtle.*;
+import turtle.Agent;
+import turtle.State;
+import turtle.Turtle;
 
 
 public class Controller {
@@ -19,7 +20,7 @@ public class Controller {
     private ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_LANGUAGE);
 	
 	private Agent myActiveTurtle;
-	private Collection<Agent> myTurtles;
+	private List<Agent> myTurtles;
 	private Map<String, Double> myVariables;
 	private Map<String, String> variableStates;
 	private Parser parser;
@@ -45,6 +46,7 @@ public class Controller {
 	
 	public void setActiveTurtle(Agent turtle) {
 		myActiveTurtle = turtle;
+		myTurtles.add(turtle);
 	}
 	
 	public Agent getActiveTurtle() {
@@ -69,8 +71,7 @@ public class Controller {
 			System.out.println(cmd.size());
 			for (Command c : cmd) {
 				if(c instanceof TurtleCommand){
-					System.out.println("TURTLE!");
-					((TurtleCommand) c).setTurtle(myActiveTurtle);
+					((TurtleCommand) c).setTurtles(myTurtles);
 				}
 				c.evaluate();
 			}
