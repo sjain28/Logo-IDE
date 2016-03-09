@@ -18,7 +18,7 @@ public class ErrorHandler extends Window {
 	private Text errorPrompt;
 	private Button closeDialog;
 	
-	private static final String PROPERTIES_LOCATION = "errors.properties";
+	private static final String PROPERTIES_LOCATION = "resources/errors/errors.properties";
 	
 	private static double SCENE_WIDTH = 450;
 	private static double BORDERS = 30;
