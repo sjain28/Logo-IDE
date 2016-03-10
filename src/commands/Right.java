@@ -1,6 +1,7 @@
 package commands;
 
 import parser.DoubleOptional;
+import turtle.Agent;
 
 public class Right extends TurtleCommand{
 	
@@ -9,9 +10,9 @@ public class Right extends TurtleCommand{
 	}
 	
 	@Override
-	public double evaluate() {
+	public double doCommand(Agent a) {
 		DoubleOptional rotation = (DoubleOptional) getParams().get(0);
-		super.getTurtle().turn(rotation.getValue()); //default is clockwise
+		a.turn(rotation.getValue()); //default is clockwise
 		super.setValue(rotation.getValue());
 		return rotation.getValue();
 	}

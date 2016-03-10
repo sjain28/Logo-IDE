@@ -1,5 +1,7 @@
 package commands;
 
+import turtle.Agent;
+
 public class XCoordinate extends TurtleCommand{
 
 	public XCoordinate(){
@@ -7,9 +9,9 @@ public class XCoordinate extends TurtleCommand{
 	}
 	
 	@Override
-	public double evaluate() {
-		super.setValue(getTurtle().getLocation().getX());
-		return getTurtle().getLocation().getX();
+	public double doCommand(Agent a) {
+		super.setValue(a.getLocation().getX());
+		return a.getLocation().getX();
 	}
 
 }

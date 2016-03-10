@@ -1,5 +1,7 @@
 package commands;
 
+import turtle.Agent;
+
 public class IsShowing extends TurtleCommand{
 
 	public IsShowing(){
@@ -7,8 +9,8 @@ public class IsShowing extends TurtleCommand{
 	}
 
 	@Override
-	public double evaluate() {
-		if(getTurtle().isVisible()){
+	public double doCommand(Agent a) {
+		if(a.isVisible()){
 			super.setValue(1);
 			return 1;
 		}
