@@ -1,19 +1,20 @@
 package control;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import commands.Command;
-import commands.TurtleCommand;
 import frontend.ErrorHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import parser.Parser;
-import java.util.ArrayList;
-import turtle.*;
+import turtle.Agent;
+import turtle.State;
+import turtle.Turtle;
 
 
 public class Controller {
@@ -22,7 +23,7 @@ public class Controller {
     private ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_LANGUAGE);
 	
 	private Agent myActiveTurtle;
-	private Collection<Agent> myTurtles;
+	private List<Agent> myTurtles;
 	private Map<String, Double> myVariables;
 	private Map<String, String> variableStates;
 	private Parser parser;
@@ -49,6 +50,7 @@ public class Controller {
 	
 	public void setActiveTurtle(Agent turtle) {
 		myActiveTurtle = turtle;
+		myTurtles.add(turtle);
 	}
 	
 	public Agent getActiveTurtle() {
@@ -66,16 +68,13 @@ public class Controller {
 	public void makeParser(String commandString) {
 		parser = new Parser(commandString, myResources);
 		myActiveTurtle.init();
-		parser.setAgent(myActiveTurtle);
+		parser.addTurtle(myActiveTurtle);
+		Turtle second = new Turtle(0, new Point2D(10,10), true, true, Color.BLUE, 3, 0);
+		parser.addTurtle(second);
 		
 		try {
 			List<Command> cmd = parser.parse();
-			System.out.println(cmd.size());
 			for (Command c : cmd) {
-				if(c instanceof TurtleCommand){
-					System.out.println("TURTLE!");
-					((TurtleCommand) c).setTurtle(myActiveTurtle);
-				}
 				c.evaluate();
 			}
 			

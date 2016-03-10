@@ -35,7 +35,6 @@ public class CommandFactory {
 				Class commandClass = Class.forName(command);
 				Constructor commandConstructor = commandClass.getConstructors()[0];
 				Command result = (Command) commandConstructor.newInstance();
-				System.out.println(command);
 				return result;
 			}
 		}
@@ -47,7 +46,6 @@ public class CommandFactory {
 			}
 		}
 		
-//		System.out.println(commandName);
 		ErrorHandler eh = new ErrorHandler(50, 50);
 		eh.init();
 		eh.openError("IncorrectCommandException");	

@@ -1,5 +1,7 @@
 package commands;
 
+import turtle.Agent;
+
 public class PenUp extends TurtleCommand{
 	
 	public PenUp(){
@@ -7,8 +9,8 @@ public class PenUp extends TurtleCommand{
 	}
 	
 	@Override
-	public double evaluate() {
-		getTurtle().changePenVisibility(false);
+	public double doCommand(Agent a) {
+		a.changePenVisibility(false);
 		super.setValue(0);
 		return 0;
 	}

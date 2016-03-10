@@ -1,5 +1,7 @@
 package commands;
 
+import turtle.Agent;
+
 public class Heading extends TurtleCommand{
 
 	public Heading(){
@@ -7,9 +9,9 @@ public class Heading extends TurtleCommand{
 	}
 	
 	@Override
-	public double evaluate() {
-		super.setValue(getTurtle().getOrientation());
-		return getTurtle().getOrientation();
+	public double doCommand(Agent a) {
+		super.setValue(a.getOrientation());
+		return a.getOrientation();
 	}
 
 }
