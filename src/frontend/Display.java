@@ -59,15 +59,16 @@ public class Display extends Window {
 		mainTurtle = new Turtle(0, new Point2D(0,0),true, true, INITCOLOR, DEFAULT_LINE_WIDTH, 0);
 		
 	}
-
+//=================================================================================
 	@Override
 	public Scene init() {
 		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight());
 		super.getRoot().getChildren().add(myCanvas);
+		super.getRoot().getChildren().add(myImageView);
 		//super.getRoot().getChildren().add(myShape);
 		return myScene;
 	}
-
+//================================================================================
 	@Override
 	public void step(double elapsedTime) {
 		// TODO Auto-generated method stub
@@ -76,18 +77,19 @@ public class Display extends Window {
 		// image = turtle -> adjust x&y
 
 	}
-
+//================================================================================
 	public Canvas getCanvas() {
 		return myCanvas;
 	}
-
+//================================================================================
 	public void setBackgroundColor(Paint color) {
 		gc.setFill(color);
 		gc.clearRect(0, 0, width, height);
 		gc.fillRect(0, 0, width, height);
 		drawGrid(lineSpacing);
 	}
-
+//================================================================================
+	// might make this private
 	public void drawGrid(int lineSpacing) {
 		gc.setStroke(Color.GREY);
 		// draw vertical lines
@@ -102,12 +104,11 @@ public class Display extends Window {
 			}
 		}
 	}
-
+//===================================================================================
 	public void setImage(Image image) {
-		myImagePattern = new ImagePattern(image, myImagePattern.getX(), myImagePattern.getY(), TURTLE_WIDTH, TURTLE_HEIGHT, false);
+		//myImagePattern = new ImagePattern(image, myImagePattern.getX(), myImagePattern.getY(), TURTLE_WIDTH, TURTLE_HEIGHT, false);
 		//myShape.setFill(image);
 		 myImageView.setImage(image);
-		 super.getRoot().getChildren().add(myImageView);
 
 	}
 //=================================================================================	
@@ -167,7 +168,7 @@ public class Display extends Window {
 	public Agent getTurtle() {
 		return mainTurtle;
 	}
-	
+//===============================================================================	
 	private double offsetX(double inVal){
 		return (inVal/multFactor + ORIGIN.getX());
 	}
@@ -183,7 +184,7 @@ public class Display extends Window {
 	private double drawOffsetY(double inVal){
 		return (-1*inVal/multFactor + ORIGIN.getY() + myImageView.getFitHeight()/2);
 	}
-
+//==================================================================================
 	private boolean outOfBounds(){
 		return myImageView.getX() < 0 || myImageView.getX() > width ||
 				myImageView.getY() < 0 || myImageView.getY() > height;
