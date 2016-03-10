@@ -26,6 +26,8 @@ public class Parser {
 	private Agent myTurtle;
 	private Map<String, DoubleOptional> myVariables; 
 	private Map<String, UserDefinedFunction> myFunctions;
+	private List<Agent> allTurtles = new ArrayList<>();
+	private List<Agent> activeTurtles = new ArrayList<>();
 	
 	CommandFactory commandFactory;
 	
@@ -127,5 +129,24 @@ public class Parser {
 	public void addCommand(Command c){
 		myCommands.add(c);
 	}
-
+	
+	public List<Agent> getAllTurtles(){
+		return allTurtles;
+	}
+	
+	public List<Agent> getActiveTurtles(){
+		return activeTurtles;
+	}
+	
+	public void addTurtle(Agent t){
+		allTurtles.add(t);
+		activeTurtles.add(t);
+	}
+	
+	public void addActive(int index){
+		Agent a = allTurtles.get(index);
+		if(!activeTurtles.contains(a)){
+			activeTurtles.add(a);
+		}
+	}
 }

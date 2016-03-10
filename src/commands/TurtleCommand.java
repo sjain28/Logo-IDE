@@ -7,31 +7,20 @@ import turtle.Agent;
 
 public abstract class TurtleCommand extends Command{
 	
-	private Agent myTurtle;
 	private List<Agent> myTurtles = new ArrayList<Agent>();
-	
-	protected Agent getTurtle(){
-		return myTurtle;
-	}
-	
-	public void setTurtle(Agent t) throws Exception{
-		if(myTurtle == null){
-			myTurtle = t;
-		}
-		else{
-			throw new Exception(); 
-		}
-	}
-	
+
 	public void setTurtles(List<Agent> turtles){
 		myTurtles = turtles;
 	}
 	
 	@Override
 	public double evaluate(){
+		setTurtles(getParser().getActiveTurtles()); //Eventually TurtleCommand will get turtles from its environment, not its parser
 		double val = -1;
+		System.out.println("NUMBER OF TURTLES IN COMMAND: " + myTurtles.size());
 		for(Agent a: myTurtles){
 			val = doCommand(a);
+			System.out.println("After " + a.getLocation());
 		}
 		
 		return val;

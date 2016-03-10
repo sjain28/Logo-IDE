@@ -1,6 +1,7 @@
 package commands;
 
 import javafx.geometry.Point2D;
+import turtle.Agent;
 
 public class Home extends TurtleCommand{
 
@@ -9,9 +10,9 @@ public class Home extends TurtleCommand{
 	}
 	
 	@Override
-	public double evaluate() {
-		Point2D first = getTurtle().getLocation();
-		getTurtle().setLocation(new Point2D(0,0));
+	public double doCommand(Agent a) {
+		Point2D first = a.getLocation();
+		a.setLocation(new Point2D(0,0));
 		double result= first.getX()*first.getX() + first.getY()*first.getY();
 		super.setValue(result);
 		return result;

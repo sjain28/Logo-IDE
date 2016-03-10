@@ -1,5 +1,7 @@
 package commands;
 
+import turtle.Agent;
+
 public class ShowTurtle extends TurtleCommand{
 
 	public ShowTurtle(){
@@ -7,8 +9,8 @@ public class ShowTurtle extends TurtleCommand{
 	}
 	
 	@Override
-	public double evaluate() {
-		getTurtle().changeVisibility(true);
+	public double doCommand(Agent a) {
+		a.changeVisibility(true);
 		super.setValue(1);
 		return 1;
 	}

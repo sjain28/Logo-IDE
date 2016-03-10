@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import commands.Command;
-import commands.TurtleCommand;
 import frontend.ErrorHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 import parser.Parser;
 import turtle.Agent;
 import turtle.State;
@@ -63,15 +64,14 @@ public class Controller {
 	public void makeParser(String commandString) {
 		parser = new Parser(commandString, myResources);
 		myActiveTurtle.init();
-		parser.setAgent(myActiveTurtle);
+		parser.addTurtle(myActiveTurtle);
+		Turtle second = new Turtle(0, new Point2D(10,10), true, true, Color.BLUE, 3, 0);
+		parser.addTurtle(second);
+		//double orient, Point2D loc, boolean down, boolean visible, Paint pen, double line, int curTime
 		
 		try {
 			List<Command> cmd = parser.parse();
-			System.out.println(cmd.size());
 			for (Command c : cmd) {
-				if(c instanceof TurtleCommand){
-					((TurtleCommand) c).setTurtles(myTurtles);
-				}
 				c.evaluate();
 			}
 			

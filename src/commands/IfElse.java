@@ -18,15 +18,10 @@ public class IfElse extends ControlCommand {
 	}
 
 	@Override
-	protected void initParams(List<Object> params) throws Exception {
-		try{
+	protected void initParams(List<Object> params){
 			myExpr = (DoubleOptional) params.get(0);
 			myIfCommands = (List<Command>) params.get(1);
 			myElseCommands = (List<Command>) params.get(2);
-		}
-		catch(Exception e){
-			throw new Exception();
-		}
 	}
 
 	@Override

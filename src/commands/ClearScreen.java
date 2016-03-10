@@ -1,6 +1,7 @@
 package commands;
 
 import javafx.geometry.Point2D;
+import turtle.Agent;
 
 public class ClearScreen extends TurtleCommand{
 
@@ -9,10 +10,10 @@ public class ClearScreen extends TurtleCommand{
 	}
 	
 	@Override
-	public double evaluate() {
-		Point2D curLoc = getTurtle().getLocation();
-		getTurtle().clear();
-		Point2D nextLoc = getTurtle().getLocation();
+	public double doCommand(Agent a) {
+		Point2D curLoc = a.getLocation();
+		a.clear();
+		Point2D nextLoc = a.getLocation();
 		
 		double dx = nextLoc.getX()-curLoc.getX();
 		double dy = nextLoc.getY()-curLoc.getY();
