@@ -1,49 +1,41 @@
 package parser;
 
-import turtle.Agent;
-import turtle.State;
-import turtle.Turtle;
-import commands.Command;
-import commands.ControlCommand;
-import javafx.geometry.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import commands.TurtleCommand;
+
+import commands.Command;
 import commands.UserDefinedFunction;
+import control.Controller;
 import frontend.ErrorHandler;
+import turtle.Agent;
 
 public class Parser {
 	
 	private List<String> myInputs;
-	public List<ExpressionNode> myTrees;
-	public List<Command> myCommands;
-	public static final ResourceBundle REGEX = ResourceBundle.getBundle("resources.languages/Syntax");
-	public static final ResourceBundle ENGLISH = ResourceBundle.getBundle("resources.languages/English");
-	private Agent myTurtle;
+	private List<ExpressionNode> myTrees;
+	private List<Command> myCommands;
 	private Map<String, DoubleOptional> myVariables; 
 	private Map<String, UserDefinedFunction> myFunctions;
 	private List<Agent> allTurtles = new ArrayList<>();
 	private List<Agent> activeTurtles = new ArrayList<>();
+	private Controller myController;
+	private CommandFactory commandFactory;
+	public static final ResourceBundle REGEX = ResourceBundle.getBundle("resources.languages/Syntax");
 	
-	CommandFactory commandFactory;
-	
-	public Parser(List<String> userInput, ResourceBundle language) {
+	public Parser(List<String> userInput, ResourceBundle language, Controller c) {
 		myInputs = new ArrayList<String>(userInput);
 		myVariables = new HashMap<String, DoubleOptional>();
 		myCommands = new ArrayList<Command>();
 		commandFactory = new CommandFactory(language, this);
+		myController = c;
 	}
 	
-	public Parser(String userInput, ResourceBundle language) {
-		this(Arrays.asList(userInput.split("\\s+")), language);
-//		myInputs = new ArrayList<String>(Arrays.asList(userInput.split("\\s+"))); // to be filled with parsed userInput
-//		myVariables = new HashMap<String, DoubleOptional>();
-//		myCommands = new ArrayList<Command>();
-//		commandFactory = new CommandFactory(language, myFunctions);
+	public Parser(String userInput, ResourceBundle language, Controller c) {
+		this(Arrays.asList(userInput.split("\\s+")), language, c);
 	}
 	
 	public List<Command> parse() throws Exception{ 		
@@ -54,7 +46,6 @@ public class Parser {
 			CommandNode head = new CommandNode(name, commandFactory.makeCommand(name));
 			expressionTrees.add(assembleTree(head, myList));
 		}
-		
 		myTrees = expressionTrees;
 		
 		for(ExpressionNode tree: myTrees){
@@ -118,10 +109,7 @@ public class Parser {
 			//throw new InvalidInputException(name);
 		}
 	}
-	
-	public void setAgent(Agent turtle) { myTurtle = turtle; }
-	public Agent getAgent() { return myTurtle; }
-	
+		
 	public Map<String, DoubleOptional> getVariables() { return myVariables; }
 	public Map<String, UserDefinedFunction> getFunctions() { return myFunctions; }
 	public void addFunction(String functionName, UserDefinedFunction function) { myFunctions.put(functionName, function); }
@@ -140,7 +128,6 @@ public class Parser {
 	
 	public void addTurtle(Agent t){
 		allTurtles.add(t);
-		activeTurtles.add(t);
 	}
 	
 	public void addActive(int index){
@@ -148,5 +135,9 @@ public class Parser {
 		if(!activeTurtles.contains(a)){
 			activeTurtles.add(a);
 		}
+	}
+	
+	protected Controller getController(){
+		return myController;
 	}
 }
