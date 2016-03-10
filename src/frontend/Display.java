@@ -64,7 +64,7 @@ public class Display extends Window {
 	public Scene init() {
 		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight());
 		super.getRoot().getChildren().add(myCanvas);
-		super.getRoot().getChildren().add(myShape);
+		//super.getRoot().getChildren().add(myShape);
 		return myScene;
 	}
 
