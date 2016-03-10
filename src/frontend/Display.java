@@ -120,6 +120,7 @@ public class Display extends Window {
 						y1 = drawOffsetY(prevT.getLocation().getY());
 						double x2 = drawOffsetX(t.getLocation().getX());
 						double y2 = drawOffsetY(t.getLocation().getY());
+						gc.setLineWidth(t.getLineWidth());
 						gc.setStroke(t.getPenColor());
 						gc.strokeLine(x1, y1, x2, y2);
 					}
