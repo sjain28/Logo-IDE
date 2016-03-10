@@ -114,8 +114,8 @@ public class Turtle implements Agent{
 	@Override
 	public void setLineWidth(double width) {
 		myLineWidth = width;
+		System.out.println("-----------" + myLineWidth);
 		addState();
-		
 	}
 
 	@Override

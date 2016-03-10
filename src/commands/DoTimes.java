@@ -14,7 +14,7 @@ public class DoTimes extends ControlCommand {
 	}
 
 	@Override
-	protected void initParams(List<Object> params) throws Exception {
+	protected void initParams(List<Object> params){
 			List<Object> arg1 = (List<Object>) params.get(0);
 			myVariable = (DoubleOptional) arg1.get(0);
 			myLimit = (DoubleOptional) arg1.get(1);

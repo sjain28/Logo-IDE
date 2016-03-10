@@ -114,15 +114,13 @@ public class Display extends Window {
 		if (mainTurtle.getStates() != null) {
 
 			for (State t : mainTurtle.getStates()) {
-
-				
 				if (prevT != null) {
 					if (prevT.isDown() && t.isDown()) {
-						
 						x1 = drawOffsetX(prevT.getLocation().getX());
 						y1 = drawOffsetY(prevT.getLocation().getY());
 						double x2 = drawOffsetX(t.getLocation().getX());
 						double y2 = drawOffsetY(t.getLocation().getY());
+						gc.setLineWidth(t.getLineWidth());
 						gc.setStroke(t.getPenColor());
 						gc.strokeLine(x1, y1, x2, y2);
 					}
@@ -133,7 +131,6 @@ public class Display extends Window {
 		
 		if( outOfBounds() ){
 			multFactor = multFactor*2;
-			System.out.println(multFactor);
 			if( !(myImageView.getFitWidth() < 4 || myImageView.getFitHeight() < 4) ){
 				myImageView.setFitWidth(myImageView.getFitWidth()/2);
 				myImageView.setFitHeight(myImageView.getFitHeight()/2);

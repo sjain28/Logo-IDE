@@ -1,16 +1,20 @@
 package control;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import commands.Command;
-import commands.TurtleCommand;
 import frontend.ErrorHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import parser.Parser;
-import java.util.ArrayList;
-import turtle.*;
+import turtle.Agent;
+import turtle.State;
+import turtle.Turtle;
 
 
 public class Controller {
@@ -19,10 +23,11 @@ public class Controller {
     private ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_LANGUAGE);
 	
 	private Agent myActiveTurtle;
-	private Collection<Agent> myTurtles;
+	private List<Agent> myTurtles;
 	private Map<String, Double> myVariables;
 	private Map<String, String> variableStates;
 	private Parser parser;
+	private ListView<String> myPalette = new ListView<>();
 
 	public Controller() {
 		
@@ -44,6 +49,7 @@ public class Controller {
 	
 	public void setActiveTurtle(Agent turtle) {
 		myActiveTurtle = turtle;
+		myTurtles.add(turtle);
 	}
 	
 	public Agent getActiveTurtle() {
@@ -61,11 +67,14 @@ public class Controller {
 	public void makeParser(String commandString) {
 		parser = new Parser(commandString, myResources);
 		myActiveTurtle.init();
-		parser.setAgent(myActiveTurtle);
+		parser.addTurtle(myActiveTurtle);
+		Turtle second = new Turtle(0, new Point2D(10,10), true, true, Color.BLUE, 3, 0);
+		parser.addTurtle(second);
 		
 		try {
-			for (Command c : parser.parse()) {
-					c.evaluate();
+			List<Command> cmd = parser.parse();
+			for (Command c : cmd) {
+				c.evaluate();
 			}
 			
 			for(State s: ((Turtle) myActiveTurtle).getStates()){
@@ -83,5 +92,42 @@ public class Controller {
 	public void changeLanguage(ResourceBundle newLanguage) {
 		myResources = newLanguage;
 	}
+	
+	public void changePalette(int index, int r, int g, int b){
+
+		// the input needs to be added in the form "r,g,b" where r g and b are 
+		// ints between 0 and 255
+		String element = String.valueOf(r) + "," + String.valueOf(g) + "," + String.valueOf(b);
+		if(myPalette.getItems().size() < index){
+			myPalette.getItems().set(index, element);
+		} else{
+			myPalette.getItems().add(element);
+		}
+	}
+	
+	// debugging method used to show that it works. Changing
+	// a value in the set background will change the zeroth position
+	// in the palette
+	public void changePalette(Color myColor){
+		int index = 0;
+		// the input needs to be added in the form "r,g,b" where r g and b are 
+		// doubles
+		int r = (int)(myColor.getRed()*255);
+		int g = (int)(myColor.getGreen()*255);
+		int b = (int)(myColor.getBlue()*255);
+		
+		String element = String.valueOf(r) + "," + String.valueOf(g) + "," + String.valueOf(b);
+		if(myPalette.getItems().size() > index){
+			myPalette.getItems().set(0, element);
+		} else{
+			myPalette.getItems().add(element);
+		}
+	}
+	
+	public ListView<String> getPalette(){
+		return myPalette;
+	}
+	
+	
 	
 }

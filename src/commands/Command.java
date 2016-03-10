@@ -2,14 +2,22 @@ package commands;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import control.Environment;
 import frontend.ErrorHandler;
 import parser.DoubleOptional;
+import parser.Parser;
 
 public abstract class Command {
 	private DoubleOptional myValue = new DoubleOptional(); 
 	private int numParams;
 	private List<Object> myParams = new ArrayList<>();
+	private Parser myParser; // To be changed to scope/environment class
+	private Environment myEnvironment;
 	
+	public void setEnvironment(Environment e){
+		myEnvironment = e;
+	}
 	
 	public void setParams(List<Object> params) throws Exception{
 		if(params.size() != getNumParams()){
@@ -28,7 +36,7 @@ public abstract class Command {
 	}
 	
 	
-	protected void initParams(List<Object> params) throws Exception{	
+	protected void initParams(List<Object> params){	
 		for(int i = 0; i < numParams; i++){
 			myParams.add((DoubleOptional) params.get(i));
 		}
@@ -56,6 +64,13 @@ public abstract class Command {
 	
 	public DoubleOptional getValue(){
 		return myValue; 
+	}
+	
+	public void setParser(Parser parser) {
+		myParser = parser;
+	}
+	protected Parser getParser() {
+		return myParser;
 	}
 }
 

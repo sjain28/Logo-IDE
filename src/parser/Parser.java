@@ -4,7 +4,6 @@ import turtle.Agent;
 import turtle.State;
 import turtle.Turtle;
 import commands.Command;
-import commands.CommandFactory;
 import commands.ControlCommand;
 import javafx.geometry.Point2D;
 import java.util.ArrayList;
@@ -27,6 +26,8 @@ public class Parser {
 	private Agent myTurtle;
 	private Map<String, DoubleOptional> myVariables; 
 	private Map<String, UserDefinedFunction> myFunctions;
+	private List<Agent> allTurtles = new ArrayList<>();
+	private List<Agent> activeTurtles = new ArrayList<>();
 	
 	CommandFactory commandFactory;
 	
@@ -34,14 +35,15 @@ public class Parser {
 		myInputs = new ArrayList<String>(userInput);
 		myVariables = new HashMap<String, DoubleOptional>();
 		myCommands = new ArrayList<Command>();
-		commandFactory = new CommandFactory(language, myFunctions);
+		commandFactory = new CommandFactory(language, this);
 	}
 	
 	public Parser(String userInput, ResourceBundle language) {
-		myInputs = new ArrayList<String>(Arrays.asList(userInput.split("\\s+"))); // to be filled with parsed userInput
-		myVariables = new HashMap<String, DoubleOptional>();
-		myCommands = new ArrayList<Command>();
-		commandFactory = new CommandFactory(language, myFunctions);
+		this(Arrays.asList(userInput.split("\\s+")), language);
+//		myInputs = new ArrayList<String>(Arrays.asList(userInput.split("\\s+"))); // to be filled with parsed userInput
+//		myVariables = new HashMap<String, DoubleOptional>();
+//		myCommands = new ArrayList<Command>();
+//		commandFactory = new CommandFactory(language, myFunctions);
 	}
 	
 	public List<Command> parse() throws Exception{ 		
@@ -56,7 +58,7 @@ public class Parser {
 		myTrees = expressionTrees;
 		
 		for(ExpressionNode tree: myTrees){
-			parseTree((CommandNode) tree);
+			tree.parse(this);
 		}
 		return myCommands;
 	}
@@ -95,48 +97,6 @@ public class Parser {
 		}
 	}
 	
-	private void parseTree(CommandNode head) throws Exception{ //we assume head is a command node
-		ArrayList<Object> params = new ArrayList<Object>();
-		for(ExpressionNode child: head.getChildren()){
-			params.add(child.getValue());
-			if(child instanceof CommandNode){
-				parseTree((CommandNode) child);
-			}
-			if(child instanceof BracketNode){
-				parseBracket((BracketNode) child);
-			}
-		}
-		head.getCommand().setParams(params); //Bind the current command object to the value of the child node
-		
-		if(head.getCommand() instanceof TurtleCommand){
-			TurtleCommand t = (TurtleCommand) head.getCommand();
-			t.setTurtle(getAgent());
-		}
-		else if(head.getCommand() instanceof ControlCommand){
-			((ControlCommand)head.getCommand()).setParser(this); // Get "environment" for the ControlCommand to affect
-		}
-		
-		if(head.hasParent() && head.getParent() instanceof BracketNode){
-			return;
-		}
-		
-		myCommands.add(head.getCommand());
-	}
-	
-	private void parseBracket(BracketNode node) throws Exception{ //Can probably refactor this method and the one above
-		for(ExpressionNode child: node.getChildren()){
-			if(child instanceof CommandNode){
-				node.addElement(((CommandNode) child).getCommand());
-				parseTree((CommandNode) child);
-			}else{
-				node.addElement(child.getValue());
-				if(child instanceof BracketNode){
-					parseBracket((BracketNode)child);
-				}	
-			}
-		}
-	}
-	
 	private ExpressionNode getNode(String name) throws Exception {
 		if(name.matches(REGEX.getString("Constant"))){
 			return new ValueNode(name);
@@ -144,7 +104,6 @@ public class Parser {
 		else if(name.matches(REGEX.getString("Variable"))){
 			if(!myVariables.containsKey(name)){
 				myVariables.put(name, new DoubleOptional());
-
 			}	
 			return new VariableNode(name, myVariables.get(name));
 		}
@@ -166,27 +125,28 @@ public class Parser {
 	public Map<String, DoubleOptional> getVariables() { return myVariables; }
 	public Map<String, UserDefinedFunction> getFunctions() { return myFunctions; }
 	public void addFunction(String functionName, UserDefinedFunction function) { myFunctions.put(functionName, function); }
-
-	/*
-	public static void main (String[] args) throws Exception {
-		//String[] input = {"[","rt", "45","]","fD", "fd", "fd", "fd","+", "*", "2","3", "*", "5", "Sin","/","PI", "2"};
-		//String[] input = {"back", "repeat", "5", "[", "fd", "10", "]"};
-		//String[] input = {"make", ":x", "10", "for","[",":x", "10", "100","10","]", "[", "fd", ":x", "]"};
-		String[] input = {"ifelse", "1", "[", "fd", "50", "]", "[", "bk", "50", "]"};
-		
-		
-		Parser p = new Parser(Arrays.asList(input));
-		Turtle temp = new Turtle(0, new Point2D(0,0),true, true, null, 1, 0);
-		p.setAgent(temp);
-		List<Command> coms = p.parse();
-				
-		for(Command c: coms){
-			c.evaluate();			
-		}
-		
-		for(State s: temp.getStates()){
-			System.out.println(s.getLocation() + "  " + s.getOrientation());
-		}			
+	
+	public void addCommand(Command c){
+		myCommands.add(c);
 	}
-	*/
+	
+	public List<Agent> getAllTurtles(){
+		return allTurtles;
+	}
+	
+	public List<Agent> getActiveTurtles(){
+		return activeTurtles;
+	}
+	
+	public void addTurtle(Agent t){
+		allTurtles.add(t);
+		activeTurtles.add(t);
+	}
+	
+	public void addActive(int index){
+		Agent a = allTurtles.get(index);
+		if(!activeTurtles.contains(a)){
+			activeTurtles.add(a);
+		}
+	}
 }

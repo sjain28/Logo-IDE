@@ -30,4 +30,6 @@ public abstract class ExpressionNode {
 	
 	public abstract Object getValue();
 	
+	public abstract void parse(Parser p) throws Exception;
+	
 }
