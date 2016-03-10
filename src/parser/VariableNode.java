@@ -1,21 +1,24 @@
 package parser;
 
+import value.Value;
+import value.VariableValue;
+
 public class VariableNode extends ExpressionNode{
 	
-	private DoubleOptional myValue; //In implementation, this DoubleOptional will be a value in a Map	
+	private Value myValue; //In implementation, this DoubleOptional will be a value in a Map	
 	
-	public VariableNode(String name, DoubleOptional val) {
+	public VariableNode(String name) {
 		super(name);
-		//myValue = new DoubleOptional();
-		myValue = val;
+		myValue = new VariableValue(name);
 	}
 
 	@Override
-	public DoubleOptional getValue() {
+	public Value getValue() {
 		return myValue;
 	}
 	
-	public void parse(Parser p){
+	@Override
+	public void parse(Scope e){
 		return;
 	}
 }

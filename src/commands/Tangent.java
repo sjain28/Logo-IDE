@@ -1,6 +1,6 @@
 package commands;
 
-import parser.DoubleOptional;
+import value.Value;
 
 public class Tangent extends Command{
 	
@@ -10,7 +10,7 @@ public class Tangent extends Command{
 	
 	@Override
 	public double evaluate() {
-		DoubleOptional term1 = (DoubleOptional) getParams().get(0);
+		Value term1 = (Value) getParams().get(0);
 		double result = Math.tan(term1.getValue());
 		super.setValue(result);
 		return result;

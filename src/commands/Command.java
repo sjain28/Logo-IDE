@@ -3,11 +3,11 @@ package commands;
 import java.util.ArrayList;
 import java.util.List;
 import frontend.ErrorHandler;
-import parser.DoubleOptional;
 import parser.Parser;
+import value.Value;
 
 public abstract class Command {
-	private DoubleOptional myValue = new DoubleOptional(); 
+	private Value myValue = new Value(); 
 	private int numParams;
 	private List<Object> myParams = new ArrayList<>();
 	private Parser myParser; // To be changed to scope/environment class
@@ -31,7 +31,7 @@ public abstract class Command {
 	
 	protected void initParams(List<Object> params){	
 		for(int i = 0; i < numParams; i++){
-			myParams.add((DoubleOptional) params.get(i));
+			myParams.add((Value) params.get(i));
 		}
 	}
 	
@@ -55,7 +55,7 @@ public abstract class Command {
 		numParams = params;
 	}
 	
-	public DoubleOptional getValue(){
+	public Value getValue(){
 		return myValue; 
 	}
 	

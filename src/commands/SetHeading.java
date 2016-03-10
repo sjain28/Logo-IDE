@@ -1,6 +1,6 @@
 package commands;
 
-import parser.DoubleOptional;
+import value.Value;
 
 public class SetHeading extends TurtleCommand{
 	
@@ -11,7 +11,7 @@ public class SetHeading extends TurtleCommand{
 	@Override
 	public double evaluate() {
 		double firstHeading = getTurtle().getOrientation();
-		DoubleOptional newHeading = (DoubleOptional) getParams().get(0);
+		Value newHeading = (Value) getParams().get(0);
 		super.getTurtle().setOrientation(newHeading.getValue());
 		double result = firstHeading - getTurtle().getOrientation();
 		super.setValue(result);

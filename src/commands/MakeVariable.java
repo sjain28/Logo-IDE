@@ -2,11 +2,11 @@ package commands;
 
 import java.util.List;
 
-import parser.DoubleOptional;
+import value.Value;
 
 public class MakeVariable extends ControlCommand {
-	DoubleOptional variable;
-	DoubleOptional value;
+	Value variable;
+	Value value;
 
 	@Override
 	public int getNumParams() {
@@ -16,8 +16,8 @@ public class MakeVariable extends ControlCommand {
 	@Override
 	protected void initParams(List<Object> params) throws Exception {
 		try{
-			variable = (DoubleOptional) params.get(0);
-			value = (DoubleOptional)params.get(1);
+			variable = (Value) params.get(0);
+			value = (Value)params.get(1);
 		}
 		catch(Exception e){
 			throw new Exception();

@@ -5,11 +5,12 @@ import java.util.List;
 import commands.Command;
 import commands.ControlCommand;
 import commands.TurtleCommand;
+import value.Value;
 
 public class CommandNode extends ExpressionNode {
 
 	private Command myCommand;
-	private DoubleOptional myValue;
+	private Value myValue;
 	
 	public CommandNode(String name, Command c) {
 		super(name);
@@ -21,17 +22,18 @@ public class CommandNode extends ExpressionNode {
 		return myCommand;
 	}
 	
-	public DoubleOptional getValue(){
+	public Value getValue(){
 		return myValue;
 	}
 	
-	public void parse(Parser p) throws Exception{
-		getCommand().setParser(p); // Get "environment" for the ControlCommand to affect
+	@Override
+	public void parse(Scope e) throws Exception{
+		getCommand().setParser(e); // Get "environment" for the ControlCommand to affect
 
 		ArrayList<Object> params = new ArrayList<Object>();
 		for(ExpressionNode child: getChildren()){
 			params.add(child.getValue());
-			child.parse(p);
+			child.parse(e);
 		}
 		
 		getCommand().setParams(params);
@@ -41,6 +43,6 @@ public class CommandNode extends ExpressionNode {
 		if(hasParent() && (getParent() instanceof BracketNode)){
 			return;
 		}
-		p.addCommand(getCommand());
+		e.addCommand(getCommand());
 	}
 }

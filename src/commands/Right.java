@@ -1,6 +1,6 @@
 package commands;
 
-import parser.DoubleOptional;
+import value.Value;
 
 public class Right extends TurtleCommand{
 	
@@ -10,7 +10,7 @@ public class Right extends TurtleCommand{
 	
 	@Override
 	public double evaluate() {
-		DoubleOptional rotation = (DoubleOptional) getParams().get(0);
+		Value rotation = (Value) getParams().get(0);
 		super.getTurtle().turn(rotation.getValue()); //default is clockwise
 		super.setValue(rotation.getValue());
 		return rotation.getValue();

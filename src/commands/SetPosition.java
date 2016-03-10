@@ -1,7 +1,7 @@
 package commands;
 
 import javafx.geometry.Point2D;
-import parser.DoubleOptional;
+import value.Value;
 
 public class SetPosition extends TurtleCommand{
 	
@@ -11,8 +11,8 @@ public class SetPosition extends TurtleCommand{
 	
 	@Override
 	public double evaluate() {
-		DoubleOptional x = (DoubleOptional) getParams().get(0);
-		DoubleOptional y = (DoubleOptional) getParams().get(1);
+		Value x = (Value) getParams().get(0);
+		Value y = (Value) getParams().get(1);
 		
 		Point2D nextLoc = new Point2D(x.getValue(),y.getValue());
 		Point2D curLoc = getTurtle().getLocation();

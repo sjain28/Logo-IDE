@@ -18,36 +18,19 @@ public class Controller {
 
     private ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_LANGUAGE);
 	
-	private Agent myActiveTurtle;
-	private Collection<Agent> myTurtles;
-	private Map<String, Double> myVariables;
-	private Map<String, String> variableStates;
+	private Map<String, String> variableStates; // Front end ?
 	private Parser parser;
 
 	public Controller() {
 		
 		variableStates = new HashMap<String, String>();
-		myTurtles = new ArrayList<Agent>();
-		
-		//Test code
-		
-		// TODO Auto-generated constructor stub
-		myVariables = new HashMap<String, Double>();
-	}
+			}
 
 	public void setVariable(String varName, Double value) {
 		myVariables.put(varName, value);
 	}
 	public Double getVariable(String varName) {
 		return myVariables.get(varName);
-	}
-	
-	public void setActiveTurtle(Agent turtle) {
-		myActiveTurtle = turtle;
-	}
-	
-	public Agent getActiveTurtle() {
-		return myActiveTurtle;
 	}
 	
 	public String getProperty(String propertyKey) {

@@ -3,6 +3,7 @@ package parser;
 import turtle.Agent;
 import turtle.State;
 import turtle.Turtle;
+import value.Value;
 import commands.Command;
 import commands.ControlCommand;
 import javafx.geometry.Point2D;
@@ -20,31 +21,25 @@ public class Parser {
 	
 	private List<String> myInputs;
 	public List<ExpressionNode> myTrees;
-	public List<Command> myCommands;
 	public static final ResourceBundle REGEX = ResourceBundle.getBundle("resources.languages/Syntax");
 	public static final ResourceBundle ENGLISH = ResourceBundle.getBundle("resources.languages/English");
-	private Agent myTurtle;
-	private Map<String, DoubleOptional> myVariables; 
-	private Map<String, UserDefinedFunction> myFunctions;
+	private Scope globalEnvironment;
 	
 	CommandFactory commandFactory;
 	
 	public Parser(List<String> userInput, ResourceBundle language) {
 		myInputs = new ArrayList<String>(userInput);
-		myVariables = new HashMap<String, DoubleOptional>();
-		myCommands = new ArrayList<Command>();
 		commandFactory = new CommandFactory(language, this);
+		globalEnvironment = new Scope(0);
 	}
 	
 	public Parser(String userInput, ResourceBundle language) {
 		this(Arrays.asList(userInput.split("\\s+")), language);
-//		myInputs = new ArrayList<String>(Arrays.asList(userInput.split("\\s+"))); // to be filled with parsed userInput
-//		myVariables = new HashMap<String, DoubleOptional>();
-//		myCommands = new ArrayList<Command>();
-//		commandFactory = new CommandFactory(language, myFunctions);
 	}
 	
-	public List<Command> parse() throws Exception{ 		
+	public List<Command> parse() throws Exception{ 	
+		List<Command> myCommands = new ArrayList<Command>();
+		
 		List<String> myList = new ArrayList<String>(myInputs);
 		List<ExpressionNode> expressionTrees = new ArrayList<ExpressionNode>();
 		while (!myList.isEmpty()) {	
@@ -56,7 +51,7 @@ public class Parser {
 		myTrees = expressionTrees;
 		
 		for(ExpressionNode tree: myTrees){
-			tree.parse(this);
+			tree.parse(globalEnvironment);
 		}
 		return myCommands;
 	}
@@ -97,11 +92,11 @@ public class Parser {
 	
 	private ExpressionNode getNode(String name) throws Exception {
 		if(name.matches(REGEX.getString("Constant"))){
-			return new ValueNode(name);
+			return new NumberNode(name);
 		}
 		else if(name.matches(REGEX.getString("Variable"))){
 			if(!myVariables.containsKey(name)){
-				myVariables.put(name, new DoubleOptional());
+				myVariables.put(name, new Value());
 			}	
 			return new VariableNode(name, myVariables.get(name));
 		}
@@ -120,12 +115,8 @@ public class Parser {
 	public void setAgent(Agent turtle) { myTurtle = turtle; }
 	public Agent getAgent() { return myTurtle; }
 	
-	public Map<String, DoubleOptional> getVariables() { return myVariables; }
+	public Map<String, Value> getVariables() { return myVariables; }
 	public Map<String, UserDefinedFunction> getFunctions() { return myFunctions; }
 	public void addFunction(String functionName, UserDefinedFunction function) { myFunctions.put(functionName, function); }
-	
-	public void addCommand(Command c){
-		myCommands.add(c);
-	}
 
 }

@@ -21,7 +21,8 @@ public class BracketNode extends ExpressionNode{
 		bracketContents.add(element);
 	}
 	
-	public void parse(Parser p)throws Exception{
+	@Override
+	public void parse(Scope e)throws Exception{
 		for(ExpressionNode child: getChildren()){
 			if(child instanceof CommandNode){
 				addElement(((CommandNode) child).getCommand());
