@@ -11,8 +11,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import turtle.Agent;
 import turtle.State;
 import turtle.Turtle;
@@ -36,7 +37,10 @@ public class Display extends Window {
 	final private double DEFAULT_LINE_WIDTH = 2;
 	private double multFactor = 1;
 	private Turtle mainTurtle;
-
+	
+	private Shape myShape;
+	private ImagePattern myImagePattern;
+	
 	public Display(double width, double height, int lineSpacing) {
 		super(width, height);
 		this.width = width;
@@ -44,7 +48,6 @@ public class Display extends Window {
 		this.lineSpacing = lineSpacing;
 		myImageView.setFitHeight(TURTLE_WIDTH);
 		myImageView.setFitWidth(TURTLE_HEIGHT);
-		// myRect = new Rectangle(width, height, Color.WHITE);
 		myCanvas = new Canvas(width, height);
 		gc = myCanvas.getGraphicsContext2D();
 		gc.setFill(Color.WHITE);
@@ -61,7 +64,7 @@ public class Display extends Window {
 	public Scene init() {
 		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight());
 		super.getRoot().getChildren().add(myCanvas);
-		super.getRoot().getChildren().add(myImageView);
+		super.getRoot().getChildren().add(myShape);
 		return myScene;
 	}
 
@@ -101,8 +104,10 @@ public class Display extends Window {
 	}
 
 	public void setImage(Image image) {
-		myImageView.setImage(image);
-		// super.getRoot().getChildren().add(myImageView);
+		myImagePattern = new ImagePattern(image, myImagePattern.getX(), myImagePattern.getY(), TURTLE_WIDTH, TURTLE_HEIGHT, false);
+		//myShape.setFill(image);
+		 myImageView.setImage(image);
+		 super.getRoot().getChildren().add(myImageView);
 
 	}
 	

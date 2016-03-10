@@ -40,6 +40,7 @@ public class ControlPanel extends Window {
 	private final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private ResourceBundle myResource;
 	private VBox myPaletteBox;
+	private VBox myShapeBox;
 	private double COLOR_BOX_WIDTH = 90;
 	private double COLOR_BOX_HEIGHT = 30;
 	private double COMBO_BOX_WIDTH = 80;
@@ -75,7 +76,7 @@ public class ControlPanel extends Window {
 		
 		
 		Label lineColorLabel = new Label("Select Line Color");
-		lineColorPicker = initColorPicker(30, lineColorLabel);
+		lineColorPicker = initColorPicker(20, lineColorLabel);
 		lineColorPicker.setOnAction(e -> changeLineColor());
 		lineColorPicker.setValue(Color.BLACK);
 		grid.getChildren().add(lineColorPicker);
@@ -85,24 +86,33 @@ public class ControlPanel extends Window {
 		final FileChooser fileChooser = new FileChooser();
 		final Button openButton = new Button("Open a Picture...");
 
-		GridPane.setConstraints(openButton,  60,  2);
+		GridPane.setConstraints(openButton,  40,  2);
 		openButton.setOnAction(e -> handleOpen(fileChooser));
 		grid.getChildren().add(openButton);
 				
 		myComboBox = initComboBox();
 		Label resourceLabel = new Label("Select Language");
-		GridPane.setConstraints(myComboBox,80, 2);
-		GridPane.setConstraints(resourceLabel, 80,  0);
+		GridPane.setConstraints(myComboBox,55, 2);
+		GridPane.setConstraints(resourceLabel, 55,  0);
 		grid.getChildren().add(myComboBox);
 		grid.getChildren().add(resourceLabel);
 		// Defining the Submit button
 
 		myPaletteBox = initPaletteBox();
-		
-		//Label paletteLabel = new Label("palette Options");
-		GridPane.setConstraints(myPaletteBox, 120, 2);
+		Label paletteLabel = new Label("Palette Options");
+		GridPane.setConstraints(myPaletteBox, 70, 2);
 		grid.getChildren().add(myPaletteBox);
-
+		GridPane.setConstraints(paletteLabel,  70,  0);
+		grid.getChildren().add(paletteLabel);
+		
+		myShapeBox = initShapeBox();
+		Label shapeLabel = new Label("Shape Options");
+		GridPane.setConstraints(myShapeBox, 90, 2);
+		grid.getChildren().add(myShapeBox);
+		GridPane.setConstraints(shapeLabel,  90,  0);
+		grid.getChildren().add(shapeLabel);
+		
+		
 		super.getRoot().getChildren().add(grid);
 		return myScene;
 	}
@@ -189,16 +199,39 @@ public class ControlPanel extends Window {
 	     VBox.setVgrow(listView, Priority.ALWAYS);
 
 	     listView.setItems(indices);
-	     listView.setCellFactory( e-> handleCellCreation());
+	     listView.setCellFactory( e-> handlePCellCreation());
 
 		 box.setPrefWidth(palette_BOX_WIDTH);
 		 box.setPrefHeight(palette_BOX_HEIGHT);
 	     return box;
 	}
 
-	private ListCell<String> handleCellCreation(){
+	private VBox initShapeBox(){
+		ListView<String> listView = new ListView<>();
+				//super.getController().getShapes();
+		ObservableList<String> shapes = FXCollections.observableArrayList("0", "3", "4", "5", "6");
+		 VBox box = new VBox();
+	     box.getChildren().addAll(listView);
+	     VBox.setVgrow(listView, Priority.ALWAYS);
+
+	     listView.setItems(shapes);
+	     listView.setCellFactory( e-> handleShapeCellCreation());
+
+		 box.setPrefWidth(palette_BOX_WIDTH);
+		 box.setPrefHeight(palette_BOX_HEIGHT);
+	     return box;
+	}
+	
+	private ListCell<String> handlePCellCreation(){
 		
 		ListCell<String> myVal = new ColorRectCell();
+		return myVal;
+
+	}
+	
+	private ListCell<String> handleShapeCellCreation(){
+		
+		ListCell<String> myVal = new ShapeCell();
 		return myVal;
 
 	}
