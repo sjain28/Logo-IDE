@@ -23,80 +23,21 @@ import javafx.event.EventHandler;
 public class Main extends Application 	
 {
     public static final int FRAMES_PER_SECOND = 60;
-    private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-
-    private static Window display;
-    
-    private static Stage help;
     
 
     @Override
     public void start (Stage s) 
     {
-    	System.setProperty("glass.accessible.force", "false");
-
-    	//make sure to initialise backend too
-    	
-    	Controller myController = new Controller();
-    	
-        BorderPane mainPane = new BorderPane();
-        TextBox textBox = new TextBox(500,500);
-        textBox.setController(myController);
-        textBox.init();
-        mainPane.setBottom(textBox.getRoot());
-        BorderPane.setAlignment(textBox.getRoot(), Pos.CENTER);
-        
-        
-        PastCommands pastCommands = new PastCommands(200,200);
-        pastCommands.init();
-        mainPane.setRight(pastCommands.getRoot());
-        textBox.setPastCommandBox(pastCommands);
-        
-        
-//        VariableStates variableStates = new VariableStates(200,200);
-//        variableStates.init();
-//        variableStates.setController(myController);
-//        mainPane.setLeft(variableStates.getRoot());
-        
-        Scene scene = new Scene(mainPane, 1200, 700);
-        Display display = new Display(400,400, 50);
-        display.setController(myController);
-        display.getController().setActiveTurtle(display.getTurtle());
-        display.init();
-        
-        ControlPanel myControlPanel = new ControlPanel(scene, display);
-        myControlPanel.setController(myController);
-        myControlPanel.init();
-        mainPane.setTop(myControlPanel.getRoot());
-        
-        
-        mainPane.setCenter(display.getRoot());
-        
-        
-        s.setScene(scene);
-        s.show();
-        
-        
-        //technically this works, but it's a messy thing
-        //getHostServices().showDocument("http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/commands.php");
-        
-		//KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-		  //              e -> display.step(SECOND_DELAY));
+         
+ 		Controller myBackEnd =  new Controller();
+		GUI myFrontEnd = new GUI(FRAMES_PER_SECOND, myBackEnd);
+		// setting up the initial scene
+								
+		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		Scene scene = myFrontEnd.init();
+		s.setScene(scene);
+		s.show();
 		
-		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-				new EventHandler<ActionEvent>() {
-					public void handle(ActionEvent e) {
-						display.step(SECOND_DELAY);
-//						variableStates.step(SECOND_DELAY);
-					}
-				});
-		
-		
-		Timeline animation = new Timeline();
-		animation.setCycleCount(Timeline.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
     }
     
     public static void main (String[] args) {

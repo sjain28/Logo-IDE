@@ -7,19 +7,27 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ResourceBundle;
 
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class ControlPanel extends Window {
 
@@ -31,11 +39,15 @@ public class ControlPanel extends Window {
 	private ComboBox<String> myComboBox;
 	private final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private ResourceBundle myResource;
-	private ColorPicker imageBackgroundPicker;
+	private VBox myPalleteBox;
 	private double COLOR_BOX_WIDTH = 90;
 	private double COLOR_BOX_HEIGHT = 30;
 	private double COMBO_BOX_WIDTH = 80;
+	private double PALLETE_BOX_HEIGHT = 60;
+	private double PALLETE_BOX_WIDTH = 150;
 
+	
+	
 	public ControlPanel(Scene inScene, Display inDisplay) {
 		super(600, 150);
 		myDisplay = inDisplay;
@@ -85,6 +97,11 @@ public class ControlPanel extends Window {
 		grid.getChildren().add(resourceLabel);
 		// Defining the Submit button
 
+		myPalleteBox = initPalleteBox();
+		
+		//Label palleteLabel = new Label("Pallete Options");
+		GridPane.setConstraints(myPalleteBox, 120, 2);
+		grid.getChildren().add(myPalleteBox);
 
 		super.getRoot().getChildren().add(grid);
 		return myScene;
@@ -97,12 +114,6 @@ public class ControlPanel extends Window {
 
 	}
 	
-	private Object changeImageBackgroundColor() {
-		// TODO Auto-generated method stub
-		//myDisplay.
-		return null;
-	}
-
 	private void changeBackgroundColor() {
 		myDisplay.setBackgroundColor(backgroundColorPicker.getValue());
 		return;
@@ -165,6 +176,40 @@ public class ControlPanel extends Window {
 		getController().changeLanguage(myResource);
 	}
 
-	
+	private VBox initPalleteBox(){
+		
+		 ListView<String> listView = new ListView<String>();
+		 ObservableList<String> indices = FXCollections.observableArrayList("0,255,0", "255,0,0", "0,0,255", "255,255,255");
+				 
+		 VBox box = new VBox();
+	     Scene scene = new Scene(box, 200, 200);
+	     box.getChildren().addAll(listView);
+	     VBox.setVgrow(listView, Priority.ALWAYS);
 
+	     listView.setItems(indices);
+	     listView.setCellFactory( e-> handleCellCreation());
+	    		 
+	    	/*	 new Callback<ListView<String>, 
+	         ListCell<String>>() {
+	             @Override 
+	             public ListCell<String> call(ListView<String> list) {
+	                 return new ColorRectCell();
+	             }
+			*/
+		 box.setPrefWidth(PALLETE_BOX_WIDTH);
+		 box.setPrefHeight(PALLETE_BOX_HEIGHT);
+	     return box;
+	}
+
+	private ListCell<String> handleCellCreation(){
+		
+		ListCell<String> myVal = new ColorRectCell();
+		return myVal;
+
+	}
 }
+ 
+
+
+ 
+
