@@ -20,4 +20,15 @@ public class BracketNode extends ExpressionNode{
 	public void addElement(Object element){
 		bracketContents.add(element);
 	}
+	
+	public void parse(Parser p)throws Exception{
+		for(ExpressionNode child: getChildren()){
+			if(child instanceof CommandNode){
+				addElement(((CommandNode) child).getCommand());
+			}else{
+				addElement(child.getValue());
+			}
+			child.parse(p);
+		}
+	}
 }
