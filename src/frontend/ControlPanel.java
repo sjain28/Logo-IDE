@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -68,19 +69,17 @@ public class ControlPanel extends Window {
 		// Defining the Name text field
 		
 		Label backgroundLabel = new Label("Select Background Color");
-		backgroundColorPicker = initColorPicker(10, backgroundLabel);
-		backgroundColorPicker.setValue(Color.WHITE);
+		backgroundColorPicker = initColorPicker(10, backgroundLabel, Color.WHITE);
 		backgroundColorPicker.setOnAction(e -> changeBackgroundColor());
 		grid.getChildren().add(backgroundColorPicker);
 		grid.getChildren().add(backgroundLabel);
 		
 		
 		Label lineColorLabel = new Label("Select Line Color");
-		lineColorPicker = initColorPicker(20, lineColorLabel);
+		lineColorPicker = initColorPicker(20, lineColorLabel, Color.BLACK);
 		lineColorPicker.setOnAction(e -> changeLineColor());
-		lineColorPicker.setValue(Color.BLACK);
-		grid.getChildren().add(lineColorPicker);
-		grid.getChildren().add(lineColorLabel);
+
+
 		
 		
 		final FileChooser fileChooser = new FileChooser();
@@ -158,12 +157,13 @@ public class ControlPanel extends Window {
 
 	}
 
-	private ColorPicker initColorPicker(int row, Label inLabel){
+	private ColorPicker initColorPicker(int row, Label inLabel, Color myColor){
 		ColorPicker myColorPicker = new ColorPicker();
 		GridPane.setConstraints(myColorPicker,  row,  2);
 		GridPane.setConstraints(inLabel, row, 0);
 		myColorPicker.setPrefWidth(COLOR_BOX_WIDTH);
 		myColorPicker.setPrefHeight(COLOR_BOX_HEIGHT);
+		myColorPicker.setValue(myColor);
 		return myColorPicker;
 	}
 	
@@ -235,7 +235,7 @@ public class ControlPanel extends Window {
 		return myVal;
 
 	}
-	
+
 }
  
 
