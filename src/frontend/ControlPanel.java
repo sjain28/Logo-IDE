@@ -1,16 +1,11 @@
 package frontend;
 
-import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -24,11 +19,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class ControlPanel extends Window {
 
@@ -69,25 +61,16 @@ public class ControlPanel extends Window {
 		// Defining the Name text field
 		
 		Label backgroundLabel = new Label("Select Background Color");
-		backgroundColorPicker = initColorPicker(10, backgroundLabel, Color.WHITE);
+		backgroundColorPicker = initColorPicker(10, backgroundLabel, Color.WHITE, grid);
 		backgroundColorPicker.setOnAction(e -> changeBackgroundColor());
-		grid.getChildren().add(backgroundColorPicker);
-		grid.getChildren().add(backgroundLabel);
-		
-		
+
 		Label lineColorLabel = new Label("Select Line Color");
-		lineColorPicker = initColorPicker(20, lineColorLabel, Color.BLACK);
+		lineColorPicker = initColorPicker(20, lineColorLabel, Color.BLACK, grid);
 		lineColorPicker.setOnAction(e -> changeLineColor());
 
-
-		
-		
 		final FileChooser fileChooser = new FileChooser();
-		final Button openButton = new Button("Open a Picture...");
-
-		GridPane.setConstraints(openButton,  40,  2);
+		final Button openButton = initButton("Open a Picture...", grid);
 		openButton.setOnAction(e -> handleOpen(fileChooser));
-		grid.getChildren().add(openButton);
 				
 		myComboBox = initComboBox();
 		Label resourceLabel = new Label("Select Language");
@@ -157,24 +140,24 @@ public class ControlPanel extends Window {
 
 	}
 
-	private ColorPicker initColorPicker(int row, Label inLabel, Color myColor){
+	private ColorPicker initColorPicker(int row, Label inLabel, Color myColor, GridPane grid){
 		ColorPicker myColorPicker = new ColorPicker();
 		GridPane.setConstraints(myColorPicker,  row,  2);
 		GridPane.setConstraints(inLabel, row, 0);
 		myColorPicker.setPrefWidth(COLOR_BOX_WIDTH);
 		myColorPicker.setPrefHeight(COLOR_BOX_HEIGHT);
 		myColorPicker.setValue(myColor);
+		grid.getChildren().add(myColorPicker);
+		grid.getChildren().add(inLabel);
 		return myColorPicker;
 	}
 	
 	private ComboBox<String> initComboBox() {
 		ComboBox<String> thisComboBox = new ComboBox<String>();
-
 		thisComboBox.getItems().addAll("Chinese", "English", "French", "German", "Italian", "Portugese", "Russian",
 				"Spanish", "Syntax");
 		thisComboBox.setValue("English");
 		thisComboBox.setOnAction(e -> handleCombo());
-
 		thisComboBox.setPromptText("Select Language:");
 		thisComboBox.setPrefWidth(COMBO_BOX_WIDTH);
 		thisComboBox.setPrefHeight(COLOR_BOX_HEIGHT);
@@ -234,6 +217,13 @@ public class ControlPanel extends Window {
 		ListCell<String> myVal = new ShapeCell();
 		return myVal;
 
+	}
+	
+	private Button initButton(String myString, GridPane grid){
+		Button myButton = new Button(myString);
+		GridPane.setConstraints(myButton,  40,  2);
+		grid.getChildren().add(myButton);
+		return myButton;
 	}
 
 }
