@@ -95,7 +95,7 @@ public class Controller {
 		// the input needs to be added in the form "r,g,b" where r g and b are 
 		// ints between 0 and 255
 		String element = String.valueOf(r) + "," + String.valueOf(g) + "," + String.valueOf(b);
-		if(myPalette.getItems().size() < index){
+		if(myPalette.getItems().size() > index){
 			myPalette.getItems().set(index, element);
 		} else{
 			myPalette.getItems().add(element);
