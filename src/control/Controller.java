@@ -19,9 +19,7 @@ import turtle.Turtle;
 
 public class Controller {
 	public static final String DEFAULT_LANGUAGE = "resources.languages/English";
-
     private ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_LANGUAGE);
-	
 	private Agent myActiveTurtle;
 	private List<Agent> myTurtles;
 	private Map<String, Double> myVariables;
@@ -65,22 +63,20 @@ public class Controller {
 	}
 	
 	public void makeParser(String commandString) {
-		parser = new Parser(commandString, myResources);
+		parser = new Parser(commandString, myResources, this);
 		myActiveTurtle.init();
 		parser.addTurtle(myActiveTurtle);
+		parser.addActive(0);
 		Turtle second = new Turtle(0, new Point2D(10,10), true, true, Color.BLUE, 3, 0);
 		parser.addTurtle(second);
+		parser.addActive(1);
 		
 		try {
 			List<Command> cmd = parser.parse();
 			for (Command c : cmd) {
 				c.evaluate();
 			}
-			
-			for(State s: ((Turtle) myActiveTurtle).getStates()){
-				System.out.println(s.getLocation() + "  " + s.getOrientation());
-			}	
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			ErrorHandler eh = new ErrorHandler(50, 50);
@@ -93,7 +89,7 @@ public class Controller {
 		myResources = newLanguage;
 	}
 	
-	public void changePalette(int index, int r, int g, int b){
+	public void setPallette(int index, int r, int g, int b){
 
 		// the input needs to be added in the form "r,g,b" where r g and b are 
 		// ints between 0 and 255
@@ -108,7 +104,7 @@ public class Controller {
 	// debugging method used to show that it works. Changing
 	// a value in the set background will change the zeroth position
 	// in the palette
-	public void changePalette(Color myColor){
+	public void setPallette(Color myColor){
 		int index = 0;
 		// the input needs to be added in the form "r,g,b" where r g and b are 
 		// doubles

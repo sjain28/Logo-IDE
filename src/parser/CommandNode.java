@@ -1,10 +1,7 @@
 package parser;
 import java.util.ArrayList;
-import java.util.List;
-
 import commands.Command;
-import commands.ControlCommand;
-import commands.TurtleCommand;
+
 
 public class CommandNode extends ExpressionNode {
 
@@ -35,8 +32,6 @@ public class CommandNode extends ExpressionNode {
 		}
 		
 		getCommand().setParams(params);
-		
-
 		
 		if(hasParent() && (getParent() instanceof BracketNode)){
 			return;

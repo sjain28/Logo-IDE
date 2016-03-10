@@ -35,7 +35,6 @@ public abstract class Command {
 		}
 	}
 	
-	
 	protected void initParams(List<Object> params){	
 		for(int i = 0; i < numParams; i++){
 			myParams.add((DoubleOptional) params.get(i));

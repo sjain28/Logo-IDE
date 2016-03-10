@@ -3,7 +3,6 @@ package turtle;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Point2D;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
 
 public class Turtle implements Agent{
@@ -35,7 +34,7 @@ public class Turtle implements Agent{
 		myStates.add(startingState);
 	}
 
-	public Turtle copy() {
+	private Turtle copy() {
 		return new Turtle(myOrientation, myLocation, penIsDown, isVisible, myPenColor, myLineWidth, myTime);
 	}
 	
@@ -133,12 +132,10 @@ public class Turtle implements Agent{
 		return this.penIsDown;
 	}
 	
-	
 	@Override
 	public boolean isVisible() {
 		return isVisible;
 	}
-
 
 	@Override
 	public Paint getPenColor() {
@@ -158,17 +155,7 @@ public class Turtle implements Agent{
 	public Iterable<State> getStates(){
 		return (Iterable) myStates;
 	}
-	
-	public void reset(){
-		myOrientation = startingState.getOrientation();
-		myLocation = startingState.getLocation();
-		myTime = startingState.getTime();
-		myLineWidth = startingState.getLineWidth();
-		myPenColor = startingState.getPenColor();
-		this.penIsDown = startingState.isDown();
-		this.isVisible = startingState.isVisible();	
-	}
-	
+
 	public void clear(){
 		this.setLocation(new Point2D(0,0));
 		myStates = new ArrayList<>();
