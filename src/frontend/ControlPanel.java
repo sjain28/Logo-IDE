@@ -39,12 +39,12 @@ public class ControlPanel extends Window {
 	private ComboBox<String> myComboBox;
 	private final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private ResourceBundle myResource;
-	private VBox myPalleteBox;
+	private VBox myPaletteBox;
 	private double COLOR_BOX_WIDTH = 90;
 	private double COLOR_BOX_HEIGHT = 30;
 	private double COMBO_BOX_WIDTH = 80;
-	private double PALLETE_BOX_HEIGHT = 60;
-	private double PALLETE_BOX_WIDTH = 150;
+	private double palette_BOX_HEIGHT = 60;
+	private double palette_BOX_WIDTH = 150;
 
 	
 	
@@ -97,11 +97,11 @@ public class ControlPanel extends Window {
 		grid.getChildren().add(resourceLabel);
 		// Defining the Submit button
 
-		myPalleteBox = initPalleteBox();
+		myPaletteBox = initPaletteBox();
 		
-		//Label palleteLabel = new Label("Pallete Options");
-		GridPane.setConstraints(myPalleteBox, 120, 2);
-		grid.getChildren().add(myPalleteBox);
+		//Label paletteLabel = new Label("palette Options");
+		GridPane.setConstraints(myPaletteBox, 120, 2);
+		grid.getChildren().add(myPaletteBox);
 
 		super.getRoot().getChildren().add(grid);
 		return myScene;
@@ -111,11 +111,14 @@ public class ControlPanel extends Window {
 	@Override
 	public void step(double elapsedTime) {
 		// TODO Auto-generated method stub
-
+		//updateColorpalette();
+		myPaletteBox.getChildren().removeAll();
+		myPaletteBox.getChildren().addAll(super.getController().getPalette());
 	}
 	
 	private void changeBackgroundColor() {
 		myDisplay.setBackgroundColor(backgroundColorPicker.getValue());
+		getController().changePalette(backgroundColorPicker.getValue());
 		return;
 	}
 
@@ -137,7 +140,6 @@ public class ControlPanel extends Window {
 				String fileLocation = file.toURI().toString();
 				Image myImage = new Image(fileLocation);
 				myDisplay.setImage(myImage);
-				// System.out.println(fileLocation);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -176,28 +178,21 @@ public class ControlPanel extends Window {
 		getController().changeLanguage(myResource);
 	}
 
-	private VBox initPalleteBox(){
+	private VBox initPaletteBox(){
 		
-		 ListView<String> listView = new ListView<String>();
+		 ListView<String> listView = super.getController().getPalette();
+		 //ditch magic variables later
 		 ObservableList<String> indices = FXCollections.observableArrayList("0,255,0", "255,0,0", "0,0,255", "255,255,255");
 				 
 		 VBox box = new VBox();
-	     Scene scene = new Scene(box, 200, 200);
 	     box.getChildren().addAll(listView);
 	     VBox.setVgrow(listView, Priority.ALWAYS);
 
 	     listView.setItems(indices);
 	     listView.setCellFactory( e-> handleCellCreation());
-	    		 
-	    	/*	 new Callback<ListView<String>, 
-	         ListCell<String>>() {
-	             @Override 
-	             public ListCell<String> call(ListView<String> list) {
-	                 return new ColorRectCell();
-	             }
-			*/
-		 box.setPrefWidth(PALLETE_BOX_WIDTH);
-		 box.setPrefHeight(PALLETE_BOX_HEIGHT);
+
+		 box.setPrefWidth(palette_BOX_WIDTH);
+		 box.setPrefHeight(palette_BOX_HEIGHT);
 	     return box;
 	}
 
@@ -207,6 +202,7 @@ public class ControlPanel extends Window {
 		return myVal;
 
 	}
+	
 }
  
 
