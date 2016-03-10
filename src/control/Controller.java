@@ -27,6 +27,7 @@ public class Controller {
 	private Map<String, Double> myVariables;
 	private Map<String, String> variableStates;
 	private Parser parser;
+	
 	private ListView<String> myPalette = new ListView<>();
 
 	public Controller() {
@@ -128,6 +129,14 @@ public class Controller {
 		return myPalette;
 	}
 	
-	
+	public Color getColor(int index){
+		// currently returns white on error - could have try catch block instead
+		// possible index out of bounds error
+		if(myPalette.getItems().size() < index){
+			return Color.web("rgb(" + myPalette.getItems().get(index) + ")");
+		} else{
+			return Color.WHITE;
+		}
+	}
 	
 }
