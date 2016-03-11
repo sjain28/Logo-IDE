@@ -1,12 +1,8 @@
 package commands;
 
 import javafx.geometry.Point2D;
-<<<<<<< HEAD
-import value.Value;
-=======
-import parser.DoubleOptional;
 import turtle.Agent;
->>>>>>> backend
+import value.Value;
 
 public class SetTowards extends TurtleCommand{
 	
@@ -15,15 +11,9 @@ public class SetTowards extends TurtleCommand{
 	}
 
 	@Override
-<<<<<<< HEAD
-	public double evaluate() {
+	public double doCommand(Agent a) {
 		Value x = (Value) getParams().get(0);
 		Value y = (Value) getParams().get(1);
-=======
-	public double doCommand(Agent a) {
-		DoubleOptional x = (DoubleOptional) getParams().get(0);
-		DoubleOptional y = (DoubleOptional) getParams().get(1);
->>>>>>> backend
 		
 		double first = a.getOrientation();
 		Point2D toward = new Point2D(x.getValue(), y.getValue());

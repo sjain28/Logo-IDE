@@ -18,17 +18,9 @@ public class Repeat extends BlockCommand {
 	}
 
 	@Override
-<<<<<<< HEAD
 	protected void initParams(List<Object> params) {
 			numTimes = (Value) params.get(0);
 			commands = ((List <Command>)params.get(1));
-=======
-	protected void initParams(List<Object> params)  {
-		
-			numTimes = (DoubleOptional) params.get(0);
-			commands = ((List <Command>)params.get(1));
-
->>>>>>> backend
 	}
 
 	@Override

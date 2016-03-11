@@ -1,5 +1,6 @@
 package commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import turtle.Agent;
@@ -16,9 +17,11 @@ public class AskWith extends Command{
 	@Override
 	public double evaluate() {
 		double value = -1;
-		getParser().getActiveTurtles().clear();
-		for(Agent t: getParser().getAllTurtles()){
-			getParser().getActiveTurtles().add(t);
+		ArrayList<Agent> active = new ArrayList(getEnvironment().getActiveTurtles());
+		getEnvironment().getActiveTurtles().clear();
+		
+		for(Agent t: getEnvironment().getTurtles()){
+			getEnvironment().getActiveTurtles().add(t);
 			value = 0;
 			
 			for(Command c: predicate){
@@ -26,14 +29,14 @@ public class AskWith extends Command{
 			}
 			
 			if(value== 0){
-				getParser().getActiveTurtles().remove(t);
+				getEnvironment().getActiveTurtles().remove(t);
 			}
 		}
 		
 		for(Command c: contents){
 			value = c.evaluate();
 		}
-		
+		getEnvironment().setActiveTurtles(active);
 		setValue(value);
 		return value;
 	}

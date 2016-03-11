@@ -3,8 +3,8 @@ package commands;
 import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
-import parser.DoubleOptional;
 import turtle.Turtle;
+import value.Value;
 
 public class Tell extends Command{
 	private List<Value> turtleIndices; 
@@ -15,17 +15,17 @@ public class Tell extends Command{
 	
 	@Override
 	public double evaluate() {
-		getParser().getActiveTurtles().clear(); //Final implementation: Change getParser() to getEnvironment().getGlobalActive()
+		getEnvironment().getActiveTurtles().clear(); 
 		int index = -1;
-		int numTurtles = getParser().getAllTurtles().size();
+		int numTurtles = getEnvironment().getTurtles().size();
 		for(Value d: turtleIndices){
 			index = d.getValue().intValue() -1; //minus one because turtle 1 is in 0th position of turtle list
 			if(index >= numTurtles){
 				for(int i = numTurtles; i <= index; i++){
-					getParser().addTurtle(new Turtle(0.0, new Point2D(0,0), true, true, Color.BLACK, 3.0, 0));	 //getParser().getGlobalAll().add(..)
+					getEnvironment().makeNewTurtle(new Turtle(0.0, new Point2D(0,0), true, true, Color.BLACK, 3.0, 0));					
 				}
 			}
-			getParser().addActive(index); //getEnvironment().getGlobalActive()
+			getEnvironment().addActiveTurtle(getEnvironment().getTurtles().get(d.getValue().intValue())); //getEnvironment().getGlobalActive()
 		}
 		setValue(index);
 		return index;
