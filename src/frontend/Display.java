@@ -93,7 +93,8 @@ public class Display extends Window {
 	public void drawGrid(int lineSpacing) {
 		
 		Paint saveCol = gc.getStroke();
-		gc.setStroke(Color.BLACK);
+		gc.setStroke(Color.GREY);
+		
 		// draw vertical lines
 		if(lineSpacing/multFactor > 10){
 			
@@ -121,7 +122,7 @@ public class Display extends Window {
 		}
 		if( outOfBounds() ){
 			adjustGridScale();
-		}
+		} 
 		
 		if (mainTurtle != null) {
 			setImageView();
@@ -143,6 +144,9 @@ public class Display extends Window {
 		if( !(myImageView.getFitWidth() < 4 || myImageView.getFitHeight() < 4) ){
 			myImageView.setFitWidth(myImageView.getFitWidth()/2);
 			myImageView.setFitHeight(myImageView.getFitHeight()/2);
+		}
+		if(mainTurtle.getLocation().getX() == 0 && mainTurtle.getLocation().getY() == 0){
+			multFactor = 1;
 		}
 	}
 	

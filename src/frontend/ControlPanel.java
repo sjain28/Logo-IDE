@@ -107,9 +107,8 @@ public class ControlPanel extends Window {
 		//updateColorpalette();
 		myPaletteBox.getChildren().removeAll();
 		myPaletteBox.getChildren().addAll(super.getController().getPalette());
-		//Paint myPaint = new Paint();
 		//Color myColor = new Color(getController().getActiveTurtle().getPenColor());
-		//lineColorPicker.setValue(getController().getActiveTurtle().getPenColor());
+		lineColorPicker.setValue(Color.valueOf(getController().getActiveTurtle().getPenColor().toString()));
 	}
 	
 	private void changeBackgroundColor() {
