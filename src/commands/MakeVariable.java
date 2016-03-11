@@ -14,9 +14,10 @@ public class MakeVariable extends ControlCommand {
 	}
 
 	@Override
-	protected void initParams(List<Object> params) {
-		variable = (DoubleOptional) params.get(0);
-		value = (DoubleOptional)params.get(1);
+	protected void initParams(List<Object> params)  {
+			variable = (DoubleOptional) params.get(0);
+			value = (DoubleOptional)params.get(1);
+		
 	}
 
 	@Override
