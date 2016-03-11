@@ -1,54 +1,34 @@
 package control;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import commands.Command;
 import frontend.ErrorHandler;
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+import parser.Environment;
 import parser.Parser;
-
 import javafx.scene.control.ListView;
 import turtle.Agent;
-import turtle.Turtle;
 
 
 public class Controller {
 	public static final String DEFAULT_LANGUAGE = "resources.languages/English";
     private ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_LANGUAGE);
 
-//	private Agent myActiveTurtle;
-//	private List<Agent> myTurtles;
-//	private Map<String, Double> myVariables;
-	private Map<String, String> variableStates;
 	private Parser parser;
+	private Environment curEnv;
 	
 	private ListView<String> myPalette = new ListView<>();
 	private Color backgroundColor = Color.WHITE;
 	
 	public Controller() {
-		variableStates = new HashMap<String, String>();
 		parser = new Parser(myResources);
-//		myTurtles = new ArrayList<Agent>();
-//		myVariables = new HashMap<String, Double>();
+		curEnv = parser.getGlobalEnvironment(); // Only global environment at the moment
 	}
-
-	
-//	public void setActiveTurtle(Agent turtle) {
-//		myActiveTurtle = turtle;
-//		myTurtles.add(turtle);
-//	}
-	
 	
 	public String getProperty(String propertyKey) {
 		return myResources.getString(propertyKey);
-	}
-	
-	public Map<String, String> getVariableStates() {
-		return variableStates;
 	}
 	
 	public void makeParser(String commandString) {		
@@ -96,6 +76,18 @@ public class Controller {
 
 	public Agent getTurtle() {  // TODO: FOR TESTING, SHOULD BE REMOVED AND CHANGED LATER TO MULTIPLE TURTLES
 		return parser.getTurtle();
+	}
+	
+	public List<Agent> getAllTurtles() { // The proper method that should be called, allows for multiple turtles
+		return curEnv.getTurtles();
+	}
+	
+	public List<Agent> getActiveTurtles() {
+		return curEnv.getActiveTurtles();
+	}
+	
+	public Map<String, Double> getVariables() { 
+		return curEnv.getVariables(); 
 	}
 	
 	public void setPallette(int index, int r, int g, int b){
