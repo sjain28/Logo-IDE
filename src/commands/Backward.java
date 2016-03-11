@@ -1,6 +1,6 @@
 package commands;
 
-import parser.DoubleOptional;
+import value.Value;
 import turtle.Agent;
 
 public class Backward extends TurtleCommand{
@@ -11,7 +11,7 @@ public class Backward extends TurtleCommand{
 	
 	@Override
 	public double doCommand(Agent a) {
-		DoubleOptional distance = (DoubleOptional) getParams().get(0);
+		Value distance = (Value) getParams().get(0);
 		a.move(-distance.getValue());
 		super.setValue(distance.getValue());
 		return distance.getValue();

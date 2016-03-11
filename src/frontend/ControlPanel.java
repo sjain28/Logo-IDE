@@ -121,7 +121,7 @@ public class ControlPanel extends Window {
 	}
 
 	private void changeLineColor() {
-		getController().getActiveTurtle().setPenColor(lineColorPicker.getValue());
+//TODO:	getController().getActiveTurtle().setPenColor(lineColorPicker.getValue());
 		return;
 	}
 

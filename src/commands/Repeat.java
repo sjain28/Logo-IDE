@@ -2,10 +2,10 @@ package commands;
 
 import java.util.List;
 
-import parser.DoubleOptional;
+import value.Value;
 
-public class Repeat extends ControlCommand {
-	private DoubleOptional numTimes;
+public class Repeat extends BlockCommand {
+	private Value numTimes;
 	private List<Command> commands;
 	
 	
@@ -18,11 +18,9 @@ public class Repeat extends ControlCommand {
 	}
 
 	@Override
-	protected void initParams(List<Object> params)  {
-		
-			numTimes = (DoubleOptional) params.get(0);
+	protected void initParams(List<Object> params) {
+			numTimes = (Value) params.get(0);
 			commands = ((List <Command>)params.get(1));
-
 	}
 
 	@Override
