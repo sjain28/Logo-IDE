@@ -25,6 +25,7 @@ public class ColorRectCell extends ListCell<String>{
 	        	 this.setGraphicTextGap(-RECT_WIDTH);
 	         }
 		}
+		
 }
 	 
 

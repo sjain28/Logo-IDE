@@ -1,6 +1,6 @@
 package commands;
 
-import parser.DoubleOptional;
+import value.Value;
 
 public class Minus extends Command{
 	
@@ -10,7 +10,7 @@ public class Minus extends Command{
 	
 	@Override
 	public double evaluate() {
-		DoubleOptional term1 = (DoubleOptional) getParams().get(0);
+		Value term1 = (Value) getParams().get(0);
 		double result = -term1.getValue();
 		super.setValue(result);
 		return result;

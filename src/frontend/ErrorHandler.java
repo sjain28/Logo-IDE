@@ -19,6 +19,7 @@ public class ErrorHandler extends Window {
 	private Button closeDialog;
 	
 	private static final String PROPERTIES_LOCATION = "resources/errors/errors.properties";
+	private static final String ERROR = "COULD NOT FIND ERROR LABEL IN PROPERTIES";
 	
 	private static double SCENE_WIDTH = 450;
 	private static double BORDERS = 30;
@@ -28,21 +29,13 @@ public class ErrorHandler extends Window {
 	
 	
 	//literally copy/paste job from last thing, please refactor to make it compatible
-	public ErrorHandler(double width, double height)
-	{
-		
+	public ErrorHandler(double width, double height){
 		super(width, height);
-		
-		
 		stage = new Stage();
-		try {
+		try{
 			errorProperties = openPropertiesFile(PROPERTIES_LOCATION);
-		} catch (Exception e) {
-			//do nothing
-		}
-		
+		}catch(Exception e){}
 	}
-	
 
 	public void openError(String errorLabel)
 	{
@@ -50,7 +43,7 @@ public class ErrorHandler extends Window {
 		
 		// Only hardcoded String, in case properties fail
 		if ( errorString == null )
-			errorString = "COULD NOT FIND ERROR LABEL IN PROPERTIES";
+			errorString = ERROR;
 		
 		openDialog(errorString);
 	}
@@ -60,7 +53,7 @@ public class ErrorHandler extends Window {
 		String errorString = errorProperties.getProperty(errorLabel);
 		
 		if ( errorString == null )
-			errorString = "COULD NOT FIND ERROR LABEL IN PROPERTIES";
+			errorString = ERROR;
 		else 
 			errorString = String.format(errorString, arg1);
 		
@@ -95,17 +88,14 @@ public class ErrorHandler extends Window {
 		stage.close();
 	}
 
-
 	@Override
 	public Scene init() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	@Override
 	public void step(double elapsedTime) {
-		// TODO Auto-generated method stub
 		
 	}
 }

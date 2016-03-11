@@ -1,11 +1,8 @@
 package commands;
 
-import control.Environment;
+public abstract class BlockCommand extends Command {
 
-public class BlockCommand {
-	
 	public BlockCommand(){
 		
 	}
-
 }

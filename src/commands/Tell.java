@@ -3,11 +3,11 @@ package commands;
 import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
-import parser.DoubleOptional;
 import turtle.Turtle;
+import value.Value;
 
 public class Tell extends Command{
-	private List<DoubleOptional> turtleIndices; 
+	private List<Value> turtleIndices; 
 	
 	public Tell(){
 		setNumParams(1);
@@ -15,17 +15,17 @@ public class Tell extends Command{
 	
 	@Override
 	public double evaluate() {
-		getParser().getActiveTurtles().clear();
-		double index = -1;
-		for(DoubleOptional d: turtleIndices){
-			index = d.getValue();
-			if((int) index >= getParser().getAllTurtles().size()){
-				for(int i = getParser().getAllTurtles().size(); i < index; i++){
-					getParser().addTurtle(new Turtle(0.0, new Point2D(0,0), true, true, Color.BLACK, 3.0, 0));	
+		getEnvironment().getActiveTurtles().clear(); 
+		int index = -1;
+		int numTurtles = getEnvironment().getTurtles().size();
+		for(Value d: turtleIndices){
+			index = d.getValue().intValue() -1; //minus one because turtle 1 is in 0th position of turtle list
+			if(index >= numTurtles){
+				for(int i = numTurtles; i <= index; i++){
+					getEnvironment().makeNewTurtle(new Turtle(0.0, new Point2D(0,0), true, true, Color.BLACK, 3.0, 0));					
 				}
-			}else{
-				getParser().addActive((int) index);
 			}
+			getEnvironment().addActiveTurtle(getEnvironment().getTurtles().get(d.getValue().intValue())); //getEnvironment().getGlobalActive()
 		}
 		setValue(index);
 		return index;
@@ -33,7 +33,7 @@ public class Tell extends Command{
 	
 	@Override
 	protected void initParams(List<Object> params){
-		turtleIndices = (List<DoubleOptional>) params.get(0);
+		turtleIndices = (List<Value>) params.get(0);
 	}
 
 }
