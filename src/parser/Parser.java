@@ -122,35 +122,19 @@ public class Parser {
 //	public Map<String, UserDefinedFunction> getFunctions() { return myFunctions; }
 //	public void addFunction(String functionName, UserDefinedFunction function) { myFunctions.put(functionName, function); }
 
-	//	public void setAgent(Agent turtle) { myTurtle = turtle; }
 	public Agent getTurtle() { return globalEnvironment.getActiveTurtles().get(0); } // TODO: Delete this method, implement multiple agents
 	
-		
-//	public void addCommand(Command c){
-//		myCommands.add(c);
-//	}
-//	
-//	public List<Agent> getAllTurtles(){
-//		return allTurtles;
-//	}
-//	
-//	public List<Agent> getActiveTurtles(){
-//		return activeTurtles;
-//	}
-//	
-//	public void addTurtle(Agent t){
-//		allTurtles.add(t);
-//	}
-//	
-//	public void addActive(int index){
-//		Agent a = allTurtles.get(index);
-//		if(!activeTurtles.contains(a)){
-//			activeTurtles.add(a);
-//		}
-//	}
-//	
-//	protected Controller getController(){
-//		return myController;
-//	}
+	public List<Agent> getAllTurtles(){
+		return globalEnvironment.getTurtles();
+	}
+	
+	public List<Agent> getActiveTurtles(){
+		return globalEnvironment.getActiveTurtles();
+	}
+	
+	public Environment getGlobalEnvironment() {
+		return globalEnvironment;
+	}
+
 
 }
