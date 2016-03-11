@@ -15,17 +15,17 @@ public class Tell extends Command{
 	
 	@Override
 	public double evaluate() {
-		getParser().getActiveTurtles().clear();
+		getParser().getActiveTurtles().clear(); //Final implementation: Change getParser() to getEnvironment().getGlobalActive()
 		int index = -1;
 		int numTurtles = getParser().getAllTurtles().size();
 		for(DoubleOptional d: turtleIndices){
 			index = d.getValue().intValue() -1; //minus one because turtle 1 is in 0th position of turtle list
 			if(index >= numTurtles){
 				for(int i = numTurtles; i <= index; i++){
-					getParser().addTurtle(new Turtle(0.0, new Point2D(0,0), true, true, Color.BLACK, 3.0, 0));	
+					getParser().addTurtle(new Turtle(0.0, new Point2D(0,0), true, true, Color.BLACK, 3.0, 0));	 //getParser().getGlobalAll().add(..)
 				}
 			}
-			getParser().addActive(index);
+			getParser().addActive(index); //getEnvironment().getGlobalActive()
 		}
 		setValue(index);
 		return index;

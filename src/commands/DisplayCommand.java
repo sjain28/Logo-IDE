@@ -1,11 +1,21 @@
 package commands;
 
-public class DisplayCommand extends Command{
+import control.Controller;
 
+public abstract class DisplayCommand extends Command{
+	private Controller myController;
+	
 	@Override
 	public double evaluate() {
-		// TODO Auto-generated method stub
-		return 0;
+		return doCommand(myController);
 	}
+	
+	public void setController(Controller c){
+		if(myController == null){
+			myController = c;
+		}
+	}
+	
+	public abstract double doCommand(Controller c);
 
 }

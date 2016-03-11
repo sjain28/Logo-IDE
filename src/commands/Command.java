@@ -68,7 +68,7 @@ public abstract class Command {
 	public void setParser(Parser parser) {
 		myParser = parser;
 	}
-	protected Parser getParser() {
+	public Parser getParser() {
 		return myParser;
 	}
 }
