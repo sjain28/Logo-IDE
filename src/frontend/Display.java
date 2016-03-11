@@ -91,7 +91,9 @@ public class Display extends Window {
 //================================================================================
 	// might make this private
 	public void drawGrid(int lineSpacing) {
-		gc.setStroke(Color.GREY);
+		
+		Paint saveCol = gc.getStroke();
+		gc.setStroke(Color.BLACK);
 		// draw vertical lines
 		if(lineSpacing/multFactor > 10){
 			
@@ -103,6 +105,7 @@ public class Display extends Window {
 				gc.strokeLine(0, i, width, i);
 			}
 		}
+		gc.setStroke(saveCol);
 	}
 //===================================================================================
 	public void setImage(Image image) {

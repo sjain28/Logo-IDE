@@ -140,6 +140,21 @@ public class Controller {
 		}
 	}
 	
+	public int getColorIndex(Color c){
+		int r = (int)(c.getRed()*255);
+		int g = (int)(c.getGreen()*255);
+		int b = (int)(c.getBlue()*255);
+		String myComparer = "rgb(" + String.valueOf(r) + "," + String.valueOf(g) + "," + String.valueOf(b) + ")";
+		int i = 0;
+		for( String element: myPalette.getItems() ){
+			if(myComparer.equals(element)){
+				return i;
+			}
+			i++;
+		}
+		return -1;
+	}
+	
 	public void setBackGroundColor(Color c){
 		backgroundColor = c;
 	}
