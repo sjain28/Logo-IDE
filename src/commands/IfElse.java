@@ -2,10 +2,10 @@ package commands;
 
 import java.util.List;
 
-import parser.DoubleOptional;
+import value.Value;
 
-public class IfElse extends ControlCommand {
-	private DoubleOptional myExpr;
+public class IfElse extends BlockCommand {
+	private Value myExpr;
 	private List<Command> myIfCommands;
 	private List<Command> myElseCommands;
 
@@ -18,6 +18,12 @@ public class IfElse extends ControlCommand {
 	}
 
 	@Override
+<<<<<<< HEAD
+	protected void initParams(List<Object> params) {
+			myExpr = (Value) params.get(0);
+			myIfCommands = (List<Command>) params.get(1);
+			myElseCommands = (List<Command>) params.get(2);
+=======
 
 	protected void initParams(List<Object> params) {
 		
@@ -25,6 +31,7 @@ public class IfElse extends ControlCommand {
 			myIfCommands = (List<Command>) params.get(1);
 			myElseCommands = (List<Command>) params.get(2);
 		
+>>>>>>> backend
 	}
 
 	@Override

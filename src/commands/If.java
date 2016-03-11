@@ -2,9 +2,9 @@ package commands;
 
 import java.util.List;
 
-import parser.DoubleOptional;
+import value.DoubleOptional;
 
-public class If extends ControlCommand {
+public class If extends BlockCommand {
 	private DoubleOptional myExpr;
 	private List<Command> myCommands;
 	

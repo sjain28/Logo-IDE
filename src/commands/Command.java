@@ -4,23 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.Controller;
-import control.Environment;
 import frontend.ErrorHandler;
-import parser.DoubleOptional;
+import parser.Environment;
 import parser.Parser;
+import value.DoubleOptional;
+import value.NumericalValue;
 
 public abstract class Command {
-	private DoubleOptional myValue = new DoubleOptional(); 
+	private DoubleOptional myValue = new NumericalValue(); 
 	private int numParams;
 	private List<Object> myParams = new ArrayList<>();
-	private Parser myParser; // To be changed to scope/environment class
 	private Environment myEnvironment;
 	private Controller myController; //Refactoring: Have some kind of frontend interface that gets exposed to backend instead of the whoel controller
-
-	
-	public void setEnvironment(Environment e){
-		myEnvironment = e;
-	}
 	
 	public void setParams(List<Object> params) throws Exception{
 		if(params.size() != getNumParams()){
@@ -67,12 +62,12 @@ public abstract class Command {
 	public DoubleOptional getValue(){
 		return myValue; 
 	}
-	
-	public void setParser(Parser parser) {
-		myParser = parser;
+		
+	public void setEnvironment(Environment env) {
+		myEnvironment = env;
 	}
-	public Parser getParser() {
-		return myParser;
+	protected Environment getEnvironment() {
+		return myEnvironment;
 	}
 	
 	public void setController(Controller c){

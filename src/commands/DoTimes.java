@@ -2,9 +2,9 @@ package commands;
 
 import java.util.List;
 
-import parser.DoubleOptional;
+import value.DoubleOptional;
 
-public class DoTimes extends ControlCommand {
+public class DoTimes extends BlockCommand {
 	private DoubleOptional myVariable;
 	private DoubleOptional myLimit;
 	private List<Command> commands;

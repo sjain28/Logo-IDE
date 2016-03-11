@@ -1,6 +1,6 @@
 package commands;
 
-import parser.DoubleOptional;
+import value.DoubleOptional;
 
 public class Equal extends Command{
 	
