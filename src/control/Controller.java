@@ -71,7 +71,7 @@ public class Controller {
 	}
 	
 	public Agent getTurtle() {  // TODO: FOR TESTING, SHOULD BE REMOVED AND CHANGED LATER TO MULTIPLE TURTLES
-		return new Turtle(0, new Point2D(0, 0), true, true, Color.BLUE, 3, 0);
+		return parser.getTurtle();
 	}
 	
 	public void setPallette(int index, int r, int g, int b){

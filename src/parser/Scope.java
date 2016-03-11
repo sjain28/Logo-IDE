@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import commands.UserDefinedFunction;
 import turtle.Agent;
-import commands.Command;
 
 public class Scope implements Environment {
 	private Map<String, Double> myVariables; 
@@ -76,15 +75,16 @@ public class Scope implements Environment {
 	}
 	@Override
 	public List<Agent> getTurtles() {
-		return (!myTurtles.isEmpty()? new ArrayList<Agent>(myTurtles) : myParent.getTurtles());
-	}
-	@Override
-	public void setTurtles(List<Agent> newTurtles) {
-		myTurtles = newTurtles;
+		return ((myParent == null)? myTurtles : myParent.getTurtles());
 	}
 	@Override
 	public void addTurtle(Agent additionalTurtle) {
-		myTurtles.add(additionalTurtle);
+		if (myParent == null) {
+			myTurtles.add(additionalTurtle);
+		}
+		else {
+			myParent.addTurtle(additionalTurtle);
+		}
 	}
 
 
@@ -103,8 +103,13 @@ public class Scope implements Environment {
 	}
 	@Override
 	public void addActiveTurtle(Agent additionalActiveTurtle) {
-		myActiveTurtles.add(additionalActiveTurtle);
+		if (myParent == null) {
+			myActiveTurtles.add(additionalActiveTurtle);
+		}
+		else {
+			myParent.addActiveTurtle(additionalActiveTurtle);
+		}
 	}
-	public int getDepth() { return myDepth; }
 	
+	public int getDepth() { return myDepth; }
 }

@@ -20,7 +20,6 @@ public interface Environment {
 	
 	public void makeNewTurtle(Agent newTurtle);
 	public List<Agent> getTurtles();
-	public void setTurtles(List<Agent> turtles);
 	public void addTurtle(Agent additionalTurtle);
 	public List<Agent> getActiveTurtles();
 	public void setActiveTurtles(List<Agent> newActiveTurtles);

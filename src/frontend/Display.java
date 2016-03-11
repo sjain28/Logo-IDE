@@ -36,7 +36,7 @@ public class Display extends Window {
 	final private Paint INITCOLOR = Color.BLACK;
 	final private double DEFAULT_LINE_WIDTH = 2;
 	private double multFactor = 1;
-	private Turtle mainTurtle;
+	private Agent mainTurtle;
 	
 	private Shape myShape;
 	private ImagePattern myImagePattern;
@@ -62,7 +62,6 @@ public class Display extends Window {
 //=================================================================================
 	@Override
 	public Scene init() {
-		mainTurtle = (Turtle)getController().getTurtle();
 		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight());
 		super.getRoot().getChildren().add(myCanvas);
 		super.getRoot().getChildren().add(myImageView);
@@ -117,6 +116,7 @@ public class Display extends Window {
 	}
 //=================================================================================	
 	private void drawTurtle() {
+		mainTurtle = (Turtle)getController().getTurtle();
 		if (mainTurtle.getStates() != null) {
 			turtleLoop();
 		}

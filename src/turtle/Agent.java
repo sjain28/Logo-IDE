@@ -19,4 +19,5 @@ public interface Agent extends State{
 	public void init();
 	public void clear();
 	public void setShape(int s);
+	public Iterable<State> getStates();
 }
