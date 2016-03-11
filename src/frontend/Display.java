@@ -74,7 +74,6 @@ public class Display extends Window {
 		// TODO Auto-generated method stub
 		setBackgroundColor(getController().getBackgroundColor());
 		drawTurtle();
-		// image = turtle -> adjust x&y
 
 	}
 //================================================================================
@@ -145,9 +144,8 @@ public class Display extends Window {
 			myImageView.setFitWidth(myImageView.getFitWidth()/2);
 			myImageView.setFitHeight(myImageView.getFitHeight()/2);
 		}
-		if(mainTurtle.getLocation().getX() == 0 && mainTurtle.getLocation().getY() == 0){
-			multFactor = 1;
-		}
+
+
 	}
 	
 	private void turtleLoop(){
