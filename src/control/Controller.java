@@ -145,12 +145,10 @@ public class Controller {
 		int g = (int)(c.getGreen()*255);
 		int b = (int)(c.getBlue()*255);
 		String myComparer = "rgb(" + String.valueOf(r) + "," + String.valueOf(g) + "," + String.valueOf(b) + ")";
-		int i = 0;
 		for( String element: myPalette.getItems() ){
 			if(myComparer.equals(element)){
-				return i;
+				return myPalette.getItems().indexOf(element);
 			}
-			i++;
 		}
 		return -1;
 	}
