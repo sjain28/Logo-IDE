@@ -3,14 +3,16 @@ package commands;
 import java.util.ArrayList;
 import java.util.List;
 import frontend.ErrorHandler;
+import parser.Environment;
 import parser.Parser;
+import value.NumericalValue;
 import value.Value;
 
 public abstract class Command {
-	private Value myValue = new Value(); 
+	private Value myValue = new NumericalValue(); 
 	private int numParams;
 	private List<Object> myParams = new ArrayList<>();
-	private Parser myParser; // To be changed to scope/environment class
+	private Environment myEnvironment;
 	
 	public void setParams(List<Object> params) throws Exception{
 		if(params.size() != getNumParams()){
@@ -60,11 +62,11 @@ public abstract class Command {
 	}
 	
 	
-	public void setParser(Parser parser) {
-		myParser = parser;
+	public void setEnvironment(Environment env) {
+		myEnvironment = env;
 	}
-	protected Parser getParser() {
-		return myParser;
+	protected Environment getEnvironment() {
+		return myEnvironment;
 	}
 }
 

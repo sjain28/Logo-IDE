@@ -14,14 +14,9 @@ public class MakeVariable extends ControlCommand {
 	}
 
 	@Override
-	protected void initParams(List<Object> params) throws Exception {
-		try{
+	protected void initParams(List<Object> params) {
 			variable = (Value) params.get(0);
 			value = (Value)params.get(1);
-		}
-		catch(Exception e){
-			throw new Exception();
-		}
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import java.util.List;
 
 import value.Value;
 
-public class DoTimes extends ControlCommand {
+public class DoTimes extends BlockCommand {
 	private Value myVariable;
 	private Value myLimit;
 	private List<Command> commands;

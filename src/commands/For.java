@@ -4,7 +4,7 @@ import java.util.List;
 
 import value.Value;
 
-public class For extends ControlCommand {
+public class For extends BlockCommand {
 	private Value myVariable;
 	private Value myStart;
 	private Value myEnd;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import value.Value;
 
-public class If extends ControlCommand {
+public class If extends BlockCommand {
 	private Value myExpr;
 	private List<Command> myCommands;
 	

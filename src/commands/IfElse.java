@@ -4,7 +4,7 @@ import java.util.List;
 
 import value.Value;
 
-public class IfElse extends ControlCommand {
+public class IfElse extends BlockCommand {
 	private Value myExpr;
 	private List<Command> myIfCommands;
 	private List<Command> myElseCommands;
@@ -18,15 +18,10 @@ public class IfElse extends ControlCommand {
 	}
 
 	@Override
-	protected void initParams(List<Object> params) throws Exception {
-		try{
+	protected void initParams(List<Object> params) {
 			myExpr = (Value) params.get(0);
 			myIfCommands = (List<Command>) params.get(1);
 			myElseCommands = (List<Command>) params.get(2);
-		}
-		catch(Exception e){
-			throw new Exception();
-		}
 	}
 
 	@Override
