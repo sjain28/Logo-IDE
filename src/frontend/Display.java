@@ -36,7 +36,7 @@ public class Display extends Window {
 	final private Paint INITCOLOR = Color.BLACK;
 	final private double DEFAULT_LINE_WIDTH = 2;
 	private double multFactor = 1;
-	private Turtle mainTurtle;
+	private Agent mainTurtle;
 	
 	private Shape myShape;
 	private ImagePattern myImagePattern;
@@ -56,7 +56,7 @@ public class Display extends Window {
 		drawGrid(lineSpacing);
 		
 		ORIGIN = new Point2D(width/2 -myImageView.getFitWidth()/2, height/2-myImageView.getFitHeight()/2);
-		mainTurtle = new Turtle(0, new Point2D(0,0),true, true, INITCOLOR, DEFAULT_LINE_WIDTH, 0);
+//		mainTurtle = new Turtle(0, new Point2D(0,0),true, true, INITCOLOR, DEFAULT_LINE_WIDTH, 0);
 		
 	}
 //=================================================================================
@@ -116,6 +116,7 @@ public class Display extends Window {
 	}
 //=================================================================================	
 	private void drawTurtle() {
+		mainTurtle = (Turtle)getController().getTurtle();
 		if (mainTurtle.getStates() != null) {
 			turtleLoop();
 		}

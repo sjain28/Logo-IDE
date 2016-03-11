@@ -55,7 +55,7 @@ public class GUI {
 	    Scene scene = new Scene(mainPane, 1200, 700);
 	    Display display = new Display(400,400, 50);
 	    display.setController(myController);
-	    display.getController().setActiveTurtle(display.getTurtle());
+//	    display.getController().setActiveTurtle(display.getTurtle());
 	    display.init();
 	    
 	    ControlPanel myControlPanel = new ControlPanel(scene, display);

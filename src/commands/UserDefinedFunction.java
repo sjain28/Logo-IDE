@@ -1,21 +1,22 @@
 package commands;
 
 import java.util.List;
-import parser.DoubleOptional;
 
-public final class UserDefinedFunction extends ControlCommand {
+import value.Value;
+
+public final class UserDefinedFunction extends BlockCommand {
 	private String functionName;
-	private List<DoubleOptional> myParams;
-	private List<DoubleOptional> myParamValues;
+	private List<Value> myParams;
+	private List<Value> myParamValues;
 	private int numParams;
 	private List<Command> commandList;
 	
-	public UserDefinedFunction() {
-		
+	public UserDefinedFunction(String functionName) {
+		this.functionName = functionName;
+
 	}
 	
-	public void defineFunction(String functionName, List<DoubleOptional> params, List<Command> commandList) {
-		this.functionName = functionName;
+	public void defineFunction(List<Value> params, List<Command> commandList) {
 		this.myParams = params;
 		this.numParams = params.size();
 		this.commandList = commandList;
@@ -32,7 +33,7 @@ public final class UserDefinedFunction extends ControlCommand {
 
 	@Override
 	protected void initParams(List<Object> params){
-		myParamValues = (List<DoubleOptional>) params.get(0);
+		myParamValues = (List<Value>) params.get(0);
 	}
 	
 	@Override

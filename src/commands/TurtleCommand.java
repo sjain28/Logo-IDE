@@ -15,14 +15,12 @@ public abstract class TurtleCommand extends Command{
 	
 	@Override
 	public double evaluate(){
-		setTurtles(getParser().getActiveTurtles()); //Eventually TurtleCommand will get turtles from its environment, not its parser
+		setTurtles(getEnvironment().getActiveTurtles()); //Eventually TurtleCommand will get turtles from its environment, not its parser
 		double val = -1;
-		System.out.println("NUMBER OF TURTLES IN COMMAND: " + myTurtles.size());
 		for(Agent a: myTurtles){
 			val = doCommand(a);
-			System.out.println("After " + a.getLocation());
+//			System.out.println("After " + a.getLocation() + " " + a.getOrientation());
 		}
-		
 		return val;
 	}
 	

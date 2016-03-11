@@ -100,7 +100,7 @@ public class ControlPanel extends Window {
 
 		myPaletteBox.getChildren().removeAll();
 		myPaletteBox.getChildren().addAll(super.getController().getPalette());
-		lineColorPicker.setValue(Color.valueOf(getController().getActiveTurtle().getPenColor().toString()));
+		lineColorPicker.setValue(Color.valueOf(getController().getTurtle().getPenColor().toString()));
 	}
 	
 	private void changeBackgroundColor() {
@@ -112,7 +112,7 @@ public class ControlPanel extends Window {
 	}
 
 	private void changeLineColor() {
-		getController().getActiveTurtle().setPenColor(lineColorPicker.getValue());
+//TODO:	getController().getActiveTurtle().setPenColor(lineColorPicker.getValue());
 		return;
 	}
 

@@ -28,7 +28,6 @@ public class Main extends Application
     @Override
     public void start (Stage s) 
     {
-         
  		Controller myBackEnd =  new Controller();
 		GUI myFrontEnd = new GUI(FRAMES_PER_SECOND, myBackEnd);
 		// setting up the initial scene
@@ -36,8 +35,7 @@ public class Main extends Application
 		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		Scene scene = myFrontEnd.init();
 		s.setScene(scene);
-		s.show();
-		
+		s.show();		
     }
     
     public static void main (String[] args) {

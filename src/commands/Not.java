@@ -1,6 +1,6 @@
 package commands;
 
-import parser.DoubleOptional;
+import value.Value;
 
 public class Not extends Command{
 	
@@ -11,7 +11,7 @@ public class Not extends Command{
 	@Override
 	public double evaluate() {
 		int result;
-		DoubleOptional term1 = (DoubleOptional) getParams().get(0);
+		Value term1 = (Value) getParams().get(0);
 
 		if(term1.getValue().equals(0))
 			result = 1;

@@ -8,21 +8,21 @@ import java.util.ResourceBundle;
 import commands.Command;
 import frontend.ErrorHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import parser.Parser;
+
+import javafx.scene.control.ListView;
 import turtle.Agent;
-import turtle.State;
 import turtle.Turtle;
 
 
 public class Controller {
 	public static final String DEFAULT_LANGUAGE = "resources.languages/English";
     private ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_LANGUAGE);
-	private Agent myActiveTurtle;
-	private List<Agent> myTurtles;
-	private Map<String, Double> myVariables;
+
+//	private Agent myActiveTurtle;
+//	private List<Agent> myTurtles;
+//	private Map<String, Double> myVariables;
 	private Map<String, String> variableStates;
 	private Parser parser;
 	
@@ -30,31 +30,18 @@ public class Controller {
 	private Color backgroundColor = Color.WHITE;
 	
 	public Controller() {
-		
 		variableStates = new HashMap<String, String>();
-		myTurtles = new ArrayList<Agent>();
-		
-		//Test code
-		
-		// TODO Auto-generated constructor stub
-		myVariables = new HashMap<String, Double>();
+		parser = new Parser(myResources);
+//		myTurtles = new ArrayList<Agent>();
+//		myVariables = new HashMap<String, Double>();
 	}
 
-	public void setVariable(String varName, Double value) {
-		myVariables.put(varName, value);
-	}
-	public Double getVariable(String varName) {
-		return myVariables.get(varName);
-	}
 	
-	public void setActiveTurtle(Agent turtle) {
-		myActiveTurtle = turtle;
-		myTurtles.add(turtle);
-	}
+//	public void setActiveTurtle(Agent turtle) {
+//		myActiveTurtle = turtle;
+//		myTurtles.add(turtle);
+//	}
 	
-	public Agent getActiveTurtle() {
-		return myActiveTurtle;
-	}
 	
 	public String getProperty(String propertyKey) {
 		return myResources.getString(propertyKey);
@@ -64,17 +51,9 @@ public class Controller {
 		return variableStates;
 	}
 	
-	public void makeParser(String commandString) {
-		parser = new Parser(commandString, myResources, this);
-		myActiveTurtle.init();
-		parser.addTurtle(myActiveTurtle);
-		parser.addActive(0);
-		Turtle second = new Turtle(0, new Point2D(10,10), true, true, Color.BLUE, 3, 0);
-		parser.addTurtle(second);
-		parser.addActive(1);
-		
+	public void makeParser(String commandString) {		
 		try {
-			List<Command> cmd = parser.parse();
+			List<Command> cmd = parser.parse(commandString);
 			for (Command c : cmd) {
 				c.evaluate();
 			}
@@ -113,10 +92,16 @@ public class Controller {
 		int r = (int)(myColor.getRed()*255);
 		int g = (int)(myColor.getGreen()*255);
 		int b = (int)(myColor.getBlue()*255);
-		
+	}
+
+	public Agent getTurtle() {  // TODO: FOR TESTING, SHOULD BE REMOVED AND CHANGED LATER TO MULTIPLE TURTLES
+		return parser.getTurtle();
+	}
+	
+	public void setPallette(int index, int r, int g, int b){
 		String element = String.valueOf(r) + "," + String.valueOf(g) + "," + String.valueOf(b);
 		if(myPalette.getItems().size() > index){
-			myPalette.getItems().set(0, element);
+			myPalette.getItems().set(index, element);
 		} else{
 			myPalette.getItems().add(element);
 		}
@@ -127,12 +112,10 @@ public class Controller {
 	}
 	
 	public Color getColor(int index){
-		// currently returns white on error - could have try catch block instead
-		// possible index out of bounds error
-		if(myPalette.getItems().size() < index){
+		if(myPalette.getItems().size() > index){
 			return Color.web("rgb(" + myPalette.getItems().get(index) + ")");
 		} else{
-			return Color.WHITE;
+			return Color.BLACK;
 		}
 	}
 	
@@ -146,7 +129,7 @@ public class Controller {
 				return myPalette.getItems().indexOf(element);
 			}
 		}
-		return -1;
+		return 0;
 	}
 	
 	public void setBackGroundColor(Color c){
