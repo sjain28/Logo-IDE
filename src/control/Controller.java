@@ -27,7 +27,8 @@ public class Controller {
 	private Parser parser;
 	
 	private ListView<String> myPalette = new ListView<>();
-
+	private Color backgroundColor = Color.WHITE;
+	
 	public Controller() {
 		
 		variableStates = new HashMap<String, String>();
@@ -135,4 +136,23 @@ public class Controller {
 		}
 	}
 	
+	public int getColorIndex(Color c){
+		int r = (int)(c.getRed()*255);
+		int g = (int)(c.getGreen()*255);
+		int b = (int)(c.getBlue()*255);
+		String myComparer = "rgb(" + String.valueOf(r) + "," + String.valueOf(g) + "," + String.valueOf(b) + ")";
+		for( String element: myPalette.getItems() ){
+			if(myComparer.equals(element)){
+				return myPalette.getItems().indexOf(element);
+			}
+		}
+		return -1;
+	}
+	
+	public void setBackGroundColor(Color c){
+		backgroundColor = c;
+	}
+	public Color getBackgroundColor(){
+		return backgroundColor;
+	}
 }

@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -106,11 +107,16 @@ public class ControlPanel extends Window {
 		//updateColorpalette();
 		myPaletteBox.getChildren().removeAll();
 		myPaletteBox.getChildren().addAll(super.getController().getPalette());
+		//Paint myPaint = new Paint();
+		//Color myColor = new Color(getController().getActiveTurtle().getPenColor());
+		//lineColorPicker.setValue(getController().getActiveTurtle().getPenColor());
 	}
 	
 	private void changeBackgroundColor() {
-		myDisplay.setBackgroundColor(backgroundColorPicker.getValue());
-		getController().setPallette(backgroundColorPicker.getValue());
+
+		//myDisplay.setBackgroundColor(backgroundColorPicker.getValue());
+		getController().setBackGroundColor(backgroundColorPicker.getValue());
+
 		return;
 	}
 
