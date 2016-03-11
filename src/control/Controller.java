@@ -115,7 +115,7 @@ public class Controller {
 				return myPalette.getItems().indexOf(element);
 			}
 		}
-		return -1;
+		return 0;
 	}
 	
 	public void setBackGroundColor(Color c){
