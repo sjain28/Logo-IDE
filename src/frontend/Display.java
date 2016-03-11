@@ -20,8 +20,8 @@ import turtle.Turtle;
 
 public class Display extends Window {
 	
-	private final static double TURTLE_WIDTH = 50;
-	private static final double TURTLE_HEIGHT = 50;
+	private final static double TURTLE_WIDTH = 64;
+	private static final double TURTLE_HEIGHT = 64;
 
 	Canvas myCanvas;
 	GraphicsContext gc;
@@ -127,15 +127,15 @@ public class Display extends Window {
 			setImageView();
 		}
 		else{
-			myImageView.setX(offsetX(0));
+			myImageView.setX(imageViewOffsetX(0));
 		}
 	}
 //---------------------------------------------------------------------------------
 	private void setImageView(){
 		myImageView.setRotate(mainTurtle.getOrientation());
 		myImageView.setVisible(mainTurtle.isVisible());
-		myImageView.setX(offsetX(mainTurtle.getLocation().getX()));
-		myImageView.setY(offsetY(mainTurtle.getLocation().getY()));
+		myImageView.setX(imageViewOffsetX(mainTurtle.getLocation().getX()));
+		myImageView.setY(imageViewOffsetY(mainTurtle.getLocation().getY()));
 	}
 	
 	private void adjustGridScale(){
@@ -156,10 +156,10 @@ public class Display extends Window {
 		for (State t : mainTurtle.getStates()) {
 			if (prevT != null) {
 				if (prevT.isDown() && t.isDown()) {
-					x1 = drawOffsetX(prevT.getLocation().getX());
-					y1 = drawOffsetY(prevT.getLocation().getY());
-					double x2 = drawOffsetX(t.getLocation().getX());
-					double y2 = drawOffsetY(t.getLocation().getY());
+					x1 = lineOffsetX(prevT.getLocation().getX());
+					y1 = lineOffsetY(prevT.getLocation().getY());
+					double x2 = lineOffsetX(t.getLocation().getX());
+					double y2 = lineOffsetY(t.getLocation().getY());
 					gc.setLineWidth(t.getLineWidth());
 					gc.setStroke(t.getPenColor());
 					gc.strokeLine(x1, y1, x2, y2);
@@ -174,20 +174,20 @@ public class Display extends Window {
 		return mainTurtle;
 	}
 //===============================================================================	
-	private double offsetX(double inVal){
-		return (inVal/multFactor + ORIGIN.getX());
+	private double imageViewOffsetX(double inVal){
+		return (inVal/multFactor + ORIGIN.getX() + myImageView.getFitWidth() - myImageView.getFitWidth()/multFactor);
 	}
 	
-	private double drawOffsetX(double inVal){
-		return (inVal/multFactor + ORIGIN.getX() + myImageView.getFitWidth()/2);
+	private double lineOffsetX(double inVal){
+		return (inVal/multFactor + ORIGIN.getX() + myImageView.getFitWidth()/2 + myImageView.getFitWidth() - myImageView.getFitWidth()/multFactor);
 	}
 	
-	private double offsetY(double inVal){
-		return (-1*inVal/multFactor + ORIGIN.getY());
+	private double imageViewOffsetY(double inVal){
+		return (-1*inVal/multFactor + ORIGIN.getY() + myImageView.getFitHeight() - myImageView.getFitHeight()/multFactor);
 	}
 	
-	private double drawOffsetY(double inVal){
-		return (-1*inVal/multFactor + ORIGIN.getY() + myImageView.getFitHeight()/2);
+	private double lineOffsetY(double inVal){
+		return (-1*inVal/multFactor + ORIGIN.getY() + myImageView.getFitHeight()/2 + myImageView.getFitHeight() - myImageView.getFitHeight()/multFactor);
 	}
 //==================================================================================
 	private boolean outOfBounds(){

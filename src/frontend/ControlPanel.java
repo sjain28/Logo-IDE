@@ -62,31 +62,32 @@ public class ControlPanel extends Window {
 		// Defining the Name text field
 		
 		Label backgroundLabel = new Label("Select Background Color");
-		backgroundColorPicker = initColorPicker(10, backgroundLabel, Color.WHITE, grid);
+		backgroundColorPicker = initColorPicker(5, backgroundLabel, Color.WHITE, grid);
 		backgroundColorPicker.setOnAction(e -> changeBackgroundColor());
 
 		Label lineColorLabel = new Label("Select Line Color");
-		lineColorPicker = initColorPicker(20, lineColorLabel, Color.BLACK, grid);
+		lineColorPicker = initColorPicker(15, lineColorLabel, Color.BLACK, grid);
 		lineColorPicker.setOnAction(e -> changeLineColor());
 
+		//bunch of magic
 		final FileChooser fileChooser = new FileChooser();
-		final Button openButton = initButton("Open a Picture...", grid, 40, 2);
+		final Button openButton = initButton("Open a Picture...", grid, 25, 2);
 		openButton.setOnAction(e -> handleOpen(fileChooser));
 				
 		myComboBox = initComboBox();
 		Label languageLabel = new Label("Select Language");
-		addToGrid(grid, myComboBox, languageLabel, 55, 2, 0);
+		addToGrid(grid, myComboBox, languageLabel, 40, 2, 0);
 		// Defining the Submit button
 
 		myPaletteBox = initPaletteBox();
 		Label paletteLabel = new Label("Palette Options");
-		addToGrid(grid, myPaletteBox, paletteLabel, 70, 2, 0);
+		addToGrid(grid, myPaletteBox, paletteLabel, 50, 2, 0);
 		
 		myShapeBox = initShapeBox();
 		Label shapeLabel = new Label("Shape Options");
-		addToGrid(grid, myShapeBox, shapeLabel, 90, 2, 0);
+		addToGrid(grid, myShapeBox, shapeLabel, 60, 2, 0);
 
-		Button myNewBox = initButton("Make a new window", grid, 105, 2);
+		Button myNewBox = initButton("Make a new window", grid, 70, 2);
 		myNewBox.setOnAction(e-> setNewWindow());
 		
 		super.getRoot().getChildren().add(grid);

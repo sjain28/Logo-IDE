@@ -91,7 +91,7 @@ public class Controller {
 		myResources = newLanguage;
 	}
 	
-	public void setPallette(int index, int r, int g, int b){
+	public void setPalette(int index, int r, int g, int b){
 
 		// the input needs to be added in the form "r,g,b" where r g and b are 
 		// ints between 0 and 255
@@ -106,7 +106,7 @@ public class Controller {
 	// debugging method used to show that it works. Changing
 	// a value in the set background will change the zeroth position
 	// in the palette
-	public void setPallette(Color myColor){
+	public void setPalette(Color myColor){
 		int index = 0;
 		// the input needs to be added in the form "r,g,b" where r g and b are 
 		// doubles
