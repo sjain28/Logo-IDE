@@ -11,7 +11,7 @@ public class SetPenColor extends TurtleCommand{
 
 	@Override
 	public double doCommand(Agent t) {
-		DoubleOptional indexParam = (DoubleOptional) getParams().get(0);
+		Value indexParam = (Value) getParams().get(0);
 		int index = indexParam.getValue().intValue();
 		t.setPenColor(getController().getColor(index));
 		return index;

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import commands.UserDefinedFunction;
 import turtle.Agent;
-import value.DoubleOptional;
+import value.Value;
 
 public interface Environment {
 	

@@ -7,7 +7,7 @@ import parser.DoubleOptional;
 import turtle.Turtle;
 
 public class Tell extends Command{
-	private List<DoubleOptional> turtleIndices; 
+	private List<Value> turtleIndices; 
 	
 	public Tell(){
 		setNumParams(1);
@@ -18,7 +18,7 @@ public class Tell extends Command{
 		getParser().getActiveTurtles().clear(); //Final implementation: Change getParser() to getEnvironment().getGlobalActive()
 		int index = -1;
 		int numTurtles = getParser().getAllTurtles().size();
-		for(DoubleOptional d: turtleIndices){
+		for(Value d: turtleIndices){
 			index = d.getValue().intValue() -1; //minus one because turtle 1 is in 0th position of turtle list
 			if(index >= numTurtles){
 				for(int i = numTurtles; i <= index; i++){
@@ -33,7 +33,7 @@ public class Tell extends Command{
 	
 	@Override
 	protected void initParams(List<Object> params){
-		turtleIndices = (List<DoubleOptional>) params.get(0);
+		turtleIndices = (List<Value>) params.get(0);
 	}
 
 }

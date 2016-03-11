@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import commands.Command;
-import value.DoubleOptional;
+import value.Value;
 
 public abstract class ExpressionNode { 
 	

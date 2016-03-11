@@ -1,6 +1,6 @@
 package commands;
 
-import value.DoubleOptional;
+import value.Value;
 
 public class Cosine extends Command{
 	
@@ -10,7 +10,7 @@ public class Cosine extends Command{
 	
 	@Override
 	public double evaluate() {
-		DoubleOptional term1 = (DoubleOptional) getParams().get(0);
+		Value term1 = (Value) getParams().get(0);
 		double result = Math.cos(term1.getValue());
 		super.setValue(result);
 		return result;

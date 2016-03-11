@@ -1,6 +1,6 @@
 package value;
 
-public class NumericalValue extends DoubleOptional {
+public class NumericalValue extends Value {
 	
 	public NumericalValue() {
 	}

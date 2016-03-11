@@ -2,11 +2,11 @@ package commands;
 
 import java.util.List;
 
-import value.DoubleOptional;
+import value.Value;
 
 public class DoTimes extends BlockCommand {
-	private DoubleOptional myVariable;
-	private DoubleOptional myLimit;
+	private Value myVariable;
+	private Value myLimit;
 	private List<Command> commands;
 		
 	public DoTimes() {
@@ -16,8 +16,8 @@ public class DoTimes extends BlockCommand {
 	@Override
 	protected void initParams(List<Object> params){
 			List<Object> arg1 = (List<Object>) params.get(0);
-			myVariable = (DoubleOptional) arg1.get(0);
-			myLimit = (DoubleOptional) arg1.get(1);
+			myVariable = (Value) arg1.get(0);
+			myLimit = (Value) arg1.get(1);
 			
 			commands = (List<Command>) params.get(1);
 	}
