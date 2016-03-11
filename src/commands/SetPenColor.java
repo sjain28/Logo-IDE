@@ -1,7 +1,7 @@
 package commands;
 
-import parser.DoubleOptional;
 import turtle.Agent;
+import value.Value;
 
 public class SetPenColor extends TurtleCommand{
 

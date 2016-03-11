@@ -1,7 +1,6 @@
 package commands;
 
-import control.Controller;
-import parser.DoubleOptional;
+import value.Value;
 
 public class SetPalette extends Command{
 	

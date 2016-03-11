@@ -18,20 +18,10 @@ public class IfElse extends BlockCommand {
 	}
 
 	@Override
-<<<<<<< HEAD
 	protected void initParams(List<Object> params) {
 			myExpr = (Value) params.get(0);
 			myIfCommands = (List<Command>) params.get(1);
 			myElseCommands = (List<Command>) params.get(2);
-=======
-
-	protected void initParams(List<Object> params) {
-		
-			myExpr = (DoubleOptional) params.get(0);
-			myIfCommands = (List<Command>) params.get(1);
-			myElseCommands = (List<Command>) params.get(2);
-		
->>>>>>> backend
 	}
 
 	@Override
