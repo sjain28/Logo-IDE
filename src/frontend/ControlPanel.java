@@ -59,8 +59,7 @@ public class ControlPanel extends Window {
 		grid.setPadding(new Insets(10));
 		grid.setVgap(5);
 		grid.setHgap(5);
-		// Defining the Name text field
-		
+
 		Label backgroundLabel = new Label("Select Background Color");
 		backgroundColorPicker = initColorPicker(5, backgroundLabel, Color.WHITE, grid);
 		backgroundColorPicker.setOnAction(e -> changeBackgroundColor());
@@ -84,8 +83,7 @@ public class ControlPanel extends Window {
 		addToGrid(grid, myPaletteBox, paletteLabel, 50, 2, 0);
 		
 		myShapeBox = initShapeBox();
-		Label shapeLabel = new Label("Shape Options");
-		addToGrid(grid, myShapeBox, shapeLabel, 60, 2, 0);
+
 
 		Button myNewBox = initButton("Make a new window", grid, 70, 2);
 		myNewBox.setOnAction(e-> setNewWindow());
@@ -103,11 +101,9 @@ public class ControlPanel extends Window {
 		lineColorPicker.setValue(Color.valueOf(getController().getTurtle().getPenColor().toString()));
 	}
 	
+	
 	private void changeBackgroundColor() {
-
-		//myDisplay.setBackgroundColor(backgroundColorPicker.getValue());
 		getController().setBackGroundColor(backgroundColorPicker.getValue());
-
 		return;
 	}
 
@@ -229,7 +225,6 @@ public class ControlPanel extends Window {
 	private void setNewWindow(){
 		Stage stage = new Stage();
         stage.setTitle("My New Stage Title");        
-        
  		Controller myBackEnd =  new Controller();
 		GUI myFrontEnd = new GUI(60, myBackEnd);
         Scene scene = myFrontEnd.init();

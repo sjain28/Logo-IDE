@@ -154,6 +154,7 @@ public class Display extends Window {
 		double x1 = 0;
 		double y1 = 0;
 		
+		//for(Agent a: getController().)
 		for (State t : mainTurtle.getStates()) {
 			if (prevT != null) {
 				if (prevT.isDown() && t.isDown()) {
