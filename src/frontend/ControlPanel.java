@@ -1,6 +1,7 @@
 package frontend;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 import control.Controller;
@@ -23,6 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import turtle.Agent;
 
 public class ControlPanel extends Window {
 
@@ -65,27 +67,28 @@ public class ControlPanel extends Window {
 		backgroundColorPicker.setOnAction(e -> changeBackgroundColor());
 
 		Label lineColorLabel = new Label("Select Line Color");
-		lineColorPicker = initColorPicker(15, lineColorLabel, Color.BLACK, grid);
+		lineColorPicker = initColorPicker(6, lineColorLabel, Color.BLACK, grid);
 		lineColorPicker.setOnAction(e -> changeLineColor());
 
 		//bunch of magic
 		final FileChooser fileChooser = new FileChooser();
-		final Button openButton = initButton("Open a Picture...", grid, 25, 2);
+		final Button openButton = initButton("Open a Picture...", grid, 7, 2);
 		openButton.setOnAction(e -> handleOpen(fileChooser));
 				
 		myComboBox = initComboBox();
 		Label languageLabel = new Label("Select Language");
-		addToGrid(grid, myComboBox, languageLabel, 40, 2, 0);
+		addToGrid(grid, myComboBox, languageLabel, 8, 2, 0);
 		// Defining the Submit button
 
 		myPaletteBox = initPaletteBox();
 		Label paletteLabel = new Label("Palette Options");
-		addToGrid(grid, myPaletteBox, paletteLabel, 50, 2, 0);
+		addToGrid(grid, myPaletteBox, paletteLabel, 9, 2, 0);
 		
 		myShapeBox = initShapeBox();
+		Label shapeLabel = new Label("Shape Options");
+		addToGrid(grid, myShapeBox, shapeLabel, 10, 2, 0);
 
-
-		Button myNewBox = initButton("Make a new window", grid, 70, 2);
+		Button myNewBox = initButton("Make a new window", grid, 11, 2);
 		myNewBox.setOnAction(e-> setNewWindow());
 		
 		super.getRoot().getChildren().add(grid);
@@ -108,7 +111,20 @@ public class ControlPanel extends Window {
 	}
 
 	private void changeLineColor() {
-//TODO:	getController().getActiveTurtle().setPenColor(lineColorPicker.getValue());
+		Collection<Agent> myActives = getController().getActiveTurtles();
+		for(Agent myTurtle: myActives ){
+			myTurtle.setPenColor(lineColorPicker.getValue());
+		}
+
+		return;
+	}
+	
+	private void changeLineWidth() {
+		Collection<Agent> myActives = getController().getActiveTurtles();
+		for(Agent myTurtle: myActives ){
+			//myTurtle.setPenColor(lineWidthPicker.getValue());
+		}
+
 		return;
 	}
 
