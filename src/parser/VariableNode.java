@@ -1,11 +1,15 @@
 package parser;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import commands.Command;
 import value.Value;
 import value.VariableValue;
 
 public class VariableNode extends ExpressionNode{
 	
-	private Value myValue; //In implementation, this DoubleOptional will be a value in a Map	
+	private VariableValue myValue; //In implementation, this DoubleOptional will be a value in a Map	
 	
 	public VariableNode(String name) {
 		super(name);
@@ -13,12 +17,18 @@ public class VariableNode extends ExpressionNode{
 	}
 
 	@Override
+	public void setEnvironment(Environment env) { 
+		setEnvironment(env);
+		myValue.setEnvironment(env);
+	}
+	
+	@Override
 	public Value getValue() {
 		return myValue;
 	}
 	
 	@Override
-	public void parse(Scope e){
-		return;
+	public List<Command> parse(){
+		return new ArrayList<Command>();
 	}
 }

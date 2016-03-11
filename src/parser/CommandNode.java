@@ -22,27 +22,22 @@ public class CommandNode extends ExpressionNode {
 		return myCommand;
 	}
 	
-	public Value getValue(){
+	public Object getValue(){
 		return myValue;
 	}
 	
 	@Override
-	public void parse(Scope e) throws Exception{
-		getCommand().setParser(e); // Get "environment" for the ControlCommand to affect
-
+	public List<Command> parse() throws Exception{
+		List<Command> commands = new ArrayList<Command>();
 		ArrayList<Object> params = new ArrayList<Object>();
 		for(ExpressionNode child: getChildren()){
 			params.add(child.getValue());
-			child.parse(e);
+			commands.addAll(child.parse());
 		}
 		
 		getCommand().setParams(params);
 		
-
-		
-		if(hasParent() && (getParent() instanceof BracketNode)){
-			return;
-		}
-		e.addCommand(getCommand());
+		commands.add(getCommand());
+		return commands;
 	}
 }

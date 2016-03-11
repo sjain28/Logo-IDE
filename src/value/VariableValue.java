@@ -11,19 +11,13 @@ public class VariableValue extends Value {
 		this.varName = varName;
 	}
 	
-	public VariableValue(String varName, Environment e) {
-		this(varName);
-		setEnvironment(e);
-	}	
-	
-	
 	@Override
 	public Double getValue() { return myEnvironment.getVariable(varName); }
 	
 	public String getName() { return varName; }
 
-	public void setEnvironment(Environment e) {
-		myEnvironment = e;
+	public void setEnvironment(Environment env) {
+		myEnvironment = env;
 	}
 	
 

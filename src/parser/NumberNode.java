@@ -1,11 +1,15 @@
 package parser;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import commands.Command;
 import value.NumericalValue;
 import value.Value;
 
 public class NumberNode extends ExpressionNode{
 
-	private Value myValue;
+	private NumericalValue myValue;
 	
 	/**
 	 * Precondition: Input name must be a number
@@ -20,7 +24,7 @@ public class NumberNode extends ExpressionNode{
 		return myValue;
 	}
 	
-	public void parse(Scope e){
-		return;
+	public List<Command> parse(){
+		return new ArrayList<Command>();
 	}
 }

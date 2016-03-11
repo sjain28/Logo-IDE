@@ -11,7 +11,7 @@ public abstract class Value{
 		return myValue;
 	}
 	
-	public void setValue(Double d){
+	public void setValue(double d){
 		myValue = d;
 	}
 }
