@@ -29,7 +29,8 @@ public class Controller {
 	private Parser parser;
 	
 	private ListView<String> myPalette = new ListView<>();
-
+	private Color backgroundColor = Color.WHITE;
+	
 	public Controller() {
 		
 		variableStates = new HashMap<String, String>();
@@ -139,4 +140,10 @@ public class Controller {
 		}
 	}
 	
+	public void setBackGroundColor(Color c){
+		backgroundColor = c;
+	}
+	public Color getBackgroundColor(){
+		return backgroundColor;
+	}
 }

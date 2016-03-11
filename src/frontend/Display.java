@@ -72,7 +72,7 @@ public class Display extends Window {
 	@Override
 	public void step(double elapsedTime) {
 		// TODO Auto-generated method stub
-		setBackgroundColor(gc.getFill());
+		setBackgroundColor(getController().getBackgroundColor());
 		drawTurtle();
 		// image = turtle -> adjust x&y
 
