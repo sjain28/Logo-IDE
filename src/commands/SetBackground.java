@@ -1,0 +1,18 @@
+package commands;
+
+import parser.DoubleOptional;
+
+public class SetBackground extends Command{
+	
+	public SetBackground(){
+		setNumParams(1);
+	}
+	@Override
+	public double evaluate() {
+		DoubleOptional indexParam = (DoubleOptional) getParams().get(0);
+		int index = indexParam.getValue().intValue();
+		getController().setBackGroundColor(getController().getColor(index));
+		return index;
+	}
+
+}

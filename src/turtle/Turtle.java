@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Shape;
 
 public class Turtle implements Agent{
 
@@ -15,6 +16,7 @@ public class Turtle implements Agent{
 	private double myLineWidth;
 	private int myTime;
 	private Turtle startingState;
+	private int myShape;
 	
 	private List<Turtle> myStates;
 	
@@ -27,6 +29,7 @@ public class Turtle implements Agent{
 		myLineWidth = line;
 		myTime = curTime;
 		myStates = new ArrayList<Turtle>();
+		myShape = -1;
 	}
 	
 	public void init(){
@@ -160,5 +163,13 @@ public class Turtle implements Agent{
 		this.setLocation(new Point2D(0,0));
 		myStates = new ArrayList<>();
 		this.setOrientation(0);
+	}
+	
+	public int getShape(){
+		return myShape;
+	}
+	
+	public void setShape(int s){
+		myShape = s;
 	}
 }

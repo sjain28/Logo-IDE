@@ -30,10 +30,10 @@ public class CommandFactory {
 			
 		for(String key: myResourceBundle.keySet()){
 			String value = myResourceBundle.getString(key);
-			if(value.equals(commandName) || value.contains(commandName + " ") || value.contains(" "+commandName) || value.contains("\\" + commandName)|| value.contains("|"+commandName) || value.contains(commandName+"|")){ //Do this with RegEx...This is messy
+			if(commandName.matches(value)){
 				command += key;
-				Class commandClass = Class.forName(command);
-				Constructor commandConstructor = commandClass.getConstructors()[0];
+				Class<?> commandClass = Class.forName(command);
+				Constructor<?> commandConstructor = commandClass.getConstructors()[0];
 				Command result = (Command) commandConstructor.newInstance();
 				return result;
 			}

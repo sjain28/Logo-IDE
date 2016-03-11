@@ -13,7 +13,7 @@ public class GreaterThan extends Command{
 		int result;
 		DoubleOptional term1 = (DoubleOptional) getParams().get(0);
 		DoubleOptional term2 = (DoubleOptional) getParams().get(1);
-		
+		System.out.println(term1.getValue());
 		if(term1.getValue()>term2.getValue())
 			result = 1;
 		else

@@ -2,6 +2,7 @@ package turtle;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Shape;
 
 /**
  *	Immutable object to represent Turtle data at some point in time.
@@ -14,5 +15,6 @@ public interface State {
 	public Paint getPenColor();
 	public double getLineWidth();
 	public int getTime(); // time starts at 0 and increments with each Turtle Action
+	public int getShape();
 
 }
