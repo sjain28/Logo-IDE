@@ -1,7 +1,7 @@
 package commands;
 
 
-import value.Value;
+import value.DoubleOptional;
 
 public class ArcTangent extends Command{
 	
@@ -11,7 +11,7 @@ public class ArcTangent extends Command{
 	
 	@Override
 	public double evaluate() {
-		Value term1 = (Value) getParams().get(0);
+		DoubleOptional term1 = (DoubleOptional) getParams().get(0);
 		double result = Math.atan(term1.getValue());
 		super.setValue(result);
 		return result;

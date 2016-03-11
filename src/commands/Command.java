@@ -2,17 +2,20 @@ package commands;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import control.Controller;
 import frontend.ErrorHandler;
 import parser.Environment;
 import parser.Parser;
+import value.DoubleOptional;
 import value.NumericalValue;
-import value.Value;
 
 public abstract class Command {
-	private Value myValue = new NumericalValue(); 
+	private DoubleOptional myValue = new NumericalValue(); 
 	private int numParams;
 	private List<Object> myParams = new ArrayList<>();
 	private Environment myEnvironment;
+	private Controller myController; //Refactoring: Have some kind of frontend interface that gets exposed to backend instead of the whoel controller
 	
 	public void setParams(List<Object> params) throws Exception{
 		if(params.size() != getNumParams()){
@@ -30,10 +33,9 @@ public abstract class Command {
 		}
 	}
 	
-	
 	protected void initParams(List<Object> params){	
 		for(int i = 0; i < numParams; i++){
-			myParams.add((Value) params.get(i));
+			myParams.add((DoubleOptional) params.get(i));
 		}
 	}
 	
@@ -57,16 +59,25 @@ public abstract class Command {
 		numParams = params;
 	}
 	
-	public Value getValue(){
+	public DoubleOptional getValue(){
 		return myValue; 
 	}
-	
-	
+		
 	public void setEnvironment(Environment env) {
 		myEnvironment = env;
 	}
 	protected Environment getEnvironment() {
 		return myEnvironment;
+	}
+	
+	public void setController(Controller c){
+		if(myController == null){
+			myController = c;
+		}
+	}
+	
+	public Controller getController(){
+		return myController;
 	}
 }
 

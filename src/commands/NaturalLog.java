@@ -1,6 +1,6 @@
 package commands;
 
-import value.Value;
+import value.DoubleOptional;
 
 public class NaturalLog extends Command{
 	
@@ -10,7 +10,7 @@ public class NaturalLog extends Command{
 	
 	@Override
 	public double evaluate() {
-		Value 	term1 = (Value) getParams().get(0);
+		DoubleOptional 	term1 = (DoubleOptional) getParams().get(0);
 
 		double result = Math.log(term1.getValue());
 		super.setValue(result);

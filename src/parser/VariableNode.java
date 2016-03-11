@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import commands.Command;
-import value.Value;
+import value.DoubleOptional;
 import value.VariableValue;
 
 public class VariableNode extends ExpressionNode{
@@ -23,7 +23,7 @@ public class VariableNode extends ExpressionNode{
 	}
 	
 	@Override
-	public Value getValue() {
+	public DoubleOptional getValue() {
 		return myValue;
 	}
 	

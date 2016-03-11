@@ -5,11 +5,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import parser.Parser;
-import value.Value;
+import value.DoubleOptional;
 
 public class MakeUserInstruction extends ControlCommand {
 	String functionName;
-	List<Value> myVariables;
+	List<DoubleOptional> myVariables;
 	List<Command> myCommands;
 	
 	public MakeUserInstruction() {
@@ -23,13 +23,13 @@ public class MakeUserInstruction extends ControlCommand {
 	@Override
 	protected void initParams(List<Object> params){
 		System.out.println("initParams of to");
-		Value commandVariable = (Value) params.get(0);
-		Map<String, Value> variablesMap = getParser().getVariables();
+		DoubleOptional commandVariable = (DoubleOptional) params.get(0);
+		Map<String, DoubleOptional> variablesMap = getParser().getVariables();
 		functionName = variablesMap.keySet().stream().filter(key -> variablesMap.get(key) == commandVariable).collect(Collectors.toList()).get(0);
 		variablesMap.remove(functionName);
 		getEnvironment().addFunction(functionName, null);
 
-		myVariables = (List<Value>) params.get(1);
+		myVariables = (List<DoubleOptional>) params.get(1);
 		myCommands = (List<Command>) params.get(2);
 	}
 

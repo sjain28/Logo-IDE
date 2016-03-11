@@ -2,10 +2,10 @@ package commands;
 
 import java.util.List;
 
-import value.Value;
+import value.DoubleOptional;
 
 public class If extends BlockCommand {
-	private Value myExpr;
+	private DoubleOptional myExpr;
 	private List<Command> myCommands;
 	
 	public If() {
@@ -18,7 +18,7 @@ public class If extends BlockCommand {
 
 	@Override
 	protected void initParams(List<Object> params) {
-			myExpr = (Value) params.get(0);
+			myExpr = (DoubleOptional) params.get(0);
 			myCommands = (List<Command>) params.get(1);
 	}
 

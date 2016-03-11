@@ -1,6 +1,6 @@
 package commands;
 
-import value.Value;
+import value.DoubleOptional;
 
 public class Product extends Command{
 
@@ -10,8 +10,8 @@ public class Product extends Command{
 	
 	@Override
 	public double evaluate() {
-		Value first = (Value) getParams().get(0);
-		Value second = (Value) getParams().get(1);
+		DoubleOptional first = (DoubleOptional) getParams().get(0);
+		DoubleOptional second = (DoubleOptional) getParams().get(1);
 		double result = first.getValue()*second.getValue();
 		super.setValue(result);
 		return result;

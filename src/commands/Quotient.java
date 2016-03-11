@@ -1,6 +1,6 @@
 package commands;
 
-import value.Value;
+import value.DoubleOptional;
 
 public class Quotient extends Command{
 	
@@ -10,8 +10,8 @@ public class Quotient extends Command{
 
 	@Override
 	public double evaluate() {
-		Value term1 = (Value) getParams().get(0);
-		Value term2 = (Value) getParams().get(1);
+		DoubleOptional term1 = (DoubleOptional) getParams().get(0);
+		DoubleOptional term2 = (DoubleOptional) getParams().get(1);
 		double result = term1.getValue()/term2.getValue();
 		super.setValue(result);
 		return result;

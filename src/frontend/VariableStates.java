@@ -21,14 +21,13 @@ public class VariableStates extends Window {
 
 	@Override
 	public Scene init() {
-		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight(), Color.RED);
+		 Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight(), Color.RED);
 		
 		 variableStates = FXCollections.observableArrayList();
 		 ListView<String> listView = new ListView<String>(variableStates);
 		
 		 super.getRoot().getChildren().add(listView);
-		
-		return myScene;
+		 return myScene;
 	}
 	
 	public ObservableList<String> getVariableStates() {
@@ -43,8 +42,8 @@ public class VariableStates extends Window {
 	@Override
 	public void step(double elapsedTime) {
 		variableStates.clear();
-		for (String key : controller.getVariables().keySet()) {
-			variableStates.add(key + " : "controller.getVariables().get(key));
+		for (String key : controller.getVariableStates().keySet()) {
+			variableStates.add(key + " : " + controller.getVariableStates().get(key));
 		}
 	}
 

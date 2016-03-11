@@ -3,13 +3,13 @@ package parser;
 import commands.BlockCommand;
 import commands.Command;
 import commands.MakeUserInstruction;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import commands.UserDefinedFunction;
+import control.Controller;
 import frontend.ErrorHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -33,6 +33,7 @@ public class Parser {
 	
 	public List<Command> parse(String userInput) throws Exception {
 		return parse(Arrays.asList(userInput.split("\\s+")));
+
 	}
 	public List<Command> parse(List<String> userInput) throws Exception{ 	
 		List<Command> myCommands = new ArrayList<Command>();
@@ -45,7 +46,6 @@ public class Parser {
 			head.setEnvironment(globalEnvironment);
 			expressionTrees.add(assembleTree(head, myList));
 		}
-		
 		myTrees = expressionTrees;
 		
 		for(ExpressionNode tree: myTrees){
@@ -122,6 +122,34 @@ public class Parser {
 //	public void addFunction(String functionName, UserDefinedFunction function) { myFunctions.put(functionName, function); }
 
 	//	public void setAgent(Agent turtle) { myTurtle = turtle; }
-	public Agent getTurtle() { return globalEnvironment.getActiveTurtles().get(0); }
+	public Agent getTurtle() { return globalEnvironment.getActiveTurtles().get(0); } // TODO: Delete this method, implement multiple agents
 	
+		
+//	public void addCommand(Command c){
+//		myCommands.add(c);
+//	}
+//	
+//	public List<Agent> getAllTurtles(){
+//		return allTurtles;
+//	}
+//	
+//	public List<Agent> getActiveTurtles(){
+//		return activeTurtles;
+//	}
+//	
+//	public void addTurtle(Agent t){
+//		allTurtles.add(t);
+//	}
+//	
+//	public void addActive(int index){
+//		Agent a = allTurtles.get(index);
+//		if(!activeTurtles.contains(a)){
+//			activeTurtles.add(a);
+//		}
+//	}
+//	
+//	protected Controller getController(){
+//		return myController;
+//	}
+
 }

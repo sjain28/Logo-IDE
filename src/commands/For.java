@@ -2,13 +2,13 @@ package commands;
 
 import java.util.List;
 
-import value.Value;
+import value.DoubleOptional;
 
 public class For extends BlockCommand {
-	private Value myVariable;
-	private Value myStart;
-	private Value myEnd;
-	private Value myIncrement;
+	private DoubleOptional myVariable;
+	private DoubleOptional myStart;
+	private DoubleOptional myEnd;
+	private DoubleOptional myIncrement;
 	private List<Command> myCommands;
 		
 	public For() {
@@ -18,10 +18,10 @@ public class For extends BlockCommand {
 	@Override
 	protected void initParams(List<Object> params) {
 			List<Object> arg1 = (List<Object>) params.get(0);
-			myVariable = (Value) arg1.get(0);
-			myStart = (Value) arg1.get(1);
-			myEnd = (Value) arg1.get(2);
-			myIncrement = (Value) arg1.get(3);
+			myVariable = (DoubleOptional) arg1.get(0);
+			myStart = (DoubleOptional) arg1.get(1);
+			myEnd = (DoubleOptional) arg1.get(2);
+			myIncrement = (DoubleOptional) arg1.get(3);
 			
 			myCommands = (List<Command>) params.get(1);
 	}

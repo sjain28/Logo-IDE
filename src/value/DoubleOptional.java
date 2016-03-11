@@ -1,9 +1,9 @@
 package value;
 
-public abstract class Value{
+public abstract class DoubleOptional{
 	private Double myValue;
 	
-	public Value() {
+	public DoubleOptional() {
 		myValue = null;
 	}
 	

@@ -5,7 +5,7 @@ import java.util.List;
 
 import commands.Command;
 import value.NumericalValue;
-import value.Value;
+import value.DoubleOptional;
 
 public class NumberNode extends ExpressionNode{
 
@@ -20,7 +20,7 @@ public class NumberNode extends ExpressionNode{
 	}
 
 	@Override
-	public Value getValue() {
+	public DoubleOptional getValue() {
 		return myValue;
 	}
 	

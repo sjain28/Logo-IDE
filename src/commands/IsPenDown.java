@@ -1,5 +1,7 @@
 package commands;
 
+import turtle.Agent;
+
 public class IsPenDown extends TurtleCommand{
 
 	public IsPenDown(){
@@ -7,8 +9,8 @@ public class IsPenDown extends TurtleCommand{
 	}
 	
 	@Override
-	public double evaluate() {
-		if(getTurtle().isDown()){
+	public double doCommand(Agent a) {
+		if(a.isDown()){
 			super.setValue(1);
 			return 1;
 		}	

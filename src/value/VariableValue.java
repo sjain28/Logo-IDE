@@ -2,7 +2,7 @@ package value;
 
 import parser.Environment;
 
-public class VariableValue extends Value {
+public class VariableValue extends DoubleOptional {
 	private String varName;
 	private Environment myEnvironment;
 
