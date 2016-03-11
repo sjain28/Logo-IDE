@@ -9,7 +9,7 @@ public class SetBackground extends Command{
 	}
 	@Override
 	public double evaluate() {
-		DoubleOptional indexParam = (DoubleOptional) getParams().get(0);
+		Value indexParam = (Value) getParams().get(0);
 		int index = indexParam.getValue().intValue();
 		getController().setBackGroundColor(getController().getColor(index));
 		return index;

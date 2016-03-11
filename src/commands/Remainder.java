@@ -1,6 +1,6 @@
 package commands;
 
-import value.DoubleOptional;
+import value.Value;
 
 public class Remainder extends Command{
 	
@@ -10,8 +10,8 @@ public class Remainder extends Command{
 	
 	@Override
 	public double evaluate() {
-		DoubleOptional term1 = (DoubleOptional) getParams().get(0);
-		DoubleOptional term2 = (DoubleOptional) getParams().get(1);
+		Value term1 = (Value) getParams().get(0);
+		Value term2 = (Value) getParams().get(1);
 		double result = term1.getValue()%term2.getValue();
 		super.setValue(result);
 		return result;

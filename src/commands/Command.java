@@ -7,11 +7,11 @@ import control.Controller;
 import frontend.ErrorHandler;
 import parser.Environment;
 import parser.Parser;
-import value.DoubleOptional;
+import value.Value;
 import value.NumericalValue;
 
 public abstract class Command {
-	private DoubleOptional myValue = new NumericalValue(); 
+	private Value myValue = new NumericalValue(); 
 	private int numParams;
 	private List<Object> myParams = new ArrayList<>();
 	private Environment myEnvironment;
@@ -35,7 +35,7 @@ public abstract class Command {
 	
 	protected void initParams(List<Object> params){	
 		for(int i = 0; i < numParams; i++){
-			myParams.add((DoubleOptional) params.get(i));
+			myParams.add((Value) params.get(i));
 		}
 	}
 	
@@ -59,7 +59,7 @@ public abstract class Command {
 		numParams = params;
 	}
 	
-	public DoubleOptional getValue(){
+	public Value getValue(){
 		return myValue; 
 	}
 		

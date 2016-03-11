@@ -1,15 +1,17 @@
 package parser;
 import java.util.ArrayList;
+import java.util.List;
+
 import commands.Command;
 import commands.ControlCommand;
 import commands.TurtleCommand;
-import value.DoubleOptional;
+import value.Value;
 
 
 public class CommandNode extends ExpressionNode {
 
 	private Command myCommand;
-	private DoubleOptional myValue;
+	private Value myValue;
 	
 	public CommandNode(String name, Command c) {
 		super(name);
@@ -25,33 +27,18 @@ public class CommandNode extends ExpressionNode {
 		return myValue;
 	}
 	
-<<<<<<< HEAD
 	@Override
 	public List<Command> parse() throws Exception{
 		List<Command> commands = new ArrayList<Command>();
-=======
-	public void parse(Parser p) throws Exception{
-		getCommand().setParser(p); // cahnge to getCommand().setEnvironment()
-
->>>>>>> backend
 		ArrayList<Object> params = new ArrayList<Object>();
 		for(ExpressionNode child: getChildren()){
 			params.add(child.getValue());
 			commands.addAll(child.parse());
 		}
 		
-		getCommand().setParams(params);
-<<<<<<< HEAD
-		
+		getCommand().setParams(params);		
 		commands.add(getCommand());
 		return commands;
-=======
-		getCommand().setController(p.getController());
-		
-		if(hasParent() && (getParent() instanceof BracketNode)){
-			return;
-		}
-		p.addCommand(getCommand());
->>>>>>> backend
+
 	}
 }

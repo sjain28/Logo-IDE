@@ -11,10 +11,10 @@ public class SetPalette extends Command{
 
 	@Override
 	public double evaluate() {
-		DoubleOptional index = (DoubleOptional) getParams().get(0);
-		DoubleOptional r =(DoubleOptional)  getParams().get(1);
-		DoubleOptional g =(DoubleOptional)  getParams().get(2);
-		DoubleOptional b = (DoubleOptional) getParams().get(3);
+		Value index = (Value) getParams().get(0);
+		Value r =(Value)  getParams().get(1);
+		Value g =(Value)  getParams().get(2);
+		Value b = (Value) getParams().get(3);
 				
 		getController().setPallette(index.getValue().intValue(), r.getValue().intValue(), g.getValue().intValue(), b.getValue().intValue()); 
 		setValue(index.getValue());
