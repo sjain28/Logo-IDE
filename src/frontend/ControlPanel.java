@@ -113,8 +113,10 @@ public class ControlPanel extends Window {
 	}
 	
 	private void changeBackgroundColor() {
+
 		//myDisplay.setBackgroundColor(backgroundColorPicker.getValue());
 		getController().setBackGroundColor(backgroundColorPicker.getValue());
+
 		return;
 	}
 
