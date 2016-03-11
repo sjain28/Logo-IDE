@@ -8,7 +8,10 @@ import java.util.ResourceBundle;
 import commands.Command;
 import commands.TurtleCommand;
 import frontend.ErrorHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 import parser.Parser;
+
 import java.util.ArrayList;
 import turtle.*;
 
@@ -22,16 +25,11 @@ public class Controller {
 	private Parser parser;
 
 	public Controller() {
-		
 		variableStates = new HashMap<String, String>();
-			}
-
-	public void setVariable(String varName, Double value) {
-		myVariables.put(varName, value);
+		parser = new Parser(myResources);
 	}
-	public Double getVariable(String varName) {
-		return myVariables.get(varName);
-	}
+	
+	
 	
 	public String getProperty(String propertyKey) {
 		return myResources.getString(propertyKey);
@@ -42,24 +40,12 @@ public class Controller {
 	}
 	
 	public void makeParser(String commandString) {
-		parser = new Parser(commandString, myResources);
-		myActiveTurtle.init();
-		parser.setAgent(myActiveTurtle);
 		
 		try {
-			List<Command> cmd = parser.parse();
-			System.out.println(cmd.size());
+			List<Command> cmd = parser.parse(commandString);
 			for (Command c : cmd) {
-				if(c instanceof TurtleCommand){
-					System.out.println("TURTLE!");
-					((TurtleCommand) c).setTurtle(myActiveTurtle);
-				}
 				c.evaluate();
 			}
-			
-			for(State s: ((Turtle) myActiveTurtle).getStates()){
-				System.out.println(s.getLocation() + "  " + s.getOrientation());
-			}	
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,6 +57,10 @@ public class Controller {
 	
 	public void changeLanguage(ResourceBundle newLanguage) {
 		myResources = newLanguage;
+	}
+	
+	public Agent getTurtle() {  // FOR TESTING, SHOULD BE REMOVED AND CHANGED LATER TO MULTIPLE TURTLES
+		return new Turtle(0, new Point2D(0, 0), true, true, Color.BLUE, 3, 0);
 	}
 	
 }

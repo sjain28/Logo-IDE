@@ -64,7 +64,7 @@ public class ControlPanel extends Window {
 		
 		Label lineColorLabel = new Label("Select Line Color");
 		lineColorPicker = initColorPicker(30, lineColorLabel);
-		lineColorPicker.setOnAction(e -> changeLineColor());
+//		lineColorPicker.setOnAction(e -> changeLineColor());
 		lineColorPicker.setValue(Color.BLACK);
 		grid.getChildren().add(lineColorPicker);
 		grid.getChildren().add(lineColorLabel);
@@ -108,10 +108,10 @@ public class ControlPanel extends Window {
 		return;
 	}
 
-	private void changeLineColor() {
-		getController().getActiveTurtle().setPenColor(lineColorPicker.getValue());
-		return;
-	}
+//	private void changeLineColor() {
+//		getController().getActiveTurtle().setPenColor(lineColorPicker.getValue());
+//		return;
+//	}
 
 	public HBox getControlPanel() {
 		return myBox;
