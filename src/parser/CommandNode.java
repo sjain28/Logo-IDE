@@ -1,8 +1,6 @@
 package parser;
 import java.util.ArrayList;
 import commands.Command;
-import commands.DisplayCommand;
-
 
 public class CommandNode extends ExpressionNode {
 
@@ -33,11 +31,7 @@ public class CommandNode extends ExpressionNode {
 		}
 		
 		getCommand().setParams(params);
-		
-		if(getCommand() instanceof DisplayCommand){
-			DisplayCommand dc = (DisplayCommand) getCommand();
-			dc.setController(dc.getParser().getController());
-		}
+		getCommand().setController(p.getController());
 		
 		if(hasParent() && (getParent() instanceof BracketNode)){
 			return;

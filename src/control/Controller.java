@@ -9,11 +9,9 @@ import commands.Command;
 import frontend.ErrorHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import parser.Parser;
 import turtle.Agent;
-import turtle.State;
 import turtle.Turtle;
 
 
@@ -29,13 +27,8 @@ public class Controller {
 	private ListView<String> myPalette = new ListView<>();
 
 	public Controller() {
-		
 		variableStates = new HashMap<String, String>();
 		myTurtles = new ArrayList<Agent>();
-		
-		//Test code
-		
-		// TODO Auto-generated constructor stub
 		myVariables = new HashMap<String, Double>();
 	}
 
@@ -126,13 +119,10 @@ public class Controller {
 	}
 	
 	public Color getColor(int index){
-		// currently returns white on error - could have try catch block instead
-		// possible index out of bounds error
-		if(myPalette.getItems().size() < index){
+		if(myPalette.getItems().size() > index){
 			return Color.web("rgb(" + myPalette.getItems().get(index) + ")");
 		} else{
-			return Color.WHITE;
+			return Color.BLACK;
 		}
-	}
-	
+	}	
 }

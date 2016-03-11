@@ -3,6 +3,7 @@ package commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import control.Controller;
 import control.Environment;
 import frontend.ErrorHandler;
 import parser.DoubleOptional;
@@ -14,6 +15,8 @@ public abstract class Command {
 	private List<Object> myParams = new ArrayList<>();
 	private Parser myParser; // To be changed to scope/environment class
 	private Environment myEnvironment;
+	private Controller myController; //Refactoring: Have some kind of frontend interface that gets exposed to backend instead of the whoel controller
+
 	
 	public void setEnvironment(Environment e){
 		myEnvironment = e;
@@ -70,6 +73,16 @@ public abstract class Command {
 	}
 	public Parser getParser() {
 		return myParser;
+	}
+	
+	public void setController(Controller c){
+		if(myController == null){
+			myController = c;
+		}
+	}
+	
+	public Controller getController(){
+		return myController;
 	}
 }
 
