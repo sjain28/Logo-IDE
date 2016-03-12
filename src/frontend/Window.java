@@ -16,17 +16,19 @@ import javafx.scene.text.Text;
 
 public abstract class Window {
 	
-	private static String TITLE = null;
+	private String TITLE = null;
 	private Group root;
 	
-	private static double WINDOW_WIDTH;
-	private static double WINDOW_HEIGHT;
+	private double WINDOW_WIDTH;
+	private double WINDOW_HEIGHT;
 	
 	
-	private static double SLIDER_WIDTH;
-	private static double SLIDER_HEIGHT;
-	private static double BORDER_SIZE;
-	private static double FONT_SIZE;
+	private double SLIDER_WIDTH;
+	private double SLIDER_HEIGHT;
+	private double BUTTON_WIDTH;
+	private double BUTTON_HEIGHT;
+	private double BORDER_SIZE;
+	private double FONT_SIZE;
 	
 	private ArrayList<Text> texts;
 	Properties UILabels;

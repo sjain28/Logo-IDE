@@ -1,5 +1,7 @@
 package frontend;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import control.Controller;
 import javafx.application.HostServices;
 import javafx.event.ActionEvent;
@@ -10,10 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import xml.XMLWriter;
 
 public class TextBox extends Window{
 	
 	private PastCommands pastCommands;
+	
+	private XMLWriter xmlWriter;
 	
 	public TextBox(double width, double height) {
 		super(width, height);
@@ -60,6 +65,21 @@ public class TextBox extends Window{
 				}
 			 }
 		});
+		
+		try {
+			xmlWriter = new XMLWriter("/Users/bobby_mac/Documents/workspace/slogo_team17/test.txt", getController());
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		Button write = new Button("Write XML");
+		GridPane.setConstraints(write, 1, 1);
+		grid.getChildren().add(write);
+		write.setOnAction(e -> xmlWriter.write());
 		
 		
 		super.getRoot().getChildren().add(grid);
