@@ -37,7 +37,8 @@ public class XMLReader {
 	}
 	
 	
-	public Map<String, String> getVariables() {
+	public Map<String, Double> getVariables() {
+		
 		return null;
 	}
 	

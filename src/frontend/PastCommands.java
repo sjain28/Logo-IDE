@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 
 public class PastCommands extends Window {
 	
-	private static ObservableList<String> previousCommands;
+	private ObservableList<String> previousCommands;
 
 	public PastCommands(double width, double height) {
 		super(width, height);

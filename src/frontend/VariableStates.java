@@ -10,9 +10,9 @@ import turtle.State;
 
 public class VariableStates extends Window {
 	
-	private static ObservableList<String> variableStates;
+	private ObservableList<String> variableStates;
 	
-	private static Controller controller;
+	private Controller controller;
 	
 	public VariableStates(double width, double height) {
 		super(width, height);
@@ -41,10 +41,11 @@ public class VariableStates extends Window {
 
 	@Override
 	public void step(double elapsedTime) {
-		variableStates.clear();
-		for (String key : controller.getVariableStates().keySet()) {
-			variableStates.add(key + " : " + controller.getVariableStates().get(key));
-		}
+		System.out.println(controller.getVariables().size());
+//		variableStates.clear();
+//		for (String key : controller.getVariables().keySet()) {
+//			variableStates.add(key + " : " + controller.getVariables().get(key));
+//		}
 	}
 
 }
