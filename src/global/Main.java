@@ -29,10 +29,7 @@ public class Main extends Application
     public void start (Stage s) 
     {
  		Controller myBackEnd =  new Controller();
-		GUI myFrontEnd = new GUI(FRAMES_PER_SECOND, myBackEnd);
-		// setting up the initial scene
-								
-		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		GUI myFrontEnd = new GUI(FRAMES_PER_SECOND, myBackEnd);						
 		Scene scene = myFrontEnd.init();
 		s.setScene(scene);
 		s.show();		
