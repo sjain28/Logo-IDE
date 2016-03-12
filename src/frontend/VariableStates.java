@@ -32,11 +32,11 @@ public class VariableStates extends Window {
 
 	@Override
 	public void step(double elapsedTime) {
-//		System.out.println(controller.getVariables().size());
-//		variableStates.clear();
-//		for (String key : controller.getVariables().keySet()) {
-//			variableStates.add(key + " : " + controller.getVariables().get(key));
-//		}
+		System.out.println(getController().getVariables().size());
+		variableStates.clear();
+		for (String key : getController().getVariables().keySet()) {
+			variableStates.add(key + " : " + getController().getVariables().get(key));
+		}
 	}
 
 }

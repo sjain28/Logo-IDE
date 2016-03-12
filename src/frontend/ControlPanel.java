@@ -31,18 +31,18 @@ import turtle.Agent;
 
 public class ControlPanel extends Window {
 
-	private final double COLOR_BOX_WIDTH = 90;
-	private final double COLOR_BOX_HEIGHT = 30;
-	private final double COMBO_BOX_WIDTH = 80;
-	private final double PALETTE_BOX_HEIGHT = 60;
-	private final double PALETTE_BOX_WIDTH = 150;
+	private static final double COLOR_BOX_WIDTH = 90;
+	private static final double COLOR_BOX_HEIGHT = 30;
+	private static final double COMBO_BOX_WIDTH = 80;
+	private static final double PALETTE_BOX_HEIGHT = 60;
+	private static final double PALETTE_BOX_WIDTH = 150;
 	private static final int PANE_WIDTH = 600;
 	private static final int PANE_HEIGHT = 150;
-	private final int BOX_ROW = 2;
-	private final int LABEL_ROW = 0;
-	private final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";	
-	private final String FRONTEND_RESOURCE_PACKAGE = "resources.frontend/frontend";
-	private final String COLOR_RESOURCE_PACKAGE = "resources.frontend/colors";
+	private static final int BOX_ROW = 2;
+	private static final int LABEL_ROW = 0;
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";	
+	private static final String FRONTEND_RESOURCE_PACKAGE = "resources.frontend/frontend";
+	private static final String COLOR_RESOURCE_PACKAGE = "resources.frontend/colors";
 	
 	private ResourceBundle myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE_PACKAGE);
 	
@@ -54,7 +54,7 @@ public class ControlPanel extends Window {
 	private ResourceBundle myResource;
 	private VBox myPaletteBox;
 	private VBox myPictureBox;
-	private int FPS = 60;
+	private static final int FPS = 60;
 
 	
 	public ControlPanel(Display inDisplay) {

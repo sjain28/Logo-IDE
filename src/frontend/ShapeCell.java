@@ -1,17 +1,15 @@
 package frontend;
 
 import javafx.scene.control.ListCell;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.TextAlignment;
 
 public class ShapeCell extends ListCell<String>{
 	   
-		private double SIDE = 10;
-		private double OFFSET = 20;
+		private static final double SIDE = 10;
+		private static final double OFFSET = 20;
 		@Override
 	     public void updateItem(String item,  boolean empty) {
        
