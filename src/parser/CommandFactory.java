@@ -45,9 +45,6 @@ public class CommandFactory {
 			return result;
 		}
 
-		ErrorHandler eh = new ErrorHandler(50, 50);
-		eh.init();
-		eh.openError("IncorrectCommandException");	
 		throw new Exception();
 	}
 }

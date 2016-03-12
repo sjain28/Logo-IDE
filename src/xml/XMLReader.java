@@ -14,6 +14,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import turtle.Agent;
+import turtle.Turtle;
+
 public class XMLReader {
 	
 	Document doc;
@@ -29,8 +35,6 @@ public class XMLReader {
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			doc = dBuilder.parse(playerFile);
 			doc.getDocumentElement().normalize();
-
-			
 		} catch (Exception e) {
 			throw e;
 		}
@@ -38,91 +42,73 @@ public class XMLReader {
 	
 	
 	public Map<String, Double> getVariables() {
-		
-		return null;
-	}
-	
-	
-	
-	public Map<String, String> getBasicInfo() {
-		Map<String, String> basicInfo = new HashMap<String, String>();
-		
-		Element element = (Element) doc.getElementsByTagName("basic").item(0);
-		for (String s: new String[] {"name", "title", "author"}) {
-			basicInfo.put(s, element.getElementsByTagName(s).item(0).getTextContent());
+		Map<String, Double> vars =  new HashMap<>();
+		NodeList variableList = doc.getElementsByTagName("variables").item(0).getChildNodes();
+		for (int i = 0; i<variableList.getLength(); i++) {
+			Element variable = (Element) variableList.item(i);
+			vars.put(variable.getElementsByTagName("name").item(0).getTextContent(),
+					Double.parseDouble(variable.getElementsByTagName("value").item(0).getTextContent()));
 		}
-		return basicInfo;
+ 		return vars;
 	}
 	
-	public Map<String, String> getGlobalInfo() {
-		Map<String, String> basicInfo = new HashMap<String, String>();
-		Element element = (Element) doc.getElementsByTagName("global").item(0);
+	private String getTagContents(Element base, String tag) {
+		return base.getElementsByTagName(tag).item(0).getTextContent();
+	}
+	
+	public List<List<Agent>> getTurtles() {
+		List<List<Agent>> turtles = new ArrayList<>();
+		
+		Element allTurtles = (Element) doc.getElementsByTagName("turtles").item(0);
+		
+		NodeList turtleList = allTurtles.getElementsByTagName("turtle");
+		
+		
+		for (int i = 0; i<turtleList.getLength(); i++) {
+			Node node = turtleList.item(i);
+			
+			if (node.getNodeType() != Node.ELEMENT_NODE)
+				continue;
+			
+			List<Agent> pastStates = new ArrayList<>();
 
-		for (String s: new String[] {"gametype",
-				"satisfactionratio",
-				"flamepercent",
-				"energy","fishreproduction", "sharkreproduction", "eatingbonus", "toroidal", 
-				"diffusion", "evaporation", "maxants", "spawnrate", "initialfood",
-				"campdrop", "sniffthreshold", "slimespots"}) {
-			if (element.getElementsByTagName(s).getLength() > 0) {
-				basicInfo.put(s, element.getElementsByTagName(s).item(0).getTextContent());
+			NodeList pastInputStates = node.getChildNodes();
+
+			for (int j = 0; j < pastInputStates.getLength(); j++) {
+
+				if (pastInputStates.item(j).getNodeType() != Node.ELEMENT_NODE)
+					continue;
+
+				Element inputState = (Element) pastInputStates.item(j);
+
+				pastStates.add(new Turtle(Double.parseDouble(getTagContents(inputState, "orientation")),
+						new Point2D(Double.parseDouble(getTagContents(inputState, "x")),
+								Double.parseDouble(getTagContents(inputState, "y"))),
+						Boolean.parseBoolean(getTagContents(inputState, "pendown")),
+						Boolean.parseBoolean(getTagContents(inputState, "visible")),
+						Color.web(getTagContents(inputState, "pencolor")),
+						Double.parseDouble(getTagContents(inputState, "linewidth")),
+						Integer.parseInt(getTagContents(inputState, "time"))));
+
 			}
+
+			turtles.add(pastStates);
+			
 		}
-		return basicInfo;
-	}
-	
-	public Map<String, String> getColorMap() {
-		Map<String, String> allColors = new HashMap<String, String>();
-		Element element = (Element) doc.getElementsByTagName("global").item(0);
-		if (element.getElementsByTagName("colorlist").getLength() > 0) {
-			NodeList colorlist = element.getElementsByTagName("colorlist").item(0).getChildNodes();
-			for (int i = 0; i < colorlist.getLength(); i++) {
-					Node colorNode = colorlist.item(i);
-					
-					if (colorNode.getNodeType() == Node.ELEMENT_NODE) {
-						Element colorElement = (Element) colorNode;
-						
-						allColors.put(colorElement.getElementsByTagName("type").item(0).getTextContent(), 
-								colorElement.getElementsByTagName("hex").item(0).getTextContent());
-					}
-					
-			}
-		}
-		return allColors;
-	}
-	
-	
-	
-	
-	public int[] getSize() {
-		int[] size = new int[2];
-		Element element = (Element) doc.getElementsByTagName("state").item(0);
-		Element dimensions = (Element) element.getElementsByTagName("dimension").item(0);
-		size[0] = Integer.parseInt(dimensions.getElementsByTagName("width").item(0).getTextContent());
-		size[1] = Integer.parseInt(dimensions.getElementsByTagName("height").item(0).getTextContent());
-		return size;
-	}
-	
-	
-	public List<Map<String, Integer>> getCells() {
-		List<Map<String, Integer>> allCells = new ArrayList<Map<String, Integer>>();
-		Element element = (Element) doc.getElementsByTagName("state").item(0);
-		NodeList cells = element.getElementsByTagName("cellList").item(0).getChildNodes();
 		
-		for (int i = 0; i < cells.getLength(); i++) {
-				Node cellNode = cells.item(i);
-				
-				if (cellNode.getNodeType() == Node.ELEMENT_NODE) {
-					Map<String, Integer> cellMap = new HashMap<String, Integer>();
-					Element cellElement = (Element) cellNode;
-					for (String s: new String[] {"x", "y", "s"}) {
-						cellMap.put(s, Integer.parseInt(cellElement.getElementsByTagName(s).item(0).getTextContent()));
-					}
-					allCells.add(cellMap);
-				}
-				
+		return turtles;
+	}
+	
+	
+	public static void main(String[] args) {
+		try {
+			XMLReader x = new XMLReader("/Users/bobby_mac/Documents/workspace/slogo_team17/test.txt");
+			System.out.println(x.getTurtles().get(0).size());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return allCells;
+		
 	}
 	
 }

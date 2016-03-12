@@ -45,8 +45,15 @@ public class XMLWriter {
 		root.appendChild(variables);
 		for (String key : source.getVariables().keySet()) {
 			Element var = doc.createElement("var");
-			var.setAttribute("name", key);
-			var.appendChild(doc.createTextNode(String.valueOf(source.getVariables().get(key))));
+			
+			Element name = doc.createElement("name");
+			writeNode(name, key);
+			var.appendChild(name);
+			
+			Element value = doc.createElement("value");
+			writeNode(value, source.getVariables().get(key));
+			var.appendChild(value);
+			
 		}
 	}
 	
@@ -131,15 +138,15 @@ public class XMLWriter {
 		
 		Element backgroundColor = doc.createElement("background");
 		writeNode(backgroundColor, source.getBackgroundColor());
-		
 		global.appendChild(backgroundColor);
 		
-		//Element language = doc.createElement("language");
-		//writeNode(language, source.getProperty())
-		//languages don't work right now becuase they're not simple strings
+		Element language = doc.createElement("language");
+		writeNode(language, source.getResources().getBaseBundleName());
+		global.appendChild(language);
 		
-		//Element picture = doc.createElement("picture");
-		//writeNode(backgroundColor, source.get)
+		Element picture = doc.createElement("picture");
+		writeNode(picture, source.getImageLocation());
+		global.appendChild(picture);
 		
 		Element palette = doc.createElement("palette");
 		
@@ -150,10 +157,8 @@ public class XMLWriter {
 			palette.appendChild(color);
 		}
 		
-//		background color
-//		language
-//		turtle picture (global)
-//		palette
+		global.appendChild(palette);
+		
 	}
 	
 	
