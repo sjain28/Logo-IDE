@@ -28,13 +28,9 @@ public class Turtle implements Agent{
 		myPenColor = pen;
 		myLineWidth = line;
 		myTime = curTime;
-<<<<<<< HEAD
-		myStates = new ArrayList<Turtle>();
-		myShape = 2;
-=======
 		myStates = new ArrayList<Agent>();
-		myShape = -1;
->>>>>>> 0971822fa45e9b107bbed16b3c2e28966cd6da37
+		myShape = 2;
+
 	}
 	
 	public Turtle() {
