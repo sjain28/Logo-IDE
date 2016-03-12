@@ -18,7 +18,7 @@ public class VariableNode extends ExpressionNode{
 
 	@Override
 	public void setEnvironment(Environment env) { 
-		setEnvironment(env);
+		super.setEnvironment(env);
 		myValue.setEnvironment(env);
 	}
 	
