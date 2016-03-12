@@ -40,6 +40,11 @@ public class Scope implements Environment {
 	}
 	
 	@Override
+	public void setVariable(String varName, double value) {
+		myVariables.put(varName, value);
+	}
+	
+	@Override
 	public Double getVariable(String varName) {
 		return (myVariables.containsKey(varName) ? myVariables.get(varName) : (myParent != null? myParent.getVariable(varName) : null));
 	}

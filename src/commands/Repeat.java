@@ -28,6 +28,7 @@ public class Repeat extends BlockCommand {
 		double value = 0;
 		int n =  numTimes.getValue().intValue();
 		for (int i = 1; i <= n; i++) {
+			getEnvironment().setVariable("repcount", i);
 			for (int j = 0; j < commands.size(); j++) {
 				value = commands.get(j).evaluate();
 			}

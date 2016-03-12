@@ -13,6 +13,7 @@ public interface Environment {
 	public Environment getParent();
 	public Environment makeChild();
 	
+	public void setVariable(String varName, double value);
 	public Double getVariable(String varName);
 	public Map<String, Double> getVariables();
 	public Map<String, UserDefinedFunction> getUserDefinedFunctions();
