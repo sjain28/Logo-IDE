@@ -1,9 +1,7 @@
 package frontend;
 
-import java.util.Observable;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -20,14 +18,14 @@ public class PastCommands extends Window {
 	
 	@Override
 	public Scene init() {
-		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight(), Color.RED);
+		 Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight(), Color.RED);
 		
 		 previousCommands = FXCollections.observableArrayList();
 		 ListView<String> listView = new ListView<String>(previousCommands);
 		
 		 super.getRoot().getChildren().add(listView);
 		
-		return myScene;
+		 return myScene;
 	}
 	
 	public ObservableList<String> getPreviousCommands() {

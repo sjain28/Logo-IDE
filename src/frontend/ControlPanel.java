@@ -28,23 +28,27 @@ import turtle.Agent;
 
 public class ControlPanel extends Window {
 
+	private final double COLOR_BOX_WIDTH = 90;
+	private final double COLOR_BOX_HEIGHT = 30;
+	private final double COMBO_BOX_WIDTH = 80;
+	private final double PALETTE_BOX_HEIGHT = 60;
+	private final double PALETTE_BOX_WIDTH = 150;
+	private final int BOX_ROW = 2;
+	private final int LABEL_ROW = 0;
+	private final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";	
+	private final String FRONTEND_RESOURCE_PACKAGE = "resources.frontend/frontend";
+	
+	private ResourceBundle myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE_PACKAGE);
+	
 	private ColorPicker backgroundColorPicker;
 	private ColorPicker lineColorPicker;
 	private HBox myBox;
 	private Display myDisplay;
 	private ComboBox<String> myComboBox;
-	private final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private ResourceBundle myResource;
 	private VBox myPaletteBox;
 	private VBox myShapeBox;
-	private double COLOR_BOX_WIDTH = 90;
-	private double COLOR_BOX_HEIGHT = 30;
-	private double COMBO_BOX_WIDTH = 80;
-	private double PALETTE_BOX_HEIGHT = 60;
-	private double PALETTE_BOX_WIDTH = 150;
 
-	private final int BOX_ROW = 2;
-	private final int LABEL_ROW = 0;
 	
 	public ControlPanel(Scene inScene, Display inDisplay) {
 		super(600, 150);
@@ -61,27 +65,27 @@ public class ControlPanel extends Window {
 		grid.setPadding(new Insets(10));
 		grid.setVgap(5);
 		grid.setHgap(5);
-
-		Label backgroundLabel = new Label("Select Background Color");
+		
+		Label backgroundLabel = new Label(myResources.getString("BACKGROUND_LABEL"));
 		backgroundColorPicker = initColorPicker(5, backgroundLabel, Color.WHITE, grid);
 		backgroundColorPicker.setOnAction(e -> changeBackgroundColor());
 
-		Label lineColorLabel = new Label("Select Line Color");
+		Label lineColorLabel = new Label(myResources.getString("LINECOLOR_LABEL"));
 		lineColorPicker = initColorPicker(6, lineColorLabel, Color.BLACK, grid);
 		lineColorPicker.setOnAction(e -> changeLineColor());
 
 		//bunch of magic
 		final FileChooser fileChooser = new FileChooser();
-		final Button openButton = initButton("Open a Picture...", grid, 7, 2);
+		final Button openButton = initButton(myResources.getString("OPEN_PICTURE"), grid, 7, 2);
 		openButton.setOnAction(e -> handleOpen(fileChooser));
 				
 		myComboBox = initComboBox();
-		Label languageLabel = new Label("Select Language");
+		Label languageLabel = new Label(myResources.getString("LANGUAGE_LABEL"));
 		addToGrid(grid, myComboBox, languageLabel, 8, 2, 0);
 		// Defining the Submit button
 
 		myPaletteBox = initPaletteBox();
-		Label paletteLabel = new Label("Palette Options");
+		Label paletteLabel = new Label(myResources.getString("PALETTE_LABEL"));
 		addToGrid(grid, myPaletteBox, paletteLabel, 9, 2, 0);
 		
 		myShapeBox = initShapeBox();
