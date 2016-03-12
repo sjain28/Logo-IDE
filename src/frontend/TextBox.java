@@ -2,8 +2,6 @@ package frontend;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import control.Controller;
-import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import xml.XMLWriter;
 
+// there be magic in this one
 public class TextBox extends Window{
 	
 	private PastCommands pastCommands;

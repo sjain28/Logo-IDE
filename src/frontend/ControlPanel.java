@@ -31,17 +31,18 @@ import turtle.Agent;
 
 public class ControlPanel extends Window {
 
-	private final double COLOR_BOX_WIDTH = 90;
-	private final double COLOR_BOX_HEIGHT = 30;
-	private final double COMBO_BOX_WIDTH = 80;
-	private final double PALETTE_BOX_HEIGHT = 60;
-	private final double PALETTE_BOX_WIDTH = 150;
+	private static final double COLOR_BOX_WIDTH = 90;
+	private static final double COLOR_BOX_HEIGHT = 30;
+	private static final double COMBO_BOX_WIDTH = 80;
+	private static final double PALETTE_BOX_HEIGHT = 60;
+	private static final double PALETTE_BOX_WIDTH = 150;
 	private static final int PANE_WIDTH = 600;
 	private static final int PANE_HEIGHT = 150;
-	private final int BOX_ROW = 2;
-	private final int LABEL_ROW = 0;
-	private final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";	
-	private final String FRONTEND_RESOURCE_PACKAGE = "resources.frontend/frontend";
+	private static final int BOX_ROW = 2;
+	private static final int LABEL_ROW = 0;
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";	
+	private static final String FRONTEND_RESOURCE_PACKAGE = "resources.frontend/frontend";
+	private static final String COLOR_RESOURCE_PACKAGE = "resources.frontend/colors";
 	
 	private ResourceBundle myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE_PACKAGE);
 	
@@ -53,9 +54,10 @@ public class ControlPanel extends Window {
 	private ResourceBundle myResource;
 	private VBox myPaletteBox;
 	private VBox myPictureBox;
+	private static final int FPS = 60;
 
 	
-	public ControlPanel(Scene inScene, Display inDisplay) {
+	public ControlPanel(Display inDisplay) {
 		super(PANE_WIDTH, PANE_HEIGHT);
 		myDisplay = inDisplay;
 	}
@@ -196,13 +198,18 @@ public class ControlPanel extends Window {
 	private VBox initPaletteBox(){
 		
 		 ListView<String> listView = super.getController().getPalette();
-		 //ditch magic variables later
-		 ObservableList<String> indices = FXCollections.observableArrayList("0,255,0", "255,0,0", "0,0,255", "255,255,255");
+		 ResourceBundle myColors = ResourceBundle.getBundle(COLOR_RESOURCE_PACKAGE);
+		 
+		 Collection<String> myInColors = new ArrayList<>();
+		 for( String key: myColors.keySet()){
+			 myInColors.add(myColors.getString(key));
+		 }
+		 ObservableList<String> indices = FXCollections.observableArrayList(myInColors);
 		 VBox box = new VBox();
 	     box.getChildren().addAll(listView);
 	     VBox.setVgrow(listView, Priority.ALWAYS);
 	     listView.setItems(indices);
-	     listView.setCellFactory( e-> handlePCellCreation());
+	     listView.setCellFactory( e-> handleColorCellCreation());
 		 box.setPrefWidth(PALETTE_BOX_WIDTH);
 		 box.setPrefHeight(PALETTE_BOX_HEIGHT);
 	     return box;
@@ -212,29 +219,36 @@ public class ControlPanel extends Window {
 		 ListView<String> listView = new ListView<>();
 				//super.getController().getShapes();
 		 //magic
-		 ObservableList<String> shapes = FXCollections.observableArrayList("0", "3", "4", "5", "6");
+		URL resource = ClassLoader.getSystemClassLoader().getResource("resources/images");
+		Collection<String> myFileList = new ArrayList<String>();
+		File head = new File(resource.getPath());
+		for(File fileEntry: head.listFiles()){
+			myFileList.add(fileEntry.toURI().toString());
+		}
+		 
+		 ObservableList<String> shapes = FXCollections.observableArrayList(myFileList);
 		 VBox box = new VBox();
 	     box.getChildren().addAll(listView);
 	     VBox.setVgrow(listView, Priority.ALWAYS);
 
 	     listView.setItems(shapes);
-	     listView.setCellFactory( e-> handleShapeCellCreation());
+	     listView.setCellFactory( e-> handlePictureCellCreation());
 
 		 box.setPrefWidth(PALETTE_BOX_WIDTH);
 		 box.setPrefHeight(PALETTE_BOX_HEIGHT);
 	     return box;
 	}
 	
-	private ListCell<String> handlePCellCreation(){
+	private ListCell<String> handleColorCellCreation(){
 		
 		ListCell<String> myVal = new ColorRectCell();
 		return myVal;
 
 	}
 	
-	private ListCell<String> handleShapeCellCreation(){
+	private ListCell<String> handlePictureCellCreation(){
 		
-		ListCell<String> myVal = new ShapeCell();
+		ListCell<String> myVal = new ImageCell();
 		return myVal;
 
 	}
@@ -257,7 +271,7 @@ public class ControlPanel extends Window {
 		Stage stage = new Stage();
         stage.setTitle("My New Stage Title");        
  		Controller myBackEnd =  new Controller();
-		GUI myFrontEnd = new GUI(60, myBackEnd);
+		GUI myFrontEnd = new GUI(FPS, myBackEnd);
         Scene scene = myFrontEnd.init();
         stage.setScene(scene);
         stage.show();

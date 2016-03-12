@@ -18,8 +18,7 @@ import turtle.State;
 
 public class Display extends Window {
 	
-	// TODO
-	private final static double TURTLE_WIDTH = 64;
+	private static final double TURTLE_WIDTH = 64;
 	private static final double TURTLE_HEIGHT = 64;
 	private static final int IMAGEVIEWSIZEBOUND = 4;
 	private static final int LINESIZEBOUND = 8;
@@ -33,7 +32,7 @@ public class Display extends Window {
 
 	private Collection<Agent> myTurtles;
 	private Point2D ORIGIN = new Point2D(0,0);
-	private double multFactor = 1;
+	private double multFactor;
 	private Map<Agent, ImageView> agentToPicture = new HashMap<Agent, ImageView>();
 		
 	public Display(double width, double height, int lineSpacing) {
@@ -54,6 +53,7 @@ public class Display extends Window {
 //=================================================================================
 	@Override
 	public Scene init() {
+		multFactor = 1;
 		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight());
 		super.getRoot().getChildren().add(myCanvas);
 		return myScene;
@@ -193,6 +193,7 @@ public class Display extends Window {
 		return thisImageView.getX() < 0 || thisImageView.getX() > width ||
 				thisImageView.getY() < 0 || thisImageView.getY() > height;
 	}
+	
 	
 
 }

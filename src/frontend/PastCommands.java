@@ -9,19 +9,18 @@ import javafx.scene.paint.Color;
 
 public class PastCommands extends Window {
 	
-	private ObservableList<String> previousCommands;
+	private ObservableList<String> previousCommands = FXCollections.observableArrayList();
 
 	public PastCommands(double width, double height) {
 		super(width, height);
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	@Override
 	public Scene init() {
 		 Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight(), Color.RED);
 		
-		 previousCommands = FXCollections.observableArrayList();
-		 ListView<String> listView = new ListView<String>(previousCommands);
+		 ListView<String> listView = new ListView<>(previousCommands);
 		
 		 super.getRoot().getChildren().add(listView);
 		
