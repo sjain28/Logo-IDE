@@ -18,8 +18,8 @@ import turtle.State;
 
 public class Display extends Window {
 	
-	private static final double TURTLE_WIDTH = 64;
-	private static final double TURTLE_HEIGHT = 64;
+	private static final double TURTLE_WIDTH = 32;
+	private static final double TURTLE_HEIGHT = 32;
 	private static final int IMAGEVIEWSIZEBOUND = 4;
 	private static final int LINESIZEBOUND = 8;
 	Image defaultImage = new Image("resources/images/Spiny.png");
@@ -101,7 +101,7 @@ public class Display extends Window {
 	public void setImage(Image image) {
 		Collection<Agent> myActiveTurtles = getController().getActiveTurtles();
 		for(Agent myTurtle: myActiveTurtles){
-			agentToPicture.get(myTurtle).setImage(image);
+			myTurtle.setShape(getController().getPictures().getItems().size()-1);
 		}
 
 	}
@@ -134,6 +134,7 @@ public class Display extends Window {
 	}
 //---------------------------------------------------------------------------------
 	private void setImageView(ImageView thisImageView, Agent thisTurtle){
+		thisImageView.setImage(getController().getImage(thisTurtle.getShape()));
 		thisImageView.setRotate(thisTurtle.getOrientation());
 		thisImageView.setVisible(thisTurtle.isVisible());
 		thisImageView.setX(imageViewOffsetX(thisTurtle.getLocation().getX(), thisImageView));

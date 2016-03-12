@@ -16,7 +16,10 @@ import javafx.scene.text.Text;
 
 public abstract class Window {
 	
-	private String TITLE = null;
+	private static final double ERROR_WIDTH = 400;
+	private static final double ERROR_HEIGHT = 400;
+	
+	private String TITLE;
 	private Group root;
 	
 	private double WINDOW_WIDTH;
@@ -25,8 +28,6 @@ public abstract class Window {
 	
 	private double SLIDER_WIDTH;
 	private double SLIDER_HEIGHT;
-	private double BUTTON_WIDTH;
-	private double BUTTON_HEIGHT;
 	private double BORDER_SIZE;
 	private double FONT_SIZE;
 	
@@ -39,6 +40,7 @@ public abstract class Window {
 		root = new Group();
 		WINDOW_WIDTH = width;
 		WINDOW_HEIGHT = height;
+		TITLE = null;
 	}
 	
 	
@@ -81,7 +83,7 @@ public abstract class Window {
 	
 	public abstract void step(double elapsedTime);
 	
-	public Properties openPropertiesFile (String fileName) throws Exception {
+	public Properties openPropertiesFile (String fileName) {
 		Properties newProperties = new Properties();
 		InputStream inputStream = null;
 		try {
@@ -90,12 +92,14 @@ public abstract class Window {
 			inputStream.close();
 			return newProperties;
 		} catch (Exception e) {
-			throw e;
+			DialogHandler myHandler = new DialogHandler(ERROR_WIDTH, ERROR_HEIGHT);
+			myHandler.openPopup("FileNotFound");
+			return null;
 		}
 	}
 	
 	public ComboBox<String> makeComboBox(double x, double y) {
-		ComboBox<String> newComboBox = new ComboBox<String>();
+		ComboBox<String> newComboBox = new ComboBox<>();
 		
 		newComboBox.setLayoutX(x);
 		newComboBox.setLayoutY(y);
@@ -137,11 +141,11 @@ public abstract class Window {
 	private void changeTextField(double newValue, boolean isInteger, String label, Text text)
 	{
 		String newValueString = UILabels.getProperty(label);
-		if (isInteger)
+		if (isInteger){
 			newValueString = newValueString.concat(String.format("%.0f",(float)Math.round(newValue) ));
-		else
+		}else{
 			newValueString = newValueString.concat(String.format("%.2f",(float)newValue ));
-		
+		}
     	text.setText(newValueString);
 	}
 	

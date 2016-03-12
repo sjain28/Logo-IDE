@@ -18,13 +18,13 @@ public class GUI {
     private static final double TEXTBOX_HEIGHT = 500; 
     private static final double PASTCOMMANDS_WIDTH = 200;
     private static final double PASTCOMMANDS_HEIGHT = 200;
-    private static final double DISPLAY_WIDTH = 400;
-    private static final double DISPLAY_HEIGHT = 400;
+    private static final double DISPLAY_WIDTH = 512;
+    private static final double DISPLAY_HEIGHT = 512;
     private static final double MAIN_WIDTH = 1200;
     private static final double MAIN_HEIGHT = 700;
 	private static final double VARIABLESTATES_HEIGHT = 200;
 	private static final double VARIABLESTATES_WIDTH = 200;
-	private static final int LINE_SPACING = 50;
+	private static final int LINE_SPACING = 64;
     
     private Controller myController;
     private BorderPane mainPane = new BorderPane();
