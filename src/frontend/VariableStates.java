@@ -6,13 +6,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
-import turtle.State;
 
 public class VariableStates extends Window {
 	
 	private static ObservableList<String> variableStates;
-	
-	private static Controller controller;
 	
 	public VariableStates(double width, double height) {
 		super(width, height);
@@ -35,15 +32,15 @@ public class VariableStates extends Window {
 	}
 	
 	public void setController(Controller controller) {
-		this.controller = controller;
+		super.setController(controller);
 	}
 	
 
 	@Override
 	public void step(double elapsedTime) {
 		variableStates.clear();
-		for (String key : controller.getVariableStates().keySet()) {
-			variableStates.add(key + " : " + controller.getVariableStates().get(key));
+		for (String key : super.getController().getVariables().keySet()){
+			variableStates.add(key + " : " + getController().getVariables().get(key));
 		}
 	}
 
