@@ -25,10 +25,12 @@ public class MakeUserInstruction extends ControlCommand {
 		System.out.println("initParams of to");
 		Value commandVariable = (Value) params.get(0);
 		Map<String, Value> variablesMap = getParser().getVariables();
-		functionName = variablesMap.keySet().stream().filter(key -> variablesMap.get(key) == commandVariable).collect(Collectors.toList()).get(0);
+		functionName = variablesMap.keySet().stream().
+									filter(key -> variablesMap.get(key) == commandVariable).
+									collect(Collectors.toList()).get(0);
 		variablesMap.remove(functionName);
 		getEnvironment().addFunction(functionName, null);
-
+		
 		myVariables = (List<Value>) params.get(1);
 		myCommands = (List<Command>) params.get(2);
 	}

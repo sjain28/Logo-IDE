@@ -25,7 +25,6 @@ public class GUI {
 	
 	
 	public Scene init(){
-			
 		
 	   	System.setProperty("glass.accessible.force", "false");
 	
@@ -70,7 +69,7 @@ public class GUI {
 				new EventHandler<ActionEvent>() {
 					public void handle(ActionEvent e) {
 						display.step(SECOND_DELAY);
-//						variableStates.step(SECOND_DELAY);
+						variableStates.step(SECOND_DELAY);
 					}
 				});
 		
