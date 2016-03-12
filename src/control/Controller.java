@@ -22,6 +22,8 @@ public class Controller {
 	private ListView<String> myPalette = new ListView<>();
 	private Color backgroundColor = Color.WHITE;
 	
+	private String imageLocation = "resources/images/Spiny.png";
+	
 	public Controller() {
 		parser = new Parser(myResources);
 		curEnv = parser.getGlobalEnvironment(); // Only global environment at the moment
@@ -30,6 +32,11 @@ public class Controller {
 	public String getProperty(String propertyKey) {
 		return myResources.getString(propertyKey);
 	}
+	
+	public ResourceBundle getResources() {
+		return myResources;
+	}
+	
 	
 	public void makeParser(String commandString) {		
 		try {
@@ -127,7 +134,17 @@ public class Controller {
 	public void setBackGroundColor(Color c){
 		backgroundColor = c;
 	}
+	
 	public Color getBackgroundColor(){
 		return backgroundColor;
 	}
+	
+	public void setImageLocation(String location) {
+		imageLocation = location;
+	}
+	
+	public String getImageLocation() {
+		return imageLocation;
+	}
+	
 }

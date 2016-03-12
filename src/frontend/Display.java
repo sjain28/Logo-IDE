@@ -99,8 +99,6 @@ public class Display extends Window {
 	}
 //===================================================================================
 	public void setImage(Image image) {
-		//myImagePattern = new ImagePattern(image, myImagePattern.getX(), myImagePattern.getY(), TURTLE_WIDTH, TURTLE_HEIGHT, false);
-		//myShape.setFill(image);
 		Collection<Agent> myActiveTurtles = getController().getActiveTurtles();
 		for(Agent myTurtle: myActiveTurtles){
 			agentToPicture.get(myTurtle).setImage(image);

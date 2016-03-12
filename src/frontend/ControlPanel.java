@@ -152,6 +152,7 @@ public class ControlPanel extends Window {
 				String fileLocation = file.toURI().toString();
 				Image myImage = new Image(fileLocation);
 				myDisplay.setImage(myImage);
+				getController().setImageLocation(fileLocation);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
