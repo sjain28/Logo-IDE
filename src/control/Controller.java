@@ -2,7 +2,6 @@ package control;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
 import java.util.ResourceBundle;
 import commands.Command;
 import frontend.DialogHandler;
@@ -10,7 +9,6 @@ import javafx.scene.paint.Color;
 import parser.Environment;
 import parser.Parser;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import turtle.Agent;
@@ -77,11 +75,7 @@ public class Controller {
 			myPalette.getItems().add(element);
 		}
 	}
-	
-	public Agent getTurtle() {  // TODO: FOR TESTING, SHOULD BE REMOVED AND CHANGED LATER TO MULTIPLE TURTLES
-		return parser.getTurtle();
-	}
-	
+		
 	public List<Agent> getAllTurtles() { // The proper method that should be called, allows for multiple turtles
 		return curEnv.getTurtles();
 	}
@@ -140,7 +134,6 @@ public class Controller {
 	}
 	
 	
-	
 	public void setOverallPalette(List<String> textPaletteList) {
 		myPalette = new ListView<String>(FXCollections.observableArrayList(textPaletteList));
 	}
@@ -155,6 +148,10 @@ public class Controller {
 	
 	public String getImageLocation(){
 		return imageLocation;
+	}
+	
+	public void setImageLocation(String inString){
+		imageLocation = inString;
 	}
 	
 	

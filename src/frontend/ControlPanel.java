@@ -115,7 +115,7 @@ public class ControlPanel extends Window {
 
 		myPaletteBox.getChildren().removeAll();
 		myPaletteBox.getChildren().addAll(super.getController().getPalette());
-		lineColorPicker.setValue(Color.valueOf(getController().getTurtle().getPenColor().toString()));
+		lineColorPicker.setValue(Color.valueOf(getController().getActiveTurtles().get(0).getPenColor().toString()));
 		myPictureBox.getChildren().removeAll();
 		myPictureBox.getChildren().addAll(super.getController().getPictures());
 	}
