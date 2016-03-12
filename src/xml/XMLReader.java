@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,7 +17,6 @@ import org.w3c.dom.NodeList;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import turtle.Agent;
 import turtle.Turtle;
 
@@ -45,6 +45,11 @@ public class XMLReader {
 		Map<String, Double> vars =  new HashMap<>();
 		NodeList variableList = doc.getElementsByTagName("variables").item(0).getChildNodes();
 		for (int i = 0; i<variableList.getLength(); i++) {
+			
+			if (variableList.item(i).getNodeType() != Node.ELEMENT_NODE)
+				continue;
+			
+			
 			Element variable = (Element) variableList.item(i);
 			vars.put(variable.getElementsByTagName("name").item(0).getTextContent(),
 					Double.parseDouble(variable.getElementsByTagName("value").item(0).getTextContent()));
@@ -99,11 +104,46 @@ public class XMLReader {
 		return turtles;
 	}
 	
+	private Element getGlobalElement() {
+		return ((Element) doc.getElementsByTagName("global").item(0));
+	}
+	
+	
+	public Color getBackgroundColor() {
+		return Color.web(getGlobalElement()
+				.getElementsByTagName("background").item(0).getTextContent());
+	}
+	
+	
+	public ResourceBundle getLanguage() {
+		return ResourceBundle.getBundle(getGlobalElement()
+				.getElementsByTagName("language").item(0).getTextContent());
+	}
+	
+	public String getImageLocation() {
+		return getGlobalElement()
+				.getElementsByTagName("picture").item(0).getTextContent();
+	}
+	
+	public List<String> getPalette() {
+		List<String> palette = new ArrayList<>();
+		NodeList colorList = getGlobalElement()
+				.getElementsByTagName("palette").item(0).getChildNodes();
+		for (int i = 0; i<colorList.getLength(); i++) {
+			if (colorList.item(i).getNodeType() != Node.ELEMENT_NODE)
+				continue;
+			
+			palette.add(colorList.item(i).getTextContent());
+				
+		}
+		return palette;
+	}
+	
 	
 	public static void main(String[] args) {
 		try {
 			XMLReader x = new XMLReader("/Users/bobby_mac/Documents/workspace/slogo_team17/test.txt");
-			System.out.println(x.getTurtles().get(0).size());
+			System.out.println(x.getPalette());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

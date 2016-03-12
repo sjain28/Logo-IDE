@@ -57,7 +57,7 @@ public class XMLWriter {
 		}
 	}
 	
-	
+
 	private void writeTurtles() {
 		Element turtles = doc.createElement("turtles");
 		root.appendChild(turtles);
@@ -145,7 +145,13 @@ public class XMLWriter {
 		global.appendChild(language);
 		
 		Element picture = doc.createElement("picture");
-		writeNode(picture, source.getImageLocation());
+		
+		String loc = source.getImageLocation();
+		if (loc.length() > 5 && loc.substring(0, 5).equals("file:")) {
+			loc = loc.substring(5);
+		}
+		
+		writeNode(picture, loc);
 		global.appendChild(picture);
 		
 		Element palette = doc.createElement("palette");
