@@ -1,6 +1,9 @@
 package frontend;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
@@ -33,6 +36,8 @@ public class ControlPanel extends Window {
 	private final double COMBO_BOX_WIDTH = 80;
 	private final double PALETTE_BOX_HEIGHT = 60;
 	private final double PALETTE_BOX_WIDTH = 150;
+	private static final int PANE_WIDTH = 600;
+	private static final int PANE_HEIGHT = 150;
 	private final int BOX_ROW = 2;
 	private final int LABEL_ROW = 0;
 	private final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";	
@@ -47,11 +52,11 @@ public class ControlPanel extends Window {
 	private ComboBox<String> myComboBox;
 	private ResourceBundle myResource;
 	private VBox myPaletteBox;
-	private VBox myShapeBox;
+	private VBox myPictureBox;
 
 	
 	public ControlPanel(Scene inScene, Display inDisplay) {
-		super(600, 150);
+		super(PANE_WIDTH, PANE_HEIGHT);
 		myDisplay = inDisplay;
 	}
 
@@ -88,11 +93,11 @@ public class ControlPanel extends Window {
 		Label paletteLabel = new Label(myResources.getString("PALETTE_LABEL"));
 		addToGrid(grid, myPaletteBox, paletteLabel, 9, 2, 0);
 		
-		myShapeBox = initShapeBox();
-		Label shapeLabel = new Label("Shape Options");
-		addToGrid(grid, myShapeBox, shapeLabel, 10, 2, 0);
+		myPictureBox = initPictureBox();
+		Label shapeLabel = new Label(myResources.getString("PICTURE_LABEL"));
+		addToGrid(grid, myPictureBox, shapeLabel, 10, 2, 0);
 
-		Button myNewBox = initButton("Make a new window", grid, 11, 2);
+		Button myNewBox = initButton(myResources.getString("WINDOW_PROMPT"), grid, 11, 2);
 		myNewBox.setOnAction(e-> setNewWindow());
 		
 		super.getRoot().getChildren().add(grid);
@@ -163,12 +168,19 @@ public class ControlPanel extends Window {
 	
 	private ComboBox<String> initComboBox() {
 		ComboBox<String> thisComboBox = new ComboBox<String>();
-		// magic
-		thisComboBox.getItems().addAll("Chinese", "English", "French", "German", "Italian", "Portugese", "Russian",
-				"Spanish", "Syntax");
-		thisComboBox.setValue("English");
+
+		
+		URL resource = ClassLoader.getSystemClassLoader().getResource("resources/languages");
+		Collection<String> myFileList = new ArrayList<String>();
+		File head = new File(resource.getPath());
+		for(File fileEntry: head.listFiles()){
+			myFileList.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.')));
+		}
+		
+		thisComboBox.getItems().addAll(myFileList);
+		thisComboBox.setValue(myResources.getString("DEFAULT_LANGUAGE"));
 		thisComboBox.setOnAction(e -> handleCombo());
-		thisComboBox.setPromptText("Select Language:");
+		thisComboBox.setPromptText(myResources.getString("LANGUAGE_PROMPT"));
 		thisComboBox.setPrefWidth(COMBO_BOX_WIDTH);
 		thisComboBox.setPrefHeight(COLOR_BOX_HEIGHT);
 		
@@ -196,7 +208,7 @@ public class ControlPanel extends Window {
 	     return box;
 	}
 
-	private VBox initShapeBox(){
+	private VBox initPictureBox(){
 		 ListView<String> listView = new ListView<>();
 				//super.getController().getShapes();
 		 //magic

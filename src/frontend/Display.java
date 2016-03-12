@@ -116,8 +116,8 @@ public class Display extends Window {
 				thisImageView = agentToPicture.get(thisTurtle);
 			} else{
 				thisImageView = new ImageView(defaultImage);
-				thisImageView.setFitWidth(TURTLE_WIDTH);
-				thisImageView.setFitHeight(TURTLE_HEIGHT);
+				thisImageView.setFitWidth(TURTLE_WIDTH/multFactor);
+				thisImageView.setFitHeight(TURTLE_HEIGHT/multFactor);
 				agentToPicture.put(thisTurtle, thisImageView);
 			}
 
