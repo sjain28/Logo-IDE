@@ -92,8 +92,8 @@ public abstract class Window {
 			inputStream.close();
 			return newProperties;
 		} catch (Exception e) {
-			ErrorHandler myHandler = new ErrorHandler(ERROR_WIDTH, ERROR_HEIGHT);
-			myHandler.openError("FileNotFound");
+			DialogHandler myHandler = new DialogHandler(ERROR_WIDTH, ERROR_HEIGHT);
+			myHandler.openPopup("FileNotFound");
 			return null;
 		}
 	}

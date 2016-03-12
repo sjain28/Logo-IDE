@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import commands.Command;
 import commands.UserDefinedFunction;
-import frontend.ErrorHandler;
+import frontend.DialogHandler;
 
 public class CommandFactory {
 	private final static String COMMAND_PACKAGE = "commands.";

@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ErrorHandler extends Window {
+public class DialogHandler extends Window {
 	private Properties errorProperties;
 	private Stage stage;
 	private Scene scene;
@@ -29,7 +29,7 @@ public class ErrorHandler extends Window {
 	
 	
 	//literally copy/paste job from last thing, please refactor to make it compatible
-	public ErrorHandler(double width, double height){
+	public DialogHandler(double width, double height){
 		super(width, height);
 		stage = new Stage();
 		try{
@@ -37,18 +37,18 @@ public class ErrorHandler extends Window {
 		}catch(Exception e){}
 	}
 
-	public void openError(String errorLabel)
+	public void openPopup(String label)
 	{
-		String errorString = errorProperties.getProperty(errorLabel);	
+		String errorString = errorProperties.getProperty(label);	
 		
 		if ( errorString == null )
 			errorString = ERROR;
 		openDialog(errorString);
 	}
 	
-	public void openError(String errorLabel, String arg1)
+	public void openPopup(String label, String arg1)
 	{
-		String errorString = errorProperties.getProperty(errorLabel);
+		String errorString = errorProperties.getProperty(label);
 		if ( errorString == null )
 			errorString = ERROR;
 		else 

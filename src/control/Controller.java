@@ -2,12 +2,15 @@ package control;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import commands.Command;
-import frontend.ErrorHandler;
+import frontend.DialogHandler;
 import javafx.scene.paint.Color;
 import parser.Environment;
 import parser.Parser;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import turtle.Agent;
@@ -49,9 +52,9 @@ public class Controller {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			ErrorHandler eh = new ErrorHandler(50, 50);
+			DialogHandler eh = new DialogHandler(50, 50);
 			eh.init();
-			eh.openError("InvalidInputException");
+			eh.openPopup("InvalidInputException");
 		}
 	}
 	
@@ -136,6 +139,23 @@ public class Controller {
 		return backgroundColor;
 	}
 	
+	
+	
+	public void setOverallPalette(List<String> textPaletteList) {
+		myPalette = new ListView<String>(FXCollections.observableArrayList(textPaletteList));
+	}
+	
+	public void setVariables(Map<String, Double> variables) {
+		curEnv.setAllVariables(variables);
+	}
+	
+	public Environment getEnvironment() {
+		return curEnv;
+	}
+	
+	public String getImageLocation(){
+		return imageLocation;
+	}
 	
 	
 }

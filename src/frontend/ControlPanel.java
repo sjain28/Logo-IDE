@@ -91,6 +91,7 @@ public class ControlPanel extends Window {
 		myComboBox = initComboBox();
 		Label languageLabel = new Label(myResources.getString("LANGUAGE_LABEL"));
 		addToGrid(grid, myComboBox, languageLabel, currentColumn++, BOX_ROW, LABEL_ROW);
+		
 		// Defining the Submit button
 
 		myPaletteBox = initPaletteBox();
@@ -273,7 +274,6 @@ public class ControlPanel extends Window {
 	
 	private void setNewWindow(){
 		Stage stage = new Stage();
-        stage.setTitle("My New Stage Title");        
  		Controller myBackEnd =  new Controller();
 		GUI myFrontEnd = new GUI(FPS, myBackEnd);
         Scene scene = myFrontEnd.init();
