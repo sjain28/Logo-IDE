@@ -18,7 +18,7 @@ public class Turtle implements Agent{
 	private Turtle startingState;
 	private int myShape;
 	
-	private List<Turtle> myStates;
+	private List<Agent> myStates;
 	
 	public Turtle(double orient, Point2D loc, boolean down, boolean visible, Paint pen, double line, int curTime) {
 		myOrientation = orient;
@@ -28,8 +28,12 @@ public class Turtle implements Agent{
 		myPenColor = pen;
 		myLineWidth = line;
 		myTime = curTime;
-		myStates = new ArrayList<Turtle>();
+		myStates = new ArrayList<Agent>();
 		myShape = -1;
+	}
+	
+	public Turtle() {
+		this(0, null, false, false, null, 0, 0);
 	}
 	
 	public void init(){
@@ -172,4 +176,10 @@ public class Turtle implements Agent{
 	public void setShape(int s){
 		myShape = s;
 	}
+	
+	public void setStates(List<Agent> states) {
+		myStates = states;
+	}
+	
+	
 }

@@ -15,6 +15,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import control.Controller;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import turtle.Agent;
@@ -22,11 +23,12 @@ import turtle.Turtle;
 
 public class XMLReader {
 	
-	Document doc;
+	private Document doc;
+	private Controller controller;
 	
-	public XMLReader(String location) throws Exception
+	public XMLReader(String location, Controller controller) throws Exception
 	{
-		
+		this.controller = controller;
 		File playerFile = new File(location);
 		
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -108,7 +110,6 @@ public class XMLReader {
 		return ((Element) doc.getElementsByTagName("global").item(0));
 	}
 	
-	
 	public Color getBackgroundColor() {
 		return Color.web(getGlobalElement()
 				.getElementsByTagName("background").item(0).getTextContent());
@@ -139,16 +140,23 @@ public class XMLReader {
 		return palette;
 	}
 	
-	
-	public static void main(String[] args) {
-		try {
-			XMLReader x = new XMLReader("/Users/bobby_mac/Documents/workspace/slogo_team17/test.txt");
-			System.out.println(x.getPalette());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void overWrite() {
+		controller.setVariables(getVariables());
 		
+		List<Agent> allNewTurtles = new ArrayList<>();
+		for (List<Agent> individual : getTurtles()) {
+			Turtle t = new Turtle();
+			t.setStates(individual);
+			allNewTurtles.add(t);
+		}
+		controller.getEnvironment().setAllTurtles(allNewTurtles);
+		controller.getEnvironment().setActiveTurtles(new ArrayList<Agent>());
+		controller.getEnvironment().addActiveTurtle(allNewTurtles.get(0));
+		
+		controller.setBackGroundColor(getBackgroundColor());
+		controller.changeLanguage(getLanguage());
+		controller.setImageLocation(getImageLocation());
+		controller.setOverallPalette(getPalette());
 	}
 	
 }

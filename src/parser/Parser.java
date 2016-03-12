@@ -2,7 +2,6 @@ package parser;
 
 import commands.BlockCommand;
 import commands.Command;
-import commands.MakeUserInstruction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import commands.UserDefinedFunction;
 import control.Controller;
-import frontend.ErrorHandler;
+import frontend.DialogHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import turtle.Agent;
@@ -90,9 +89,9 @@ public class Parser {
 			return nextNode;
 		}
 		catch(Exception e){
-			ErrorHandler eh = new ErrorHandler(50, 50);
+			DialogHandler eh = new DialogHandler(50, 50);
 			eh.init();
-			eh.openError("NumParamsException");	
+			eh.openPopup("NumParamsException");	
 			throw new Exception();
 		}
 	}

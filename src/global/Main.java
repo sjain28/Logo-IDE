@@ -22,7 +22,7 @@ import javafx.event.EventHandler;
  */
 public class Main extends Application 	
 {
-    public static final int FRAMES_PER_SECOND = 60;
+    public static final int FRAMES_PER_SECOND = 30;
     
 
     @Override
