@@ -50,6 +50,30 @@ public class Controller {
 		myResources = newLanguage;
 	}
 	
+	public void setPalette(int index, int r, int g, int b){
+
+		// the input needs to be added in the form "r,g,b" where r g and b are 
+		// ints between 0 and 255
+		String element = String.valueOf(r) + "," + String.valueOf(g) + "," + String.valueOf(b);
+		if(myPalette.getItems().size() > index){
+			myPalette.getItems().set(index, element);
+		} else{
+			myPalette.getItems().add(element);
+		}
+	}
+	
+	// debugging method used to show that it works. Changing
+	// a value in the set background will change the zeroth position
+	// in the palette
+	public void setPalette(Color myColor){
+		int index = 0;
+		// the input needs to be added in the form "r,g,b" where r g and b are 
+		// doubles
+		int r = (int)(myColor.getRed()*255);
+		int g = (int)(myColor.getGreen()*255);
+		int b = (int)(myColor.getBlue()*255);
+	}
+
 	public Agent getTurtle() {  // TODO: FOR TESTING, SHOULD BE REMOVED AND CHANGED LATER TO MULTIPLE TURTLES
 		return parser.getTurtle();
 	}
