@@ -15,7 +15,7 @@ public class SetPalette extends Command{
 		Value g =(Value)  getParams().get(2);
 		Value b = (Value) getParams().get(3);
 				
-		getController().setPallette(index.getValue().intValue(), r.getValue().intValue(), g.getValue().intValue(), b.getValue().intValue()); 
+		getController().setPalette(index.getValue().intValue(), r.getValue().intValue(), g.getValue().intValue(), b.getValue().intValue()); 
 		setValue(index.getValue());
 		return index.getValue();
 	}

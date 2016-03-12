@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import parser.Environment;
 import parser.Parser;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import turtle.Agent;
 
 
@@ -22,6 +23,7 @@ public class Controller {
 	private ListView<String> myPalette = new ListView<>();
 	private Color backgroundColor = Color.WHITE;
 	
+	private ListView<String> myPictures = new ListView<>();
 	private String imageLocation = "resources/images/Spiny.png";
 	
 	public Controller() {
@@ -57,6 +59,10 @@ public class Controller {
 		myResources = newLanguage;
 	}
 	
+	public void setPictures(String filePath){
+		myPictures.getItems().add(filePath);
+	}
+	
 	public void setPalette(int index, int r, int g, int b){
 
 		// the input needs to be added in the form "r,g,b" where r g and b are 
@@ -69,18 +75,6 @@ public class Controller {
 		}
 	}
 	
-	// debugging method used to show that it works. Changing
-	// a value in the set background will change the zeroth position
-	// in the palette
-	public void setPalette(Color myColor){
-		int index = 0;
-		// the input needs to be added in the form "r,g,b" where r g and b are 
-		// doubles
-		int r = (int)(myColor.getRed()*255);
-		int g = (int)(myColor.getGreen()*255);
-		int b = (int)(myColor.getBlue()*255);
-	}
-
 	public Agent getTurtle() {  // TODO: FOR TESTING, SHOULD BE REMOVED AND CHANGED LATER TO MULTIPLE TURTLES
 		return parser.getTurtle();
 	}
@@ -97,24 +91,27 @@ public class Controller {
 		return curEnv.getVariables(); 
 	}
 	
-	public void setPallette(int index, int r, int g, int b){
-		String element = String.valueOf(r) + "," + String.valueOf(g) + "," + String.valueOf(b);
-		if(myPalette.getItems().size() > index){
-			myPalette.getItems().set(index, element);
-		} else{
-			myPalette.getItems().add(element);
-		}
-	}
-	
 	public ListView<String> getPalette(){
 		return myPalette;
 	}
 	
+	public ListView<String> getPictures(){
+		return myPictures;
+	}
+		
 	public Color getColor(int index){
 		if(myPalette.getItems().size() > index){
 			return Color.web("rgb(" + myPalette.getItems().get(index) + ")");
 		} else{
 			return Color.BLACK;
+		}
+	}
+	
+	public Image getImage(int index){
+		if(myPictures.getItems().size() > index){
+			return new Image(myPictures.getItems().get(index));
+		}else{
+			return null;
 		}
 	}
 	
@@ -139,12 +136,6 @@ public class Controller {
 		return backgroundColor;
 	}
 	
-	public void setImageLocation(String location) {
-		imageLocation = location;
-	}
 	
-	public String getImageLocation() {
-		return imageLocation;
-	}
 	
 }

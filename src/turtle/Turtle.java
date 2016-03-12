@@ -29,7 +29,7 @@ public class Turtle implements Agent{
 		myLineWidth = line;
 		myTime = curTime;
 		myStates = new ArrayList<Turtle>();
-		myShape = -1;
+		myShape = 2;
 	}
 	
 	public void init(){

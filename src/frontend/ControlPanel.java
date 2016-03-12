@@ -43,7 +43,7 @@ public class ControlPanel extends Window {
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";	
 	private static final String FRONTEND_RESOURCE_PACKAGE = "resources.frontend/frontend";
 	private static final String COLOR_RESOURCE_PACKAGE = "resources.frontend/colors";
-	
+		
 	private ResourceBundle myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE_PACKAGE);
 	
 	private ColorPicker backgroundColorPicker;
@@ -73,33 +73,35 @@ public class ControlPanel extends Window {
 		grid.setVgap(5);
 		grid.setHgap(5);
 		
+		int currentColumn = 5;
+		
 		Label backgroundLabel = new Label(myResources.getString("BACKGROUND_LABEL"));
-		backgroundColorPicker = initColorPicker(5, backgroundLabel, Color.WHITE, grid);
+		backgroundColorPicker = initColorPicker(currentColumn++, backgroundLabel, Color.WHITE, grid);
 		backgroundColorPicker.setOnAction(e -> changeBackgroundColor());
 
 		Label lineColorLabel = new Label(myResources.getString("LINECOLOR_LABEL"));
-		lineColorPicker = initColorPicker(6, lineColorLabel, Color.BLACK, grid);
+		lineColorPicker = initColorPicker(currentColumn++, lineColorLabel, Color.BLACK, grid);
 		lineColorPicker.setOnAction(e -> changeLineColor());
 
 		//bunch of magic
 		final FileChooser fileChooser = new FileChooser();
-		final Button openButton = initButton(myResources.getString("OPEN_PICTURE"), grid, 7, 2);
+		final Button openButton = initButton(myResources.getString("OPEN_PICTURE"), grid, currentColumn++, BOX_ROW);
 		openButton.setOnAction(e -> handleOpen(fileChooser));
 				
 		myComboBox = initComboBox();
 		Label languageLabel = new Label(myResources.getString("LANGUAGE_LABEL"));
-		addToGrid(grid, myComboBox, languageLabel, 8, 2, 0);
+		addToGrid(grid, myComboBox, languageLabel, currentColumn++, BOX_ROW, LABEL_ROW);
 		// Defining the Submit button
 
 		myPaletteBox = initPaletteBox();
 		Label paletteLabel = new Label(myResources.getString("PALETTE_LABEL"));
-		addToGrid(grid, myPaletteBox, paletteLabel, 9, 2, 0);
+		addToGrid(grid, myPaletteBox, paletteLabel, currentColumn++, BOX_ROW, LABEL_ROW);
 		
 		myPictureBox = initPictureBox();
 		Label shapeLabel = new Label(myResources.getString("PICTURE_LABEL"));
-		addToGrid(grid, myPictureBox, shapeLabel, 10, 2, 0);
+		addToGrid(grid, myPictureBox, shapeLabel, currentColumn++, BOX_ROW, LABEL_ROW);
 
-		Button myNewBox = initButton(myResources.getString("WINDOW_PROMPT"), grid, 11, 2);
+		Button myNewBox = initButton(myResources.getString("WINDOW_PROMPT"), grid, currentColumn++, BOX_ROW);
 		myNewBox.setOnAction(e-> setNewWindow());
 		
 		super.getRoot().getChildren().add(grid);
@@ -113,6 +115,8 @@ public class ControlPanel extends Window {
 		myPaletteBox.getChildren().removeAll();
 		myPaletteBox.getChildren().addAll(super.getController().getPalette());
 		lineColorPicker.setValue(Color.valueOf(getController().getTurtle().getPenColor().toString()));
+		myPictureBox.getChildren().removeAll();
+		myPictureBox.getChildren().addAll(super.getController().getPictures());
 	}
 	
 	
@@ -152,7 +156,7 @@ public class ControlPanel extends Window {
 				String fileLocation = file.toURI().toString();
 				Image myImage = new Image(fileLocation);
 				myDisplay.setImage(myImage);
-				getController().setImageLocation(fileLocation);
+				getController().setPictures(fileLocation);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -216,7 +220,7 @@ public class ControlPanel extends Window {
 	}
 
 	private VBox initPictureBox(){
-		 ListView<String> listView = new ListView<>();
+		 ListView<String> listView =super.getController().getPictures();
 				//super.getController().getShapes();
 		 //magic
 		URL resource = ClassLoader.getSystemClassLoader().getResource("resources/images");
