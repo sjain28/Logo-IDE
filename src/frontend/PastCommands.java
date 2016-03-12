@@ -13,7 +13,7 @@ public class PastCommands extends Window {
 
 	public PastCommands(double width, double height) {
 		super(width, height);
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	@Override

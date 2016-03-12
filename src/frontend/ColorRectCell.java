@@ -9,10 +9,10 @@ import javafx.scene.text.TextAlignment;
 
 public class ColorRectCell extends ListCell<String>{
 	   
-		private double RECT_WIDTH = 100;
-		private double OFFSET = 20;
-	    private double RECT_HEIGHT = 20;
-		private final String FRONTEND_RESOURCE_PACKAGE = "resources.frontend/frontend";
+		private static final double RECT_WIDTH = 100;
+		private static final double OFFSET = 20;
+	    private static final double RECT_HEIGHT = 20;
+		private static final String FRONTEND_RESOURCE_PACKAGE = "resources.frontend/frontend";
 		private ResourceBundle myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE_PACKAGE);
 	    
 		@Override

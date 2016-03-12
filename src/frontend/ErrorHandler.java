@@ -21,11 +21,11 @@ public class ErrorHandler extends Window {
 	private static final String PROPERTIES_LOCATION = "resources/errors/errors.properties";
 	private static final String ERROR = "COULD NOT FIND ERROR LABEL IN PROPERTIES";
 	
-	private static double SCENE_WIDTH = 450;
-	private static double BORDERS = 30;
-	private static double BUTTON_WIDTH = 80;
-	private static double BUTTON_HEIGHT = 40;
-	private static double BUTTON_X = (SCENE_WIDTH - BUTTON_WIDTH)/2;
+	private static final double SCENE_WIDTH = 450;
+	private static final double BORDERS = 30;
+	private static final double BUTTON_WIDTH = 80;
+	private static final double BUTTON_HEIGHT = 40;
+	private static final double BUTTON_X = (SCENE_WIDTH - BUTTON_WIDTH)/2;
 	
 	
 	//literally copy/paste job from last thing, please refactor to make it compatible
