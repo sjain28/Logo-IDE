@@ -194,6 +194,7 @@ public class Display extends Window {
 				thisImageView.getY() < 0 || thisImageView.getY() > height;
 	}
 	
+	
 
 }
 

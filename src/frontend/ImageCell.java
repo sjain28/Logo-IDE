@@ -24,7 +24,7 @@ public class ImageCell extends ListCell<String>{
 	        	 setText(String.valueOf((this.getIndex())));
 	        	 setTextAlignment(TextAlignment.LEFT);
 	        	 setGraphic(myPic);
-	        	 this.setGraphicTextGap(-RECT_WIDTH);
+	        	 this.setGraphicTextGap(-OFFSET);
 	         }
 		}
 		
