@@ -25,7 +25,7 @@ public class Tell extends Command{
 					getEnvironment().makeNewTurtle(new Turtle(0.0, new Point2D(0,0), true, true, Color.BLACK, 3.0, 0));					
 				}
 			}
-			getEnvironment().addActiveTurtle(getEnvironment().getTurtles().get(d.getValue().intValue())); //getEnvironment().getGlobalActive()
+			getEnvironment().addActiveTurtle(getEnvironment().getTurtles().get(d.getValue().intValue()-1)); //getEnvironment().getGlobalActive()
 		}
 		setValue(index);
 		return index;

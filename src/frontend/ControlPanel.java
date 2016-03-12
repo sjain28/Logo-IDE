@@ -144,9 +144,7 @@ public class ControlPanel extends Window {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 		}
-
 	}
 
 	private ColorPicker initColorPicker(int column, Label inLabel, Color myColor, GridPane grid){
