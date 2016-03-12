@@ -14,72 +14,17 @@
                 <time>0</time>
                 <shape>-1</shape>
             </state>
-            <state>
-                <orientation>10.0</orientation>
-                <x>0.0</x>
-                <y>0.0</y>
-                <pendown>true</pendown>
-                <visible>true</visible>
-                <pencolor>0x0000ffff</pencolor>
-                <linewidth>3.0</linewidth>
-                <time>1</time>
-                <shape>-1</shape>
-            </state>
-            <state>
-                <orientation>10.0</orientation>
-                <x>17.364817766693033</x>
-                <y>98.4807753012208</y>
-                <pendown>true</pendown>
-                <visible>true</visible>
-                <pencolor>0x0000ffff</pencolor>
-                <linewidth>3.0</linewidth>
-                <time>2</time>
-                <shape>-1</shape>
-            </state>
-            <state>
-                <orientation>10.0</orientation>
-                <x>17.364817766693033</x>
-                <y>98.4807753012208</y>
-                <pendown>true</pendown>
-                <visible>true</visible>
-                <pencolor>0x996699ff</pencolor>
-                <linewidth>3.0</linewidth>
-                <time>3</time>
-                <shape>-1</shape>
-            </state>
-            <state>
-                <orientation>1010.0</orientation>
-                <x>17.364817766693033</x>
-                <y>98.4807753012208</y>
-                <pendown>true</pendown>
-                <visible>true</visible>
-                <pencolor>0x996699ff</pencolor>
-                <linewidth>3.0</linewidth>
-                <time>4</time>
-                <shape>-1</shape>
-            </state>
-            <state>
-                <orientation>1010.0</orientation>
-                <x>167.7156370924385</x>
-                <y>43.75755236911424</y>
-                <pendown>true</pendown>
-                <visible>true</visible>
-                <pencolor>0x996699ff</pencolor>
-                <linewidth>3.0</linewidth>
-                <time>5</time>
-                <shape>-1</shape>
-            </state>
         </turtle>
     </turtles>
     <global>
         <background>0xffffffff</background>
         <language>resources.languages/English</language>
-        <picture>file:/Users/bobby_mac/Documents/workspace/slogo_team17/src/resources/images/catalyst2.png</picture>
+        <picture>resources/images/Spiny.png</picture>
         <palette>
-            <color>0,255,0</color>
             <color>255,0,0</color>
-            <color>0,0,255</color>
             <color>255,255,255</color>
+            <color>0,0,255</color>
+            <color>0,255,0</color>
         </palette>
     </global>
 </root>

@@ -16,6 +16,7 @@ public interface Environment {
 	public void setVariable(String varName, double value);
 	public Double getVariable(String varName);
 	public Map<String, Double> getVariables();
+	public void setAllVariables(Map<String, Double> newVariables);
 	public Map<String, UserDefinedFunction> getUserDefinedFunctions();
 	public void addFunction(String functionName, UserDefinedFunction function);
 	
@@ -24,6 +25,7 @@ public interface Environment {
 	public void addTurtle(Agent additionalTurtle);
 	public List<Agent> getActiveTurtles();
 	public void setActiveTurtles(List<Agent> newActiveTurtles);
+	public void setAllTurtles(List<Agent> newTurtles);
 	public void addActiveTurtle(Agent additionalActiveTurtle);
 
 	

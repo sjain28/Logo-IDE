@@ -269,7 +269,6 @@ public class ControlPanel extends Window {
 	
 	private void setNewWindow(){
 		Stage stage = new Stage();
-        stage.setTitle("My New Stage Title");        
  		Controller myBackEnd =  new Controller();
 		GUI myFrontEnd = new GUI(FPS, myBackEnd);
         Scene scene = myFrontEnd.init();

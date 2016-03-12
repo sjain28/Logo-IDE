@@ -78,7 +78,15 @@ public class TextBox extends Window{
 		Button write = new Button("Write XML");
 		GridPane.setConstraints(write, 1, 1);
 		grid.getChildren().add(write);
-		write.setOnAction(e -> xmlWriter.write());
+		write.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                xmlWriter.write();
+                DialogHandler dh = new DialogHandler(50, 50);
+                dh.init();
+                dh.openPopup("SuccessfulSave");
+            }
+        });
 		
 		
 		super.getRoot().getChildren().add(grid);
