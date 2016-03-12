@@ -57,7 +57,7 @@ public class ControlPanel extends Window {
 	private int FPS = 60;
 
 	
-	public ControlPanel(Scene inScene, Display inDisplay) {
+	public ControlPanel(Display inDisplay) {
 		super(PANE_WIDTH, PANE_HEIGHT);
 		myDisplay = inDisplay;
 	}
