@@ -25,8 +25,6 @@ public abstract class Window {
 	
 	private static double SLIDER_WIDTH;
 	private static double SLIDER_HEIGHT;
-	private static double BUTTON_WIDTH;
-	private static double BUTTON_HEIGHT;
 	private static double BORDER_SIZE;
 	private static double FONT_SIZE;
 	
