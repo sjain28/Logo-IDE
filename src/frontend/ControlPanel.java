@@ -1,6 +1,9 @@
 package frontend;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
@@ -28,26 +31,34 @@ import turtle.Agent;
 
 public class ControlPanel extends Window {
 
+	private static final double COLOR_BOX_WIDTH = 90;
+	private static final double COLOR_BOX_HEIGHT = 30;
+	private static final double COMBO_BOX_WIDTH = 80;
+	private static final double PALETTE_BOX_HEIGHT = 60;
+	private static final double PALETTE_BOX_WIDTH = 150;
+	private static final int PANE_WIDTH = 600;
+	private static final int PANE_HEIGHT = 150;
+	private static final int BOX_ROW = 2;
+	private static final int LABEL_ROW = 0;
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";	
+	private static final String FRONTEND_RESOURCE_PACKAGE = "resources.frontend/frontend";
+	private static final String COLOR_RESOURCE_PACKAGE = "resources.frontend/colors";
+		
+	private ResourceBundle myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE_PACKAGE);
+	
 	private ColorPicker backgroundColorPicker;
 	private ColorPicker lineColorPicker;
 	private HBox myBox;
 	private Display myDisplay;
 	private ComboBox<String> myComboBox;
-	private final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private ResourceBundle myResource;
 	private VBox myPaletteBox;
-	private VBox myShapeBox;
-	private double COLOR_BOX_WIDTH = 90;
-	private double COLOR_BOX_HEIGHT = 30;
-	private double COMBO_BOX_WIDTH = 80;
-	private double PALETTE_BOX_HEIGHT = 60;
-	private double PALETTE_BOX_WIDTH = 150;
+	private VBox myPictureBox;
+	private static final int FPS = 60;
 
-	private final int BOX_ROW = 2;
-	private final int LABEL_ROW = 0;
 	
-	public ControlPanel(Scene inScene, Display inDisplay) {
-		super(600, 150);
+	public ControlPanel(Display inDisplay) {
+		super(PANE_WIDTH, PANE_HEIGHT);
 		myDisplay = inDisplay;
 	}
 
@@ -61,34 +72,37 @@ public class ControlPanel extends Window {
 		grid.setPadding(new Insets(10));
 		grid.setVgap(5);
 		grid.setHgap(5);
-
-		Label backgroundLabel = new Label("Select Background Color");
-		backgroundColorPicker = initColorPicker(5, backgroundLabel, Color.WHITE, grid);
+		
+		int currentColumn = 5;
+		
+		Label backgroundLabel = new Label(myResources.getString("BACKGROUND_LABEL"));
+		backgroundColorPicker = initColorPicker(currentColumn++, backgroundLabel, Color.WHITE, grid);
 		backgroundColorPicker.setOnAction(e -> changeBackgroundColor());
 
-		Label lineColorLabel = new Label("Select Line Color");
-		lineColorPicker = initColorPicker(6, lineColorLabel, Color.BLACK, grid);
+		Label lineColorLabel = new Label(myResources.getString("LINECOLOR_LABEL"));
+		lineColorPicker = initColorPicker(currentColumn++, lineColorLabel, Color.BLACK, grid);
 		lineColorPicker.setOnAction(e -> changeLineColor());
 
 		//bunch of magic
 		final FileChooser fileChooser = new FileChooser();
-		final Button openButton = initButton("Open a Picture...", grid, 7, 2);
+		final Button openButton = initButton(myResources.getString("OPEN_PICTURE"), grid, currentColumn++, BOX_ROW);
 		openButton.setOnAction(e -> handleOpen(fileChooser));
 				
 		myComboBox = initComboBox();
-		Label languageLabel = new Label("Select Language");
-		addToGrid(grid, myComboBox, languageLabel, 8, 2, 0);
+		Label languageLabel = new Label(myResources.getString("LANGUAGE_LABEL"));
+		addToGrid(grid, myComboBox, languageLabel, currentColumn++, BOX_ROW, LABEL_ROW);
+		
 		// Defining the Submit button
 
 		myPaletteBox = initPaletteBox();
-		Label paletteLabel = new Label("Palette Options");
-		addToGrid(grid, myPaletteBox, paletteLabel, 9, 2, 0);
+		Label paletteLabel = new Label(myResources.getString("PALETTE_LABEL"));
+		addToGrid(grid, myPaletteBox, paletteLabel, currentColumn++, BOX_ROW, LABEL_ROW);
 		
-		myShapeBox = initShapeBox();
-		Label shapeLabel = new Label("Shape Options");
-		addToGrid(grid, myShapeBox, shapeLabel, 10, 2, 0);
+		myPictureBox = initPictureBox();
+		Label shapeLabel = new Label(myResources.getString("PICTURE_LABEL"));
+		addToGrid(grid, myPictureBox, shapeLabel, currentColumn++, BOX_ROW, LABEL_ROW);
 
-		Button myNewBox = initButton("Make a new window", grid, 11, 2);
+		Button myNewBox = initButton(myResources.getString("WINDOW_PROMPT"), grid, currentColumn++, BOX_ROW);
 		myNewBox.setOnAction(e-> setNewWindow());
 		
 		super.getRoot().getChildren().add(grid);
@@ -102,6 +116,8 @@ public class ControlPanel extends Window {
 		myPaletteBox.getChildren().removeAll();
 		myPaletteBox.getChildren().addAll(super.getController().getPalette());
 		lineColorPicker.setValue(Color.valueOf(getController().getTurtle().getPenColor().toString()));
+		myPictureBox.getChildren().removeAll();
+		myPictureBox.getChildren().addAll(super.getController().getPictures());
 	}
 	
 	
@@ -141,6 +157,7 @@ public class ControlPanel extends Window {
 				String fileLocation = file.toURI().toString();
 				Image myImage = new Image(fileLocation);
 				myDisplay.setImage(myImage);
+				getController().setPictures(fileLocation);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -158,12 +175,19 @@ public class ControlPanel extends Window {
 	
 	private ComboBox<String> initComboBox() {
 		ComboBox<String> thisComboBox = new ComboBox<String>();
-		// magic
-		thisComboBox.getItems().addAll("Chinese", "English", "French", "German", "Italian", "Portugese", "Russian",
-				"Spanish", "Syntax");
-		thisComboBox.setValue("English");
+
+		
+		URL resource = ClassLoader.getSystemClassLoader().getResource("resources/languages");
+		Collection<String> myFileList = new ArrayList<String>();
+		File head = new File(resource.getPath());
+		for(File fileEntry: head.listFiles()){
+			myFileList.add(fileEntry.getName().substring(0, fileEntry.getName().indexOf('.')));
+		}
+		
+		thisComboBox.getItems().addAll(myFileList);
+		thisComboBox.setValue(myResources.getString("DEFAULT_LANGUAGE"));
 		thisComboBox.setOnAction(e -> handleCombo());
-		thisComboBox.setPromptText("Select Language:");
+		thisComboBox.setPromptText(myResources.getString("LANGUAGE_PROMPT"));
 		thisComboBox.setPrefWidth(COMBO_BOX_WIDTH);
 		thisComboBox.setPrefHeight(COLOR_BOX_HEIGHT);
 		
@@ -179,45 +203,57 @@ public class ControlPanel extends Window {
 	private VBox initPaletteBox(){
 		
 		 ListView<String> listView = super.getController().getPalette();
-		 //ditch magic variables later
-		 ObservableList<String> indices = FXCollections.observableArrayList("0,255,0", "255,0,0", "0,0,255", "255,255,255");
+		 ResourceBundle myColors = ResourceBundle.getBundle(COLOR_RESOURCE_PACKAGE);
+		 
+		 Collection<String> myInColors = new ArrayList<>();
+		 for( String key: myColors.keySet()){
+			 myInColors.add(myColors.getString(key));
+		 }
+		 ObservableList<String> indices = FXCollections.observableArrayList(myInColors);
 		 VBox box = new VBox();
 	     box.getChildren().addAll(listView);
 	     VBox.setVgrow(listView, Priority.ALWAYS);
 	     listView.setItems(indices);
-	     listView.setCellFactory( e-> handlePCellCreation());
+	     listView.setCellFactory( e-> handleColorCellCreation());
 		 box.setPrefWidth(PALETTE_BOX_WIDTH);
 		 box.setPrefHeight(PALETTE_BOX_HEIGHT);
 	     return box;
 	}
 
-	private VBox initShapeBox(){
-		 ListView<String> listView = new ListView<>();
+	private VBox initPictureBox(){
+		 ListView<String> listView =super.getController().getPictures();
 				//super.getController().getShapes();
 		 //magic
-		 ObservableList<String> shapes = FXCollections.observableArrayList("0", "3", "4", "5", "6");
+		URL resource = ClassLoader.getSystemClassLoader().getResource("resources/images");
+		Collection<String> myFileList = new ArrayList<String>();
+		File head = new File(resource.getPath());
+		for(File fileEntry: head.listFiles()){
+			myFileList.add(fileEntry.toURI().toString());
+		}
+		 
+		 ObservableList<String> shapes = FXCollections.observableArrayList(myFileList);
 		 VBox box = new VBox();
 	     box.getChildren().addAll(listView);
 	     VBox.setVgrow(listView, Priority.ALWAYS);
 
 	     listView.setItems(shapes);
-	     listView.setCellFactory( e-> handleShapeCellCreation());
+	     listView.setCellFactory( e-> handlePictureCellCreation());
 
 		 box.setPrefWidth(PALETTE_BOX_WIDTH);
 		 box.setPrefHeight(PALETTE_BOX_HEIGHT);
 	     return box;
 	}
 	
-	private ListCell<String> handlePCellCreation(){
+	private ListCell<String> handleColorCellCreation(){
 		
 		ListCell<String> myVal = new ColorRectCell();
 		return myVal;
 
 	}
 	
-	private ListCell<String> handleShapeCellCreation(){
+	private ListCell<String> handlePictureCellCreation(){
 		
-		ListCell<String> myVal = new ShapeCell();
+		ListCell<String> myVal = new ImageCell();
 		return myVal;
 
 	}
@@ -238,9 +274,8 @@ public class ControlPanel extends Window {
 	
 	private void setNewWindow(){
 		Stage stage = new Stage();
-        stage.setTitle("My New Stage Title");        
  		Controller myBackEnd =  new Controller();
-		GUI myFrontEnd = new GUI(60, myBackEnd);
+		GUI myFrontEnd = new GUI(FPS, myBackEnd);
         Scene scene = myFrontEnd.init();
         stage.setScene(scene);
         stage.show();

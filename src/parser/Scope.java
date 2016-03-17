@@ -117,4 +117,15 @@ public class Scope implements Environment {
 	}
 	
 	public int getDepth() { return myDepth; }
+
+	@Override
+	public void setAllVariables(Map<String, Double> newVariables) {
+		myVariables = newVariables;
+		
+	}
+
+	@Override
+	public void setAllTurtles(List<Agent> newTurtles) {
+		myTurtles = newTurtles;
+	}
 }

@@ -1,6 +1,5 @@
 package frontend;
 
-import java.io.InputStream;
 import java.util.Properties;
 
 import javafx.scene.Group;
@@ -10,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ErrorHandler extends Window {
+public class DialogHandler extends Window {
 	private Properties errorProperties;
 	private Stage stage;
 	private Scene scene;
@@ -18,18 +17,19 @@ public class ErrorHandler extends Window {
 	private Text errorPrompt;
 	private Button closeDialog;
 	
+	// TODO
 	private static final String PROPERTIES_LOCATION = "resources/errors/errors.properties";
 	private static final String ERROR = "COULD NOT FIND ERROR LABEL IN PROPERTIES";
 	
-	private static double SCENE_WIDTH = 450;
-	private static double BORDERS = 30;
-	private static double BUTTON_WIDTH = 80;
-	private static double BUTTON_HEIGHT = 40;
-	private static double BUTTON_X = (SCENE_WIDTH - BUTTON_WIDTH)/2;
+	private static final double SCENE_WIDTH = 450;
+	private static final double BORDERS = 30;
+	private static final double BUTTON_WIDTH = 80;
+	private static final double BUTTON_HEIGHT = 40;
+	private static final double BUTTON_X = (SCENE_WIDTH - BUTTON_WIDTH)/2;
 	
 	
 	//literally copy/paste job from last thing, please refactor to make it compatible
-	public ErrorHandler(double width, double height){
+	public DialogHandler(double width, double height){
 		super(width, height);
 		stage = new Stage();
 		try{
@@ -37,33 +37,28 @@ public class ErrorHandler extends Window {
 		}catch(Exception e){}
 	}
 
-	public void openError(String errorLabel)
+	public void openPopup(String label)
 	{
-		String errorString = errorProperties.getProperty(errorLabel);	
+		String errorString = errorProperties.getProperty(label);	
 		
-		// Only hardcoded String, in case properties fail
 		if ( errorString == null )
 			errorString = ERROR;
-		
 		openDialog(errorString);
 	}
 	
-	public void openError(String errorLabel, String arg1)
+	public void openPopup(String label, String arg1)
 	{
-		String errorString = errorProperties.getProperty(errorLabel);
-		
+		String errorString = errorProperties.getProperty(label);
 		if ( errorString == null )
 			errorString = ERROR;
 		else 
 			errorString = String.format(errorString, arg1);
-		
 		openDialog(errorString);
 	}
 	
 	private void openDialog(String errorString)
 	{
 		root = new Group();
-		
 		errorPrompt = new Text(errorString);
 		errorPrompt.setLayoutX((SCENE_WIDTH - errorPrompt.getBoundsInLocal().getWidth())/2);
 		errorPrompt.setLayoutY(BORDERS);
@@ -71,13 +66,9 @@ public class ErrorHandler extends Window {
 		closeDialog.setLayoutX(BUTTON_X);
 		closeDialog.setLayoutY(errorPrompt.getLayoutY() + errorPrompt.getBoundsInLocal().getHeight() + BORDERS);
 		closeDialog.setMinSize(BUTTON_WIDTH, BUTTON_HEIGHT);
-		
-		closeDialog.setOnAction(e -> closeWindow());
-		
+		closeDialog.setOnAction(e -> closeWindow());	
 		root.getChildren().addAll(closeDialog, errorPrompt);
-
 		scene = new Scene(root, SCENE_WIDTH, closeDialog.getLayoutY() + BUTTON_HEIGHT + BORDERS, Color.LIGHTGRAY);
-		
 		stage.setScene(scene);
 		stage.show();
 	}

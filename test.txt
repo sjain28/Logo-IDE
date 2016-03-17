@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+    <variables/>
+    <turtles>
+        <turtle>
+            <state>
+                <orientation>0.0</orientation>
+                <x>0.0</x>
+                <y>0.0</y>
+                <pendown>true</pendown>
+                <visible>true</visible>
+                <pencolor>0x0000ffff</pencolor>
+                <linewidth>3.0</linewidth>
+                <time>0</time>
+                <shape>-1</shape>
+            </state>
+        </turtle>
+    </turtles>
+    <global>
+        <background>0xffffffff</background>
+        <language>resources.languages/English</language>
+        <picture>resources/images/Spiny.png</picture>
+        <palette>
+            <color>255,0,0</color>
+            <color>255,255,255</color>
+            <color>0,0,255</color>
+            <color>0,255,0</color>
+        </palette>
+    </global>
+</root>

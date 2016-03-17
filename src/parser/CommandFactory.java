@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import commands.Command;
 import commands.UserDefinedFunction;
-import frontend.ErrorHandler;
+import frontend.DialogHandler;
 
 public class CommandFactory {
 	private final static String COMMAND_PACKAGE = "commands.";
@@ -45,9 +45,6 @@ public class CommandFactory {
 			return result;
 		}
 
-		ErrorHandler eh = new ErrorHandler(50, 50);
-		eh.init();
-		eh.openError("IncorrectCommandException");	
 		throw new Exception();
 	}
 }

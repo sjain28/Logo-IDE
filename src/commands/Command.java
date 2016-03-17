@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.Controller;
-import frontend.ErrorHandler;
+import frontend.DialogHandler;
 import parser.Environment;
 import parser.Parser;
 import value.Value;
@@ -19,17 +19,17 @@ public abstract class Command {
 	
 	public void setParams(List<Object> params) throws Exception{
 		if(params.size() != getNumParams()){
-			ErrorHandler eh = new ErrorHandler(50, 50);
+			DialogHandler eh = new DialogHandler(50, 50);
 			eh.init();
-			eh.openError("NumParamsException");	
+			eh.openPopup("NumParamsException");	
 		}
 		try{
 			initParams(params);
 		}
 		catch(Exception e){
-			ErrorHandler eh = new ErrorHandler(50, 50);
+			DialogHandler eh = new DialogHandler(50, 50);
 			eh.init();
-			eh.openError("InvalidInputException");
+			eh.openPopup("InvalidInputException");
 		}
 	}
 	

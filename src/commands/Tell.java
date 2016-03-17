@@ -22,7 +22,9 @@ public class Tell extends Command{
 			index = d.getValue().intValue() -1; //minus one because turtle 1 is in 0th position of turtle list
 			if(index >= numTurtles){
 				for(int i = numTurtles; i <= index; i++){
-					getEnvironment().makeNewTurtle(new Turtle(0.0, new Point2D(0,0), true, true, Color.BLACK, 3.0, 0));					
+					Turtle addTurtle = new Turtle(0.0, new Point2D(0,0), true, true, Color.BLACK, 3.0, 0);
+					addTurtle.init();
+					getEnvironment().makeNewTurtle(addTurtle);
 				}
 			}
 			getEnvironment().addActiveTurtle(getEnvironment().getTurtles().get(d.getValue().intValue()-1)); //getEnvironment().getGlobalActive()

@@ -12,45 +12,34 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Shape;
 import turtle.Agent;
 import turtle.State;
-import turtle.Turtle;
 
 public class Display extends Window {
 	
-	private final static double TURTLE_WIDTH = 64;
-	private static final double TURTLE_HEIGHT = 64;
-
+	private static final double TURTLE_WIDTH = 32;
+	private static final double TURTLE_HEIGHT = 32;
+	private static final int IMAGEVIEWSIZEBOUND = 4;
+	private static final int LINESIZEBOUND = 8;
+	Image defaultImage = new Image("resources/images/Spiny.png");
+	
 	Canvas myCanvas;
 	GraphicsContext gc;
 	private double width;
 	private double height;
 	private int lineSpacing;
 
-	Image defaultImage = new Image("resources/images/Spiny.png");
-	//private ImageView defaultImageView = new ImageView(defaultImage);
 	private Collection<Agent> myTurtles;
 	private Point2D ORIGIN = new Point2D(0,0);
-	
-	final private Paint INITCOLOR = Color.BLACK;
-	final private double DEFAULT_LINE_WIDTH = 2;
-	
-	private double multFactor = 1;
+	private double multFactor;
 	private Map<Agent, ImageView> agentToPicture = new HashMap<Agent, ImageView>();
-	
-	private Shape myShape;
-	private ImagePattern myImagePattern;
-	
+		
 	public Display(double width, double height, int lineSpacing) {
 		super(width, height);
 		this.width = width;
 		this.height = height;
 		this.lineSpacing = lineSpacing;
-		//defaultImageView.setFitHeight(TURTLE_WIDTH);
-		//defaultImageView.setFitWidth(TURTLE_HEIGHT);
 		myCanvas = new Canvas(width, height);
 		gc = myCanvas.getGraphicsContext2D();
 		gc.setFill(Color.WHITE);
@@ -59,15 +48,14 @@ public class Display extends Window {
 		drawGrid(lineSpacing);
 		
 		ORIGIN = new Point2D(width/2 -TURTLE_WIDTH/2, height/2-TURTLE_HEIGHT/2);
-//		mainTurtle = new Turtle(0, new Point2D(0,0),true, true, INITCOLOR, DEFAULT_LINE_WIDTH, 0);
 		
 	}
 //=================================================================================
 	@Override
 	public Scene init() {
+		multFactor = 1;
 		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight());
 		super.getRoot().getChildren().add(myCanvas);
-		//super.getRoot().getChildren().add(myShape);
 		return myScene;
 	}
 //================================================================================
@@ -95,11 +83,11 @@ public class Display extends Window {
 	}
 //================================================================================
 	// might make this private
-	public void drawGrid(int lineSpacing) {		
+	private void drawGrid(int lineSpacing) {		
 		Paint saveCol = gc.getStroke();
 		gc.setStroke(Color.GREY);
 		// draw vertical lines
-		if(lineSpacing/multFactor > 10){
+		if(lineSpacing/multFactor > LINESIZEBOUND){
 			for (double i = 0; i < width; i += lineSpacing/multFactor) {
 				gc.strokeLine(i, 0, i, height);
 			}
@@ -111,11 +99,9 @@ public class Display extends Window {
 	}
 //===================================================================================
 	public void setImage(Image image) {
-		//myImagePattern = new ImagePattern(image, myImagePattern.getX(), myImagePattern.getY(), TURTLE_WIDTH, TURTLE_HEIGHT, false);
-		//myShape.setFill(image);
 		Collection<Agent> myActiveTurtles = getController().getActiveTurtles();
 		for(Agent myTurtle: myActiveTurtles){
-			agentToPicture.get(myTurtle).setImage(image);
+			myTurtle.setShape(getController().getPictures().getItems().size()-1);
 		}
 
 	}
@@ -130,8 +116,8 @@ public class Display extends Window {
 				thisImageView = agentToPicture.get(thisTurtle);
 			} else{
 				thisImageView = new ImageView(defaultImage);
-				thisImageView.setFitWidth(TURTLE_WIDTH);
-				thisImageView.setFitHeight(TURTLE_HEIGHT);
+				thisImageView.setFitWidth(TURTLE_WIDTH/multFactor);
+				thisImageView.setFitHeight(TURTLE_HEIGHT/multFactor);
 				agentToPicture.put(thisTurtle, thisImageView);
 			}
 
@@ -148,6 +134,7 @@ public class Display extends Window {
 	}
 //---------------------------------------------------------------------------------
 	private void setImageView(ImageView thisImageView, Agent thisTurtle){
+		thisImageView.setImage(getController().getImage(thisTurtle.getShape()));
 		thisImageView.setRotate(thisTurtle.getOrientation());
 		thisImageView.setVisible(thisTurtle.isVisible());
 		thisImageView.setX(imageViewOffsetX(thisTurtle.getLocation().getX(), thisImageView));
@@ -158,7 +145,7 @@ public class Display extends Window {
 		multFactor = multFactor*2;
 		
 		for(ImageView thisImageView: agentToPicture.values()){
-			if( !(thisImageView.getFitWidth() < 4 || thisImageView.getFitHeight() < 4) ){
+			if( !(thisImageView.getFitWidth() < IMAGEVIEWSIZEBOUND || thisImageView.getFitHeight() < IMAGEVIEWSIZEBOUND) ){
 				thisImageView.setFitWidth(thisImageView.getFitWidth()/2);
 				thisImageView.setFitHeight(thisImageView.getFitHeight()/2);
 			}
@@ -170,8 +157,7 @@ public class Display extends Window {
 		State prevT = null;
 		double x1 = 0;
 		double y1 = 0;
-		
-		//for(Agent a: getController().)
+
 		for (State t : thisTurtle.getStates()) {
 			if (prevT != null) {
 				if (prevT.isDown() && t.isDown()) {
@@ -208,6 +194,7 @@ public class Display extends Window {
 		return thisImageView.getX() < 0 || thisImageView.getX() > width ||
 				thisImageView.getY() < 0 || thisImageView.getY() > height;
 	}
+	
 	
 
 }
