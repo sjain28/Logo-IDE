@@ -28,6 +28,7 @@ public class Parser {
 		commandFactory = new CommandFactory(language);
 		globalEnvironment = new Scope(0);
 		Agent initialTurtle = new Turtle(0, new Point2D(0, 0), true, true, Color.BLUE, 3, 0);
+		initialTurtle.init();
 		globalEnvironment.addTurtle(initialTurtle);
 		globalEnvironment.addActiveTurtle(initialTurtle);
 	}
