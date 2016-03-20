@@ -12,7 +12,6 @@ public class VariableStates extends Window {
 
 	public VariableStates(double width, double height) {
 		super(width, height);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -32,7 +31,7 @@ public class VariableStates extends Window {
 
 	@Override
 	public void step(double elapsedTime) {
-
+		variableStates.clear();
 		for (String key : getController().getVariables().keySet()) {
 			variableStates.add(key + " : " + getController().getVariables().get(key));
 		}

@@ -2,7 +2,6 @@ package control;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
 import java.util.ResourceBundle;
 import commands.Command;
 import frontend.DialogHandler;
@@ -10,7 +9,6 @@ import javafx.scene.paint.Color;
 import parser.Environment;
 import parser.Parser;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import turtle.Agent;
@@ -67,7 +65,6 @@ public class Controller {
 	}
 	
 	public void setPalette(int index, int r, int g, int b){
-
 		// the input needs to be added in the form "r,g,b" where r g and b are 
 		// ints between 0 and 255
 		String element = String.valueOf(r) + "," + String.valueOf(g) + "," + String.valueOf(b);
@@ -78,7 +75,7 @@ public class Controller {
 		}
 	}
 	
-	public Agent getTurtle() {  // TODO: FOR TESTING, SHOULD BE REMOVED AND CHANGED LATER TO MULTIPLE TURTLES
+	public Agent getTurtle() { 
 		return parser.getTurtle();
 	}
 	

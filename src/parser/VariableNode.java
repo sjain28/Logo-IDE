@@ -9,7 +9,7 @@ import value.VariableValue;
 
 public class VariableNode extends ExpressionNode{
 	
-	private VariableValue myValue; //In implementation, this DoubleOptional will be a value in a Map	
+	private VariableValue myValue;	
 	
 	public VariableNode(String name) {
 		super(name);

@@ -14,6 +14,12 @@ public class VariableValue extends Value {
 	@Override
 	public Double getValue() { return myEnvironment.getVariable(varName); }
 	
+	@Override
+	public void setValue(double d) {
+		super.setValue(d);
+		myEnvironment.setVariable(varName, d);
+	}
+	
 	public String getName() { return varName; }
 
 	public void setEnvironment(Environment env) {

@@ -25,15 +25,12 @@ public class If extends BlockCommand {
 	@Override
 	public double evaluate() {
 		double expr = myExpr.getValue();
-		if (expr == 0) {
-			setValue(0);
-		}
-		else {
+		if(expr != 0) {
 			for (int i = 0; i < myCommands.size(); i++) {
 				expr = myCommands.get(i).evaluate();
 			}
-			setValue(expr);
 		}
+		setValue(expr);
 		return expr;
 	}
 

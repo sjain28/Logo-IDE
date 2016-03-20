@@ -61,8 +61,6 @@ public class Display extends Window {
 //================================================================================
 	@Override
 	public void step(double elapsedTime) {
-		// TODO Auto-generated method stub
-
 		super.getRoot().getChildren().removeAll(agentToPicture.values());
 		super.getRoot().getChildren().addAll(agentToPicture.values());
 		

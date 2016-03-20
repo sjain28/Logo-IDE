@@ -38,6 +38,7 @@ public class IfElse extends BlockCommand {
 				expr = myElseCommands.get(i).evaluate();
 			}
 		}
+		setValue(expr);
 		return expr;
 	}
 

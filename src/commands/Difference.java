@@ -15,7 +15,6 @@ public class Difference extends Command{
 		double result = term1.getValue()-term2.getValue();
 		super.setValue(result);
 		return result;
-
 	}
 
 

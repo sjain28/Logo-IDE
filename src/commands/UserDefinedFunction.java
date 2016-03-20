@@ -3,23 +3,20 @@ package commands;
 import java.util.List;
 
 import value.Value;
+import value.VariableValue;
 
 public final class UserDefinedFunction extends BlockCommand {
 	private String functionName;
-	private List<Value> myParams;
-	private List<Value> myParamValues;
-	private int numParams;
-	private List<Command> commandList;
+	private List<VariableValue> myVariables;
+	private List<Command> myCommands;
 	
 	public UserDefinedFunction(String functionName) {
 		this.functionName = functionName;
-
 	}
 	
-	public void defineFunction(List<Value> params, List<Command> commandList) {
-		this.myParams = params;
-		this.numParams = params.size();
-		this.commandList = commandList;
+	public void defineFunction(List<VariableValue> variableList, List<Command> commandList) {
+		this.myVariables = variableList;
+		this.myCommands = commandList;
 	}
 
 	public String getName() {
@@ -27,27 +24,23 @@ public final class UserDefinedFunction extends BlockCommand {
 	}
 	
 	@Override
-	public int getNumParams() {
-		return numParams;
-	}
-
-	@Override
-	protected void initParams(List<Object> params){
-		myParamValues = (List<Value>) params.get(0);
+	public void setNumParams(int n) {
+		super.setNumParams(n);
 	}
 	
 	@Override
 	public double evaluate() {
 		try {
-			for(int i = 0; i < numParams; i++) {
-				myParams.get(0).setValue(myParamValues.get(0).getValue());
+			List<Value> myParamValues = getParams();
+			for(int i = 0; i < myVariables.size(); i++) {
+				myVariables.get(i).setValue(myParamValues.get(i).getValue());
 			}
 		}
 		catch (Exception e) {
 			return 0;
 		}
 		double value = 0;
-		for (Command c : commandList) {
+		for (Command c : myCommands) {
 			value = c.evaluate();
 		}
 		return value;

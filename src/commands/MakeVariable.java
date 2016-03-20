@@ -3,9 +3,10 @@ package commands;
 import java.util.List;
 
 import value.Value;
+import value.VariableValue;
 
 public class MakeVariable extends ControlCommand {
-	Value variable;
+	VariableValue variable;
 	Value value;
 
 	@Override
@@ -15,14 +16,15 @@ public class MakeVariable extends ControlCommand {
 
 	@Override
 	protected void initParams(List<Object> params) {
-			variable = (Value) params.get(0);
-			value = (Value)params.get(1);
+			variable = (VariableValue) params.get(0);
+			value = (Value) params.get(1);
 	}
 
 	@Override
 	public double evaluate() {
 		double newValue = value.getValue();
 		variable.setValue(newValue);
+		getEnvironment().setVariable(variable.getName(), newValue);
 		setValue(newValue);
 		return newValue;
 	}
