@@ -1,5 +1,6 @@
 package frontend;
 
+import java.io.InputStream;
 import java.util.Properties;
 
 import javafx.scene.Group;
@@ -10,6 +11,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class DialogHandler extends Window {
+	
 	private Properties errorProperties;
 	private Stage stage;
 	private Scene scene;
@@ -17,7 +19,6 @@ public class DialogHandler extends Window {
 	private Text errorPrompt;
 	private Button closeDialog;
 	
-	// TODO
 	private static final String PROPERTIES_LOCATION = "resources/errors/errors.properties";
 	private static final String ERROR = "COULD NOT FIND ERROR LABEL IN PROPERTIES";
 	
@@ -28,14 +29,26 @@ public class DialogHandler extends Window {
 	private static final double BUTTON_X = (SCENE_WIDTH - BUTTON_WIDTH)/2;
 	
 	
-	//literally copy/paste job from last thing, please refactor to make it compatible
+	private static final double DEFAULT_WIDTH = 50;
+	private static final double DEFAULT_HEIGHT = 50;
+	
+	
 	public DialogHandler(double width, double height){
 		super(width, height);
 		stage = new Stage();
 		try{
 			errorProperties = openPropertiesFile(PROPERTIES_LOCATION);
-		}catch(Exception e){}
+		}catch(Exception e){
+			//nothing to do
+		}
 	}
+	
+	public DialogHandler() {
+		this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	}
+	
+	
+	
 
 	public void openPopup(String label)
 	{
@@ -89,4 +102,9 @@ public class DialogHandler extends Window {
 	public void step(double elapsedTime) {
 		
 	}
+	
+
+
+	
+	
 }

@@ -1,4 +1,9 @@
+// This entire file is part of my masterpiece.
+// Bobby Wang
+
 package frontend;
+
+import java.util.Properties;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -15,13 +20,30 @@ import xml.XMLWriter;
 // there be magic in this one
 public class TextBox extends Window{
 	
+	private static final String WRITER_LOCATION = "test.txt";
+	
+	private static final String LABEL_LOCATION = "resources/labels/UILabels.properties";
+
 	private PastCommands pastCommands;
 	
 	private XMLWriter xmlWriter;
 	
+	private Properties buttonLabels;
+	
+	
+	private GridPane grid;
+	
 	public TextBox(double width, double height) {
 		super(width, height);
-		// TODO Auto-generated constructor stub
+		
+		try {
+			buttonLabels = openPropertiesFile(LABEL_LOCATION);
+		} catch (Exception e) {
+			DialogHandler dh = new DialogHandler();
+			dh.init();
+			dh.openPopup("BadPropertiesLocation");
+		}
+		
 	}
 	
 	
@@ -35,68 +57,80 @@ public class TextBox extends Window{
 		
 		Scene myScene = new Scene(super.getRoot(), super.getWidth(), super.getHeight(), Color.RED);
 		
-		//Creating a GridPane container
-		GridPane grid = new GridPane();
+		setupGrid();
+		
+		TextArea commandInput = new TextArea();
+		
+		formatInputArea(commandInput);
+		createSubmissionButton(commandInput);
+		createXMLButton();
+		
+		super.getRoot().getChildren().add(grid);
+		return myScene;
+	}
+	
+	private void setupGrid() {
+		grid = new GridPane();
 		grid.setPadding(new Insets(10));
 		grid.setVgap(5);
 		grid.setHgap(5);
-		//Defining the Name text field
-		final TextArea name = new TextArea();
-		name.setPromptText("Enter Your Command:");
-		name.setPrefColumnCount(20);
-		name.setPrefRowCount(5);
-		name.getText();
-		GridPane.setConstraints(name, 0, 0);
-		grid.getChildren().add(name);
-		//Defining the Submit button
+	}
+	
+	
+	private void formatInputArea(TextArea commandInput) {
+		commandInput.setPromptText(buttonLabels.getProperty("defaultInputPrompt"));
+		commandInput.setPrefColumnCount(20);
+		commandInput.setPrefRowCount(5);
+		commandInput.getText();
+		GridPane.setConstraints(commandInput, 0, 0);
+		grid.getChildren().add(commandInput);
+	}
+
+	private void createSubmissionButton(TextArea commandInput) {
 		
-		Button submit = new Button("Submit");
+		Button submit = new Button(buttonLabels.getProperty("submitButton"));
 		GridPane.setConstraints(submit, 1, 0);
 		grid.getChildren().add(submit);
 		submit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			    public void handle(ActionEvent e) {
 				try {
-					pastCommands.getPreviousCommands().add(name.getText());
-					getController().makeParser(name.getText());
+					pastCommands.getPreviousCommands().add(commandInput.getText());
+					getController().makeParser(commandInput.getText());
 				} catch (Exception exc) {
 					exc.printStackTrace();
 				}
 			 }
 		});
+	}
+	
+	private void createXMLButton() {
 		
 		try {
-			xmlWriter = new XMLWriter("/Users/bobby_mac/Documents/workspace/slogo_team17/test.txt", getController());
+			xmlWriter = new XMLWriter(WRITER_LOCATION, getController());
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			DialogHandler dh = new DialogHandler();
+			dh.init();
+			dh.openPopup("BadWriterLocation");
 		}
 		
-		
-		
-		
-		Button write = new Button("Write XML");
+		Button write = new Button(buttonLabels.getProperty("writeXML"));
 		GridPane.setConstraints(write, 1, 1);
 		grid.getChildren().add(write);
 		write.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 xmlWriter.write();
-                DialogHandler dh = new DialogHandler(50, 50);
+                DialogHandler dh = new DialogHandler();
                 dh.init();
                 dh.openPopup("SuccessfulSave");
             }
         });
-		
-		
-		super.getRoot().getChildren().add(grid);
-		return myScene;
 	}
-
+	
 	@Override
 	public void step(double elapsedTime) {
-		// TODO Auto-generated method stub
-		
+		//left here because textbox may need dynamic animation in the future, like other Window subclasses
 	}
 
 }
