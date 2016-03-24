@@ -4,23 +4,12 @@
 package frontend;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Properties;
 
 import control.Controller;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Slider;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-
 public abstract class Window {
-	
-	private static final double ERROR_WIDTH = 400;
-	private static final double ERROR_HEIGHT = 400;
 	
 	private String TITLE;
 	private Group root;
