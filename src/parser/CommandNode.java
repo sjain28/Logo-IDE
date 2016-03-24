@@ -4,6 +4,7 @@ import java.util.List;
 
 import commands.Command;
 import commands.ControlCommand;
+import commands.MakeUserInstruction;
 import commands.TurtleCommand;
 import value.Value;
 
@@ -23,7 +24,7 @@ public class CommandNode extends ExpressionNode {
 		return myCommand;
 	}
 	
-	public Object getValue(){
+	protected Object getValue(){
 		return myValue;
 	}
 	
@@ -34,7 +35,7 @@ public class CommandNode extends ExpressionNode {
 	}
 	
 	@Override
-	public List<Command> parse() throws Exception{
+	protected List<Command> parse() throws Exception{
 		List<Command> commands = new ArrayList<Command>();
 		ArrayList<Object> params = new ArrayList<Object>();
 		for(ExpressionNode child: getChildren()){
@@ -47,4 +48,20 @@ public class CommandNode extends ExpressionNode {
 		return commands;
 
 	}
+
+	@Override
+	protected void assemble(List<String> input, Parser p) throws Exception{
+		ExpressionNode nextNode; 
+		int children = getCommand().getNumParams();
+		while(children > 0){
+			nextNode = p.stringToNode(input, getEnvironment());
+			ExpressionNode child = p.assembleTree(nextNode, input);
+			if (getCommand() instanceof MakeUserInstruction && children == getCommand().getNumParams()) {
+				getEnvironment().getFunction( ((MakeUserInstruction) getCommand()).getFunctionName() ).setNumParams( ((BracketNode) child).getNumChildren() );
+			}
+			add(child);
+			children--;
+		}
+	}
 }
+

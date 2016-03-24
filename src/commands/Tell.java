@@ -19,7 +19,7 @@ public class Tell extends Command{
 		int index = -1;
 		int numTurtles = getEnvironment().getTurtles().size();
 		for(Value d: turtleIndices){
-			index = d.getValue().intValue() -1; //minus one because turtle 1 is in 0th position of turtle list
+			index = d.getValue().intValue() -1; 
 			if(index >= numTurtles){
 				for(int i = numTurtles; i <= index; i++){
 					Turtle addTurtle = new Turtle(0.0, new Point2D(0,0), true, true, Color.BLACK, 3.0, 0);
@@ -27,7 +27,7 @@ public class Tell extends Command{
 					getEnvironment().makeNewTurtle(addTurtle);
 				}
 			}
-			getEnvironment().addActiveTurtle(getEnvironment().getTurtles().get(d.getValue().intValue()-1)); //getEnvironment().getGlobalActive()
+			getEnvironment().addActiveTurtle(getEnvironment().getTurtles().get(d.getValue().intValue()-1)); 
 		}
 		setValue(index);
 		return index;

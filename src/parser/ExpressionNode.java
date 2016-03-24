@@ -1,10 +1,9 @@
+
 package parser;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import commands.Command;
-import value.Value;
 
 public abstract class ExpressionNode { 
 	
@@ -34,8 +33,8 @@ public abstract class ExpressionNode {
 		return parent != null;
 	}
 	
-	public abstract Object getValue();
-	
-	public abstract List<Command> parse() throws Exception;
+	protected abstract Object getValue();
+	protected abstract void assemble(List<String> input, Parser p) throws Exception;
+	protected abstract List<Command> parse() throws Exception;
 	
 }

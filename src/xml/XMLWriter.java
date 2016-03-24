@@ -111,20 +111,6 @@ public class XMLWriter {
 		Element shape = doc.createElement("shape");
 		writeNode(shape, t.getShape());
 		state.appendChild(shape);
-		
-		
-		
-		//starting state is just the turtle BEFORE it
-//		
-//		private double myOrientation;
-//		private Point2D myLocation;
-//		private boolean penIsDown;
-//		private boolean isVisible;
-//		private Paint myPenColor;
-//		private double myLineWidth;
-//		private int myTime;
-//		private Turtle startingState;
-//		private int myShape;
 	}
 	
 	private void writeNode(Element attribute, Object value) {
@@ -166,10 +152,6 @@ public class XMLWriter {
 		global.appendChild(palette);
 		
 	}
-	
-	
-	
-	
 	
 	public void write() {
 		try {

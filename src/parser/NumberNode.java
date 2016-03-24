@@ -27,4 +27,10 @@ public class NumberNode extends ExpressionNode{
 	public List<Command> parse(){
 		return new ArrayList<Command>();
 	}
+
+	@Override
+	protected void assemble(List<String> input, Parser p) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }

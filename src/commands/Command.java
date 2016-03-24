@@ -14,11 +14,12 @@ public abstract class Command {
 	private int numParams;
 	private List<Value> myParams;
 	private Environment myEnvironment;
-	private Controller myController; //Refactoring: Have some kind of frontend interface that gets exposed to backend instead of the whoel controller
+	private Controller myController;
+	private final int ERRORSIZE = 50;
 	
 	public void setParams(List<Object> params) throws Exception{
 		if(params.size() != getNumParams()){
-			DialogHandler eh = new DialogHandler(50, 50);
+			DialogHandler eh = new DialogHandler(ERRORSIZE, ERRORSIZE);
 			eh.init();
 			eh.openPopup("NumParamsException");	
 		}
