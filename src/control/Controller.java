@@ -74,11 +74,12 @@ public class Controller {
 			myPalette.getItems().add(element);
 		}
 	}
+
 	
 	public Agent getTurtle() { 
 		return parser.getTurtle();
 	}
-	
+
 	public List<Agent> getAllTurtles() { // The proper method that should be called, allows for multiple turtles
 		return curEnv.getTurtles();
 	}
@@ -137,7 +138,6 @@ public class Controller {
 	}
 	
 	
-	
 	public void setOverallPalette(List<String> textPaletteList) {
 		myPalette = new ListView<String>(FXCollections.observableArrayList(textPaletteList));
 	}
@@ -152,6 +152,10 @@ public class Controller {
 	
 	public String getImageLocation(){
 		return imageLocation;
+	}
+	
+	public void setImageLocation(String inString){
+		imageLocation = inString;
 	}
 	
 	
