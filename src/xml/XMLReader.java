@@ -155,7 +155,7 @@ public class XMLReader {
 		
 		controller.setBackGroundColor(getBackgroundColor());
 		controller.changeLanguage(getLanguage());
-		controller.setImageLocation(getImageLocation());
+//		controller.setImageLocation(getImageLocation());
 		controller.setOverallPalette(getPalette());
 	}
 	

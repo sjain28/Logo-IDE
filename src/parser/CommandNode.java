@@ -27,6 +27,12 @@ public class CommandNode extends ExpressionNode {
 		return myValue;
 	}
 	
+	@Override 
+	public void setEnvironment(Environment newEnv) {
+		super.setEnvironment(newEnv);
+		myCommand.setEnvironment(newEnv);
+	}
+	
 	@Override
 	public List<Command> parse() throws Exception{
 		List<Command> commands = new ArrayList<Command>();

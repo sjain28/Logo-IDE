@@ -51,23 +51,31 @@ public class Scope implements Environment {
 	
 	@Override
 	public Map<String, Double> getVariables() {
-		Map<String, Double> result = new HashMap<String, Double>(myVariables);
-		if (myParent != null) {
-			result.entrySet().addAll(myParent.getVariables().entrySet());
+		if (myParent == null) {
+			return new HashMap<String, Double>(myVariables);
 		}
-		return result;
-	}
-	@Override
-	public Map<String, UserDefinedFunction> getUserDefinedFunctions() { 
-		Map<String, UserDefinedFunction> result = new HashMap<String, UserDefinedFunction>(myFunctions);
-		if (myParent != null) {
-			result.entrySet().addAll(myParent.getUserDefinedFunctions().entrySet());
-		}
+		Map<String, Double> result = myParent.getVariables();
+		result.putAll(myVariables);
 		return result;
 	}
 	
 	@Override
+	public UserDefinedFunction getFunction(String functionName) {
+		return (myFunctions.containsKey(functionName) ? myFunctions.get(functionName) : (myParent != null? myParent.getFunction(functionName) : null));
+	}
+	
+	@Override
 	public void addFunction(String functionName, UserDefinedFunction function) { myFunctions.put(functionName, function); }
+	
+	@Override
+	public Map<String, UserDefinedFunction> getUserDefinedFunctions() { 
+		if (myParent == null) {
+			return new HashMap<String, UserDefinedFunction>(myFunctions);
+		}
+		Map<String, UserDefinedFunction> result = myParent.getUserDefinedFunctions();
+		result.putAll(myFunctions);
+		return result;
+	}
 		
 	@Override
 	public void makeNewTurtle(Agent newTurtle) {
@@ -121,7 +129,6 @@ public class Scope implements Environment {
 	@Override
 	public void setAllVariables(Map<String, Double> newVariables) {
 		myVariables = newVariables;
-		
 	}
 
 	@Override

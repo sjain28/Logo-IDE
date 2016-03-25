@@ -5,7 +5,7 @@ import java.util.List;
 
 import turtle.Agent;
 
-public class AskWith extends Command{
+public class AskWith extends BlockCommand{
 
 	private List<Command> predicate;
 	private List<Command> contents;

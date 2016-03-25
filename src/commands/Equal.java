@@ -22,7 +22,7 @@ public class Equal extends Command{
 		else
 			result = 0;
 		
-		super.setValue(result);
+		setValue(result);
 		return result;
 	}
 

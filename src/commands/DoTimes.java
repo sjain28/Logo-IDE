@@ -3,9 +3,10 @@ package commands;
 import java.util.List;
 
 import value.Value;
+import value.VariableValue;
 
 public class DoTimes extends BlockCommand {
-	private Value myVariable;
+	private VariableValue myVariable;
 	private Value myLimit;
 	private List<Command> commands;
 		
@@ -16,7 +17,7 @@ public class DoTimes extends BlockCommand {
 	@Override
 	protected void initParams(List<Object> params){
 			List<Object> arg1 = (List<Object>) params.get(0);
-			myVariable = (Value) arg1.get(0);
+			myVariable = (VariableValue) arg1.get(0);
 			myLimit = (Value) arg1.get(1);
 			
 			commands = (List<Command>) params.get(1);
@@ -25,6 +26,7 @@ public class DoTimes extends BlockCommand {
 	@Override
 	public double evaluate() {
 		double value = 0;
+		myVariable.setEnvironment(getEnvironment());
 		int limit = myLimit.getValue().intValue();
 		for (int i = 1; i <= limit; i++) {
 			myVariable.setValue(i);

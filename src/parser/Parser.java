@@ -2,6 +2,7 @@ package parser;
 
 import commands.BlockCommand;
 import commands.Command;
+import commands.MakeUserInstruction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import commands.UserDefinedFunction;
-import control.Controller;
 import frontend.DialogHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -43,9 +43,7 @@ public class Parser {
 		List<String> myList = new ArrayList<String>(userInput);
 		List<ExpressionNode> expressionTrees = new ArrayList<ExpressionNode>();
 		while (!myList.isEmpty()) {	
-			String name = myList.remove(0);
-			CommandNode head = new CommandNode(name, commandFactory.makeCommand(name, globalEnvironment));
-			head.setEnvironment(globalEnvironment);
+			ExpressionNode head = stringToNode(myList, globalEnvironment);
 			expressionTrees.add(assembleTree(head, myList));
 		}
 		myTrees = expressionTrees;
@@ -58,25 +56,24 @@ public class Parser {
 	
 	private ExpressionNode assembleTree(ExpressionNode head, List<String> myList) throws Exception{		
 		ExpressionNode nextNode;
-		Environment curEnv = head.getEnvironment();
-
 		if (head instanceof CommandNode) {
 			CommandNode commandNode = (CommandNode) head;
-			if ( commandNode.getCommand() instanceof BlockCommand ) {
-				commandNode.setEnvironment(curEnv.makeChild()); // BlockCommands make a subenvironment
-			}
 			int children = commandNode.getCommand().getNumParams();
 			while(children > 0){
-				nextNode = stringToNode(myList, curEnv);
-				commandNode.add(assembleTree(nextNode, myList));
+				nextNode = stringToNode(myList, head.getEnvironment());
+				ExpressionNode child = assembleTree(nextNode, myList);
+				if (commandNode.getCommand() instanceof MakeUserInstruction && children == commandNode.getCommand().getNumParams()) {
+					head.getEnvironment().getFunction( ((MakeUserInstruction)commandNode.getCommand()).getFunctionName() ).setNumParams( ((BracketNode) child).getNumChildren() );
+				}
+				commandNode.add(child);
 				children--;
 			}
 		}
 		else if (head instanceof BracketNode) {
-			nextNode = stringToNode(myList, curEnv);
+			nextNode = stringToNode(myList, head.getEnvironment());
 			while(!nextNode.getName().matches(REGEX.getString("ListEnd"))) {
 				head.add(assembleTree(nextNode, myList));
-				nextNode = stringToNode(myList, curEnv);
+				nextNode = stringToNode(myList, head.getEnvironment());
 			}
 		}	
 		return head;
@@ -86,7 +83,11 @@ public class Parser {
 		try{
 			String next = myList.remove(0);
 			ExpressionNode nextNode = getNode(next, env);
-			//if (nextNode instanceof CommandNode && ((CommandNode)nextNode).getCommand() instanceof MakeUserInstruction ) { }
+			if (nextNode instanceof CommandNode && ((CommandNode)nextNode).getCommand() instanceof MakeUserInstruction ) {
+				String functionName = myList.remove(0);
+				env.addFunction(functionName, new UserDefinedFunction(functionName));
+				((MakeUserInstruction)((CommandNode)nextNode).getCommand()).setFunctionName(functionName);
+			}
 			return nextNode;
 		}
 		catch(Exception e){
@@ -110,6 +111,9 @@ public class Parser {
 		}
 		else if(name.matches(REGEX.getString("Command"))){
 			result = new CommandNode(name, commandFactory.makeCommand(name, env));
+			if ( ((CommandNode) result).getCommand() instanceof BlockCommand ) {
+				env = env.makeChild(); // BlockCommands make a subenvironment
+			}
 		}
 		else {
 			throw new Exception();
@@ -118,12 +122,10 @@ public class Parser {
 		return result;
 	}
 	
-	
 	public Map<String, Double> getVariables() { return globalEnvironment.getVariables(); }
-//	public Map<String, UserDefinedFunction> getFunctions() { return myFunctions; }
-//	public void addFunction(String functionName, UserDefinedFunction function) { myFunctions.put(functionName, function); }
+	public Map<String, UserDefinedFunction> getFunctions() { return globalEnvironment.getUserDefinedFunctions(); }
 
-	public Agent getTurtle() { return globalEnvironment.getActiveTurtles().get(0); } // TODO: Delete this method, implement multiple agents
+	public Agent getTurtle() { return globalEnvironment.getActiveTurtles().get(0); }
 	
 	public List<Agent> getAllTurtles(){
 		return globalEnvironment.getTurtles();

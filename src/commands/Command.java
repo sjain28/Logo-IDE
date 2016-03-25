@@ -6,14 +6,13 @@ import java.util.List;
 import control.Controller;
 import frontend.DialogHandler;
 import parser.Environment;
-import parser.Parser;
 import value.Value;
 import value.NumericalValue;
 
 public abstract class Command {
 	private Value myValue = new NumericalValue(); 
 	private int numParams;
-	private List<Object> myParams = new ArrayList<>();
+	private List<Value> myParams;
 	private Environment myEnvironment;
 	private Controller myController; //Refactoring: Have some kind of frontend interface that gets exposed to backend instead of the whoel controller
 	
@@ -34,12 +33,13 @@ public abstract class Command {
 	}
 	
 	protected void initParams(List<Object> params){	
+		myParams = new ArrayList<Value>();
 		for(int i = 0; i < numParams; i++){
 			myParams.add((Value) params.get(i));
 		}
 	}
 	
-	protected List<Object> getParams(){
+	protected List<Value> getParams(){
 		return myParams;
 	}
 	
@@ -50,13 +50,11 @@ public abstract class Command {
 	}
 
 	protected void setValue(double value){
-		if(myValue.getValue() == null){
 			myValue.setValue(value);
-		}
 	}
 	
-	protected void setNumParams(int params){
-		numParams = params;
+	protected void setNumParams(int n){
+		numParams = n;
 	}
 	
 	public Value getValue(){

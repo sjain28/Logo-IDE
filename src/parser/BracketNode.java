@@ -16,7 +16,11 @@ public class BracketNode extends ExpressionNode{
 
 	@Override
 	public Object getValue() {
-		return (Iterable<Object>) bracketContents;
+		return (List<Object>) bracketContents;
+	}
+	
+	public int getNumChildren() {
+		return getChildren().size();
 	}
 	
 	public void addElement(Object element){
@@ -25,15 +29,17 @@ public class BracketNode extends ExpressionNode{
 	
 	@Override
 	public List<Command> parse() throws Exception{
-		List<Command> commands = new ArrayList<Command>();
 		for(ExpressionNode child: getChildren()){
 			if(child instanceof CommandNode){
-				addElement(((CommandNode) child).getCommand());
+				List<Command> commands = child.parse();
+				for(Command c : commands) {
+					addElement(c);
+				}
 			}else{
 				addElement(child.getValue());
+				child.parse();
 			}
-			commands.addAll(child.parse());
 		}
-		return commands;
+		return new ArrayList<Command>();
 	}
 }

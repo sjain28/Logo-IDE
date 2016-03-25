@@ -65,7 +65,6 @@ public class Controller {
 	}
 	
 	public void setPalette(int index, int r, int g, int b){
-
 		// the input needs to be added in the form "r,g,b" where r g and b are 
 		// ints between 0 and 255
 		String element = String.valueOf(r) + "," + String.valueOf(g) + "," + String.valueOf(b);
@@ -75,7 +74,12 @@ public class Controller {
 			myPalette.getItems().add(element);
 		}
 	}
-		
+
+	
+	public Agent getTurtle() { 
+		return parser.getTurtle();
+	}
+
 	public List<Agent> getAllTurtles() { // The proper method that should be called, allows for multiple turtles
 		return curEnv.getTurtles();
 	}
