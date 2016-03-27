@@ -10,15 +10,18 @@ import value.Value;
 import value.NumericalValue;
 
 public abstract class Command {
+	public final static int SIZE = 50;
+	
+	
 	private Value myValue = new NumericalValue(); 
 	private int numParams;
 	private List<Value> myParams;
 	private Environment myEnvironment;
-	private Controller myController; //Refactoring: Have some kind of frontend interface that gets exposed to backend instead of the whoel controller
+	private Controller myController;
 	
 	public void setParams(List<Object> params) throws Exception{
 		if(params.size() != getNumParams()){
-			DialogHandler eh = new DialogHandler(50, 50);
+			DialogHandler eh = new DialogHandler(SIZE, SIZE);
 			eh.init();
 			eh.openPopup("NumParamsException");	
 		}
@@ -26,7 +29,7 @@ public abstract class Command {
 			initParams(params);
 		}
 		catch(Exception e){
-			DialogHandler eh = new DialogHandler(50, 50);
+			DialogHandler eh = new DialogHandler(SIZE, SIZE);
 			eh.init();
 			eh.openPopup("InvalidInputException");
 		}
@@ -48,35 +51,34 @@ public abstract class Command {
 	public int getNumParams(){
 		return numParams;
 	}
-
-	protected void setValue(double value){
-			myValue.setValue(value);
-	}
-	
 	protected void setNumParams(int n){
 		numParams = n;
 	}
 	
+	protected void setValue(double value){
+		myValue.setValue(value);
+	}
 	public Value getValue(){
 		return myValue; 
 	}
-		
-	public void setEnvironment(Environment env) {
-		myEnvironment = env;
-	}
+	
 	protected Environment getEnvironment() {
 		return myEnvironment;
 	}
-	
+	public void setEnvironment(Environment env) {
+		myEnvironment = env;
+	}
+
+	public Controller getController(){
+		return myController;
+	}
 	public void setController(Controller c){
 		if(myController == null){
 			myController = c;
 		}
 	}
 	
-	public Controller getController(){
-		return myController;
-	}
+
 }
 
 

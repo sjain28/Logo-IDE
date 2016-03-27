@@ -7,6 +7,8 @@ import commands.Command;
 import value.Value;
 import value.VariableValue;
 
+// This code is part of my code masterpiece
+
 public class VariableNode extends ExpressionNode{
 	
 	private VariableValue myValue;	

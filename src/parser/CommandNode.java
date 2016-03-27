@@ -3,10 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import commands.Command;
-import commands.ControlCommand;
-import commands.TurtleCommand;
 import value.Value;
 
+// This class is part of my code masterpiece
 
 public class CommandNode extends ExpressionNode {
 
@@ -41,10 +40,8 @@ public class CommandNode extends ExpressionNode {
 			params.add(child.getValue());
 			commands.addAll(child.parse());
 		}
-		
 		getCommand().setParams(params);		
 		commands.add(getCommand());
 		return commands;
-
 	}
 }

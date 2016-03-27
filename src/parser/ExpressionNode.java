@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import commands.Command;
-import value.Value;
+
+// This class is part of my code masterpiece, along with CommandNode, BracketNode, and VariableNode, which
+// show examples of the different types of subclasses of ExpressionNode.
+// This code demonstrates the use of inheritance and polymorphism to have different types of ExpressionNodes,
+// including CommandNodes, BracketNodes, and VariableNodes, exhibit different behavior when node.parse() is called.
+// This allows you to parse a tree composed on many different types of ExpressionNodes through a single recursive method.
+// The superclass also contains all methods common to all ExpressionNodes to avoid duplicated code.
 
 public abstract class ExpressionNode { 
 	
@@ -36,6 +42,10 @@ public abstract class ExpressionNode {
 	
 	public abstract Object getValue();
 	
+	/** 
+	 * Returns a list of commands that represents all commands from the expression tree 
+	 * starting from this node down in the order they are to be executed.
+	 */
 	public abstract List<Command> parse() throws Exception;
 	
 }

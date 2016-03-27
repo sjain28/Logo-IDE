@@ -7,6 +7,8 @@ import commands.Command;
 
 public class BracketNode extends ExpressionNode{
 
+	// This code is part of my code masterpiece
+	
 	private List<Object> bracketContents;
 	
 	public BracketNode(String val) {
