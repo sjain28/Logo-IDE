@@ -28,6 +28,7 @@ public class GUI {
     
     private Controller myController;
     private BorderPane mainPane = new BorderPane();
+    private Display display;
     
 	public GUI(int FPS, Controller inController){
 		FRAMES_PER_SECOND = FPS;
@@ -93,7 +94,7 @@ public class GUI {
 	}
 	
 	private Display initDisplay(){
-	    Display display = new Display(DISPLAY_WIDTH,DISPLAY_HEIGHT, LINE_SPACING);
+	    display = new Display(DISPLAY_WIDTH,DISPLAY_HEIGHT, LINE_SPACING);
 	    display.setController(myController);
 	    display.init();
 	    return display;
@@ -105,4 +106,9 @@ public class GUI {
 	    myControlPanel.init();
 	    mainPane.setTop(myControlPanel.getRoot());
 	}
+	
+	public Display getDisplay() {
+		return display;
+	}
+	
 }

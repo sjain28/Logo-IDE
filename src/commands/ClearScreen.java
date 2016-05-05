@@ -20,7 +20,7 @@ public class ClearScreen extends TurtleCommand{
 		double result = Math.pow(dx, 2) + Math.pow(dy, 2);
 		
 		super.setValue(result);
-		return result;	
+		return result;
 	}
 
 }

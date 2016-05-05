@@ -15,7 +15,8 @@ public class Main extends Application
     public void start (Stage s) 
     {
     	Controller myBackEnd =  new Controller();
-		GUI myFrontEnd = new GUI(FRAMES_PER_SECOND, myBackEnd);						
+		GUI myFrontEnd = new GUI(FRAMES_PER_SECOND, myBackEnd);		
+		myBackEnd.setGUI(myFrontEnd);
 		Scene scene = myFrontEnd.init();
 		s.setScene(scene);
 		s.show();		

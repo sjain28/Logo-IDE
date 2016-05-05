@@ -2,12 +2,14 @@ package parser;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import commands.Command;
+import commands.ControlCommand;
 import commands.UserDefinedFunction;
 
-public class CommandFactory {
+public class CommandFactory extends Observable{
 	private final static String COMMAND_PACKAGE = "commands.";
 	private ResourceBundle myResourceBundle;
 	
@@ -36,6 +38,10 @@ public class CommandFactory {
 		}
 		if (result != null) {
 			result.setEnvironment(env);
+			if (result instanceof ControlCommand) {
+				setChanged();
+				notifyObservers(result.getClass().toString());
+			}
 			return result;
 		}
 		throw new Exception();

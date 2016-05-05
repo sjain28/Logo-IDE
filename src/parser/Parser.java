@@ -138,6 +138,9 @@ public class Parser {
 	public Environment getGlobalEnvironment() {
 		return globalEnvironment;
 	}
-
+	
+	public CommandFactory getFactory() {
+		return commandFactory;
+	}
 
 }
