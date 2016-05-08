@@ -1,5 +1,6 @@
 package control;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -22,9 +23,12 @@ public class Controller {
 	private Environment curEnv;
 	
 	private ListView<String> myPalette = new ListView<>();
+	
 	private Color backgroundColor = Color.WHITE;
 	
 	private ListView<String> myPictures = new ListView<>();
+	
+	private ListView<Agent> myTurtleBox = new ListView<>();
 	private String imageLocation = "resources/images/Spiny.png";
 	
 	public Controller() {
@@ -156,6 +160,15 @@ public class Controller {
 	
 	public void setImageLocation(String inString){
 		imageLocation = inString;
+	}
+
+	public ListView<Agent> getTurtleAgents() {
+		//Collection<Agent> myAgents = this.getAllTurtles();
+		myTurtleBox.getItems().clear();
+		for (Agent a: this.getAllTurtles()){
+			myTurtleBox.getItems().add(a);
+		}
+		return myTurtleBox;
 	}
 	
 	

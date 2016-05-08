@@ -5,8 +5,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import turtle.Agent;
 
 public class GUI {
 	
@@ -28,6 +31,7 @@ public class GUI {
     
     private Controller myController;
     private BorderPane mainPane = new BorderPane();
+    private VBox myTurtleView;
     
 	public GUI(int FPS, Controller inController){
 		FRAMES_PER_SECOND = FPS;
@@ -58,13 +62,21 @@ public class GUI {
 		animation.getKeyFrames().add(frame);
 		animation.play();
 		
+
+		
 		return scene;
 	}
 	
 	private void handleEvent(Display display, VariableStates variableStates){
 		display.step(SECOND_DELAY);
 		variableStates.step(SECOND_DELAY);
-
+		updateTurtles();
+	}
+	
+	private void updateTurtles(){
+		for(Agent a: myController.getAllTurtles()){
+			a.getShape();
+		};
 	}
 	
 	private TextBox initTextbox(){
@@ -85,10 +97,14 @@ public class GUI {
 	}
 	
 	private VariableStates initVariableStates(){
-	    VariableStates variableStates = new VariableStates(VARIABLESTATES_WIDTH, VARIABLESTATES_HEIGHT);
+	    VBox myVBox = new VBox();
+		VariableStates variableStates = new VariableStates(VARIABLESTATES_WIDTH, VARIABLESTATES_HEIGHT);
 	    variableStates.init();
 	    variableStates.setController(myController);
-	    mainPane.setLeft(variableStates.getRoot());
+	    myVBox.getChildren().add(variableStates.getRoot());
+	    myTurtleView = new TurtleBox().init(myController);
+	    myVBox.getChildren().add(myTurtleView);
+	    mainPane.setLeft(myVBox);
 	    return variableStates;
 	}
 	
