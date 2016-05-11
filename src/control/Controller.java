@@ -27,8 +27,10 @@ public class Controller {
 	private ListView<String> myPictures = new ListView<>();
 	private String imageLocation = "resources/images/Spiny.png";
 	
+	private boolean adjustBounds = true;
+	
 	public Controller() {
-		parser = new Parser(myResources);
+		parser = new Parser(myResources, this);
 		curEnv = parser.getGlobalEnvironment(); // Only global environment at the moment
 	}
 	
@@ -158,5 +160,11 @@ public class Controller {
 		imageLocation = inString;
 	}
 	
+	public boolean getAdjustBounds() {
+		return adjustBounds;
+	}
+	public void setAdjustBounds(boolean state) {
+		adjustBounds = state;
+	}
 	
 }

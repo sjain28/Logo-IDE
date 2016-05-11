@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import commands.UserDefinedFunction;
+import control.Controller;
 import frontend.DialogHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -23,9 +24,12 @@ public class Parser {
 	public static final ResourceBundle ENGLISH = ResourceBundle.getBundle("resources.languages/English");
 	private CommandFactory commandFactory;
 	private Scope globalEnvironment;
+	private Controller myController;
 	
-	public Parser(ResourceBundle language) {
+	public Parser(ResourceBundle language, Controller controller) {
 		commandFactory = new CommandFactory(language);
+		myController = controller;
+		
 		globalEnvironment = new Scope(0);
 		Agent initialTurtle = new Turtle(0, new Point2D(0, 0), true, true, Color.BLUE, 3, 0);
 		initialTurtle.init();
@@ -50,6 +54,9 @@ public class Parser {
 		
 		for(ExpressionNode tree: myTrees){
 			myCommands.addAll(tree.parse());
+		}
+		for(Command c: myCommands) {
+			c.setController(myController);
 		}
 		return myCommands;
 	}
